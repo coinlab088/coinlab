@@ -45,15 +45,15 @@ const safuStats = [
 
 const faqItems = [
   {
-    q: '为什么 CoinLab 是值得信赖的交易平台？',
-    a: 'CoinLab 提供现货交易、多链充提与 Sumsub 身份认证，采用冷热钱包分离与 SAFU 用户保护基金，为全球用户提供安全、透明的数字资产服务。',
+    q: '为什么 CoinNova 是值得信赖的交易平台？',
+    a: 'CoinNova 提供现货交易、多链充提与 Sumsub 身份认证，采用冷热钱包分离与 SAFU 用户保护基金，为全球用户提供安全、透明的数字资产服务。',
   },
   {
-    q: 'CoinLab 提供哪些产品？',
+    q: 'CoinNova 提供哪些产品？',
     a: '现货交易、多链充提、身份认证（KYC）、订单与充提记录查询；支持移动端 App、H5 与 PC Web 多端同步。',
   },
   {
-    q: '如何在 CoinLab 购买加密货币？',
+    q: '如何在 CoinNova 购买加密货币？',
     a: '注册并完成身份认证后，可通过充币或法币通道（规划中）入金，在现货市场使用限价或市价单买入目标资产。',
   },
   {
@@ -200,7 +200,7 @@ export function PcHomePage() {
               新币
             </span>
             <p className="mt-3 text-h3 font-semibold text-primary">LAB</p>
-            <p className="text-caption text-secondary">CoinLab 平台币即将上线</p>
+            <p className="text-caption text-secondary">CoinNova 平台币即将上线</p>
             <div className="mt-4 flex gap-2 tabular-nums">
               {['02', '14', '36'].map((n, i) => (
                 <span key={i} className="flex flex-col items-center">
@@ -336,7 +336,7 @@ export function PcHomePage() {
 
         <section className="mx-8 mb-8 rounded-xl bg-brand px-8 py-10 text-center">
           <h2 className="text-h2 font-semibold text-brand-dark">
-            CoinLab：手续费低廉的安全交易平台
+            CoinNova：手续费低廉的安全交易平台
           </h2>
           <button
             type="button"

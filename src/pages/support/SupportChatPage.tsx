@@ -5,7 +5,7 @@ import { usePrototype } from '../../context/PrototypeContext'
 import { SubPageLayout } from '../../components/account/SubPageLayout'
 
 const mockReplies = [
-  '您好，我是 CoinLab 客服小助手，请问有什么可以帮您？',
+  '您好，我是 CoinNova 客服小助手，请问有什么可以帮您？',
 ]
 
 export function SupportChatPage() {

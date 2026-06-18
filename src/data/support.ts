@@ -20,10 +20,10 @@ export const helpArticles: HelpArticle[] = [
   {
     id: 'agreement',
     title: '服务协议',
-    description: 'CoinLab 平台服务条款与用户协议',
+    description: 'CoinNova 平台服务条款与用户协议',
     sections: [
       {
-        body: '欢迎使用 CoinLab。使用本平台即表示您同意遵守本服务协议的全部条款。请在使用前仔细阅读。',
+        body: '欢迎使用 CoinNova。使用本平台即表示您同意遵守本服务协议的全部条款。请在使用前仔细阅读。',
       },
       {
         heading: '账户与使用',
@@ -41,7 +41,7 @@ export const helpArticles: HelpArticle[] = [
     description: '个人信息收集、使用与保护说明',
     sections: [
       {
-        body: 'CoinLab 重视您的隐私。我们仅在提供服务所必需的范围内收集和使用您的个人信息。',
+        body: 'CoinNova 重视您的隐私。我们仅在提供服务所必需的范围内收集和使用您的个人信息。',
       },
       {
         heading: '信息收集',
@@ -78,7 +78,7 @@ export const helpArticles: HelpArticle[] = [
     description: '现货交易手续费与充提费用',
     sections: [
       {
-        body: 'CoinLab 一期现货交易采用统一费率，充提费用随网络情况调整。',
+        body: 'CoinNova 一期现货交易采用统一费率，充提费用随网络情况调整。',
       },
       {
         heading: '现货交易',
@@ -102,7 +102,7 @@ export const supportChannels = [
   {
     id: 'email',
     title: '邮件支持',
-    description: 'support@coinlab.app',
+    description: 'support@coinnova.app',
     action: '发送邮件',
   },
   {

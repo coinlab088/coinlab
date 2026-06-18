@@ -23,12 +23,12 @@ export function TgConnectPage() {
       <Annotatable id="tg-connect">
         <div className="flex flex-col items-center py-6 text-center">
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#2aabee] text-2xl font-bold text-white">
-            C
+            N
           </div>
           <p className="mt-4 text-h3 font-semibold text-primary">{tgAuthCopy.botName}</p>
           <p className="text-caption text-secondary">{tgAuthCopy.botHandle}</p>
           <p className="mt-4 max-w-[300px] text-body-sm text-secondary">
-            CoinLab 请求通过 Telegram 验证您的身份，以便在小程序内安全登录与接收通知。
+            CoinNova 请求通过 Telegram 验证您的身份，以便在小程序内安全登录与接收通知。
           </p>
         </div>
 

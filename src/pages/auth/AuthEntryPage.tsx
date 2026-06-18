@@ -153,7 +153,7 @@ export function AuthEntryPage() {
         {tab === 'register' && (
           <>
             <p className="mb-4 text-body-sm text-secondary">
-              使用邮箱注册 CoinLab 账户
+              使用邮箱注册 CoinNova 账户
             </p>
             <label className="mb-6 flex items-start gap-2">
               <input

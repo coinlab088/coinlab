@@ -13,7 +13,7 @@ export function DeleteAccountSuccessPage() {
         <CheckCircle2 className="h-14 w-14 text-success" strokeWidth={1.5} />
         <p className="mt-5 text-h3 font-semibold text-primary">注销成功</p>
         <p className="mt-2 max-w-[280px] text-body-sm text-secondary">
-          您的 CoinLab 账户已注销，相关数据将在 30 天内从系统中清除。
+          您的 CoinNova 账户已注销，相关数据将在 30 天内从系统中清除。
         </p>
       </div>
 

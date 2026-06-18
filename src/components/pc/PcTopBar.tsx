@@ -7,7 +7,7 @@ import {
   Headphones,
   User,
 } from 'lucide-react'
-import { CoinLabLogo } from '../CoinLabLogo'
+import { CoinNovaLogo } from '../CoinNovaLogo'
 import { usePrototype } from '../../context/PrototypeContext'
 
 function TopIcon({
@@ -44,9 +44,9 @@ export function PcTopBar() {
   return (
     <header className="flex h-14 shrink-0 items-center justify-between border-b border-border-subtle bg-base px-5">
       <div className="flex items-center gap-3">
-        <CoinLabLogo size={32} />
+        <CoinNovaLogo size={32} />
         <span className="text-h3 font-semibold tracking-tight text-primary">
-          Coin<span className="text-brand">Lab</span>
+          Coin<span className="text-brand">Nova</span>
         </span>
         <span className="rounded bg-sunken px-2 py-0.5 text-[10px] text-secondary">
           Web

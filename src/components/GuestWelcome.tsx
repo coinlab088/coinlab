@@ -1,19 +1,19 @@
-import { CoinLabLogo } from './CoinLabLogo'
+import { CoinNovaLogo } from './CoinNovaLogo'
 import { usePrototype } from '../context/PrototypeContext'
 
-interface GuestWelcomeProps {
-  themedLogo?: boolean
-}
-
-export function GuestWelcome({ themedLogo = false }: GuestWelcomeProps) {
-  const { openAuth } = usePrototype()
+export function GuestWelcome() {
+  const { openAuth, appTheme } = usePrototype()
 
   return (
     <section className="flex flex-col items-center px-6 pb-4 pt-7 text-center">
-      <CoinLabLogo size={96} className="shadow-sm" themed={themedLogo} />
+      <CoinNovaLogo
+        size={96}
+        theme={appTheme}
+        className={appTheme === 'green-white' ? '' : 'shadow-sm'}
+      />
 
       <h1 className="mt-7 text-h1 font-semibold tracking-tight text-primary">
-        欢迎来到 CoinLab
+        欢迎来到 CoinNova
       </h1>
       <p className="mt-2 max-w-[280px] text-body-sm leading-relaxed text-secondary">
         注册后即可充币、交易与管理数字资产

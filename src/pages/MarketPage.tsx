@@ -7,7 +7,6 @@ import {
   marketQuickActions,
   type MarketTab,
 } from '../data/mock'
-import { isGreenAppTheme } from '../data/appTheme'
 import { AppLayout } from '../components/AppLayout'
 import { Annotatable } from '../components/inspect/Annotatable'
 import { BalanceHero } from '../components/BalanceHero'
@@ -21,8 +20,7 @@ import { MarketListHeader } from '../components/market/MarketListHeader'
 import { MarketSearchBar } from '../components/market/MarketSearchBar'
 
 export function MarketPage() {
-  const { user, openAuth, favoritePairIds, openTradeSheet, appTheme } =
-    usePrototype()
+  const { user, openAuth, favoritePairIds, openTradeSheet } = usePrototype()
   const { isLoggedIn } = user
   const [marketTab, setMarketTab] = useState<MarketTab>('market')
   const [query, setQuery] = useState('')
@@ -49,7 +47,7 @@ export function MarketPage() {
         <BalanceHero portfolio={portfolioSummary} user={user} />
       ) : (
         <>
-          <GuestWelcome themedLogo={isGreenAppTheme(appTheme)} />
+          <GuestWelcome />
           <div className="pb-2">
             <GuideBanner />
           </div>

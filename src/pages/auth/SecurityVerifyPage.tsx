@@ -57,7 +57,7 @@ export function SecurityVerifyPage({ email, flow }: SecurityVerifyPageProps) {
         />
 
         <AuthButton type="submit" loading={loading}>
-          {flow === 'register' ? '进入 CoinLab' : '确认登录'}
+          {flow === 'register' ? '进入 CoinNova' : '确认登录'}
         </AuthButton>
       </form>
 

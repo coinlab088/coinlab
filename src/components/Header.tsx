@@ -38,7 +38,7 @@ export function Header() {
     <header className="sticky top-0 z-20 bg-base/95 backdrop-blur-sm">
       <div className="flex h-12 items-center justify-between gap-2 px-3">
         <span className="shrink-0 text-h3 font-semibold tracking-tight text-primary">
-          Coin<span className="text-brand">Lab</span>
+          Coin<span className="text-brand">Nova</span>
         </span>
 
         <div className="flex min-w-0 items-center justify-end">

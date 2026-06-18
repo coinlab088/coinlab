@@ -35,7 +35,7 @@ export const helpLinks: HelpLink[] = [
   {
     id: 'agreement',
     title: '服务协议',
-    description: 'CoinLab 平台服务条款与用户协议',
+    description: 'CoinNova 平台服务条款与用户协议',
   },
   {
     id: 'privacy',
@@ -59,6 +59,6 @@ export const supportInfo = {
   hours: '7×24 小时',
   channels: [
     { id: 'chat', label: '在线聊天', hint: '平均响应 < 2 分钟' },
-    { id: 'email', label: '邮件支持', hint: 'support@coinlab.app' },
+    { id: 'email', label: '邮件支持', hint: 'support@coinnova.app' },
   ],
 } as const

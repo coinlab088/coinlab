@@ -1,7 +1,7 @@
 import type { FormEvent, ReactNode } from 'react'
 import { useState } from 'react'
 import { Lock } from 'lucide-react'
-import { CoinLabLogo } from './CoinLabLogo'
+import { CoinNovaLogo } from './CoinNovaLogo'
 
 const ACCESS_STORAGE_KEY = 'coinlab_pages_access'
 const ACCESS_CODE = 'cl202606'
@@ -51,7 +51,7 @@ export function AccessGate({ children }: AccessGateProps) {
     <div className="flex min-h-screen items-center justify-center bg-black px-4">
       <div className="w-full max-w-sm rounded-xl border border-border-subtle bg-elevated p-8 shadow-md">
         <div className="flex flex-col items-center text-center">
-          <CoinLabLogo size={64} />
+          <CoinNovaLogo size={64} />
           <div className="mt-5 flex h-10 w-10 items-center justify-center rounded-full bg-brand-muted">
             <Lock className="h-5 w-5 text-brand" strokeWidth={1.5} />
           </div>
