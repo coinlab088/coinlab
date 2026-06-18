@@ -1,11 +1,12 @@
 import { previewPlatforms } from '../../data/platform'
 import { usePrototype } from '../../context/PrototypeContext'
+import { AppThemeSwitcher } from './AppThemeSwitcher'
 
 export function PlatformSwitcher() {
   const { previewPlatform, setPreviewPlatform } = usePrototype()
 
   return (
-    <div className="flex flex-col items-center gap-1.5 py-4">
+    <div className="flex flex-col items-center gap-3 py-4">
       <div
         className="inline-flex rounded-lg border border-border-subtle bg-elevated p-1"
         role="tablist"
@@ -32,6 +33,9 @@ export function PlatformSwitcher() {
           )
         })}
       </div>
+
+      {previewPlatform === 'app' && <AppThemeSwitcher />}
+
       <p className="text-caption text-primary-muted">
         {previewPlatforms.find((p) => p.id === previewPlatform)?.hint}
       </p>

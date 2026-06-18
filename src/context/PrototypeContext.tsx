@@ -35,6 +35,7 @@ import {
 import type { BottomTabId, KycStatus, UserProfile } from '../data/mock'
 import type { ChartScreenState } from '../data/kline'
 import type { PreviewPlatform } from '../data/platform'
+import { loadAppTheme, saveAppTheme, type AppTheme } from '../data/appTheme'
 
 interface PrototypeContextValue {
   isLoggedIn: boolean
@@ -107,6 +108,8 @@ interface PrototypeContextValue {
   addFundRecord: (record: FundRecord) => void
   previewPlatform: PreviewPlatform
   setPreviewPlatform: (platform: PreviewPlatform) => void
+  appTheme: AppTheme
+  setAppTheme: (theme: AppTheme) => void
   chartScreen: ChartScreenState | null
   openKline: (pairId?: string) => void
   closeKline: () => void
@@ -179,6 +182,7 @@ export function PrototypeProvider({ children }: { children: ReactNode }) {
   )
   const [activatedDepositKeys, setActivatedDepositKeys] = useState<string[]>([])
   const [previewPlatform, setPreviewPlatformState] = useState<PreviewPlatform>('app')
+  const [appTheme, setAppThemeState] = useState<AppTheme>(loadAppTheme)
   const [chartScreen, setChartScreen] = useState<ChartScreenState | null>(null)
 
   const user = isLoggedIn
@@ -458,6 +462,11 @@ export function PrototypeProvider({ children }: { children: ReactNode }) {
     }
   }, [])
 
+  const setAppTheme = useCallback((theme: AppTheme) => {
+    setAppThemeState(theme)
+    saveAppTheme(theme)
+  }, [])
+
   const openKline = useCallback(
     (pairId?: string) => {
       setChartScreen({ pairId: pairId ?? selectedPairId })
@@ -553,6 +562,8 @@ export function PrototypeProvider({ children }: { children: ReactNode }) {
       addFundRecord,
       previewPlatform,
       setPreviewPlatform,
+      appTheme,
+      setAppTheme,
       chartScreen,
       openKline,
       closeKline,
@@ -627,6 +638,8 @@ export function PrototypeProvider({ children }: { children: ReactNode }) {
       openKline,
       closeKline,
       setPreviewPlatform,
+      appTheme,
+      setAppTheme,
     ],
   )
 

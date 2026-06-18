@@ -1,12 +1,16 @@
 import { CoinLabLogo } from './CoinLabLogo'
 import { usePrototype } from '../context/PrototypeContext'
 
-export function GuestWelcome() {
+interface GuestWelcomeProps {
+  themedLogo?: boolean
+}
+
+export function GuestWelcome({ themedLogo = false }: GuestWelcomeProps) {
   const { openAuth } = usePrototype()
 
   return (
     <section className="flex flex-col items-center px-6 pb-4 pt-7 text-center">
-      <CoinLabLogo size={96} className="shadow-sm" />
+      <CoinLabLogo size={96} className="shadow-sm" themed={themedLogo} />
 
       <h1 className="mt-7 text-h1 font-semibold tracking-tight text-primary">
         欢迎来到 CoinLab
