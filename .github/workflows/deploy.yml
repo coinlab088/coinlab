@@ -1,8 +1,8 @@
-name: Deploy GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main, master]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -21,26 +21,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
 
-      - name: Install
+      - name: Install dependencies
         run: npm ci
 
-      - name: Resolve base path
-        run: |
-          REPO_NAME="${GITHUB_REPOSITORY##*/}"
-          if [[ "$REPO_NAME" == *.github.io ]]; then
-            echo "VITE_BASE_PATH=/" >> "$GITHUB_ENV"
-          else
-            echo "VITE_BASE_PATH=/${REPO_NAME}/" >> "$GITHUB_ENV"
-          fi
-
       - name: Build
-        run: npm run build:pages
+        run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
