@@ -1,0 +1,83 @@
+export type AccountScreenName =
+  | 'hub'
+  | 'profile'
+  | 'security'
+  | 'security-google'
+  | 'security-email'
+  | 'security-login-password'
+  | 'security-payment-password'
+  | 'kyc'
+  | 'kyc-sumsub'
+  | 'logout'
+  | 'delete'
+  | 'delete-verify'
+  | 'delete-success'
+
+export interface AccountScreenState {
+  screen: AccountScreenName
+}
+
+export interface SecurityItem {
+  id: string
+  label: string
+  hint?: string
+  screen: AccountScreenName
+}
+
+export const accountCopy = {
+  hubTitle: '账户设置',
+  profileTitle: '个人资料',
+  securityTitle: '安全设置',
+  kycTitle: '身份认证',
+  kycSumsubTitle: 'Sumsub 验证',
+  logoutTitle: '退出登录',
+  deleteTitle: '注销账户',
+  deleteVerifyTitle: '安全验证',
+  deleteSuccessTitle: '账户已注销',
+} as const
+
+export const kycProviderCopy = {
+  name: 'Sumsub',
+  tagline: '身份验证由 Sumsub 提供',
+  description:
+    '我们接入 Sumsub 全球 KYC 服务，支持证件识别、活体检测与反欺诈筛查，符合国际 AML 合规要求。',
+  sdkPlaceholder: 'Sumsub WebSDK',
+  sdkHint: '正式环境将在此加载 Sumsub 验证组件',
+} as const
+
+export const deleteAccountWarnings = [
+  '注销后账户数据将被永久删除，无法恢复',
+  '账户内所有数字资产需先提现完毕，否则将视为放弃',
+  '未完成订单、挂单将全部取消',
+  '注销后同一邮箱 30 天内不可重新注册',
+] as const
+
+export const securityItems: SecurityItem[] = [
+  {
+    id: 'google',
+    label: 'Google 验证器',
+    screen: 'security-google',
+  },
+  {
+    id: 'email',
+    label: '邮箱',
+    screen: 'security-email',
+  },
+  {
+    id: 'login-password',
+    label: '登录密码',
+    screen: 'security-login-password',
+  },
+  {
+    id: 'payment-password',
+    label: '支付密码',
+    screen: 'security-payment-password',
+  },
+]
+
+export function maskEmail(email: string): string {
+  const [local, domain] = email.split('@')
+  if (!local || !domain) return email
+  const visible = local.slice(0, 2)
+  return `${visible}***@${domain}`
+}
