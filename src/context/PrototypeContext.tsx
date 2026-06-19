@@ -36,6 +36,7 @@ import type { BottomTabId, KycStatus, UserProfile } from '../data/mock'
 import type { ChartScreenState } from '../data/kline'
 import type { PreviewPlatform } from '../data/platform'
 import { loadAppTheme, saveAppTheme, type AppTheme } from '../data/appTheme'
+import type { PrototypePreset } from '../figma/types'
 
 interface PrototypeContextValue {
   isLoggedIn: boolean
@@ -146,13 +147,21 @@ const defaultFavoriteIds = marketPairs
   .filter((p) => p.isFavorite)
   .map((p) => p.id)
 
-export function PrototypeProvider({ children }: { children: ReactNode }) {
-  const [isLoggedIn, setLoggedIn] = useState(false)
+export function PrototypeProvider({
+  children,
+  preset,
+}: {
+  children: ReactNode
+  preset?: PrototypePreset
+}) {
+  const [isLoggedIn, setLoggedIn] = useState(preset?.isLoggedIn ?? false)
   const [profile, setProfile] = useState(loggedInProfileDefaults)
-  const [activeTab, setActiveTab] = useState<BottomTabId>('market')
-  const [authScreen, setAuthScreen] = useState<AuthScreenState | null>(null)
+  const [activeTab, setActiveTab] = useState<BottomTabId>(preset?.activeTab ?? 'market')
+  const [authScreen, setAuthScreen] = useState<AuthScreenState | null>(
+    preset?.authScreen ?? null,
+  )
   const [accountScreen, setAccountScreen] = useState<AccountScreenState | null>(
-    null,
+    preset?.accountScreen ?? null,
   )
   const [locale, setLocale] = useState('zh-CN')
   const [fiat, setFiat] = useState('USD')
@@ -169,21 +178,29 @@ export function PrototypeProvider({ children }: { children: ReactNode }) {
   const [showComplianceRestriction, setShowComplianceRestriction] =
     useState(false)
   const [complianceModule, setComplianceModule] = useState<string | null>(null)
-  const [walletScreen, setWalletScreen] = useState<WalletScreenState | null>(null)
+  const [walletScreen, setWalletScreen] = useState<WalletScreenState | null>(
+    preset?.walletScreen ?? null,
+  )
   const [withdrawDraft, setWithdrawDraft] = useState<WithdrawDraft | null>(null)
   const [supportScreen, setSupportScreen] = useState<SupportScreenState | null>(
-    null,
+    preset?.supportScreen ?? null,
   )
   const [recordsScreen, setRecordsScreen] = useState<RecordsScreenState | null>(
-    null,
+    preset?.recordsScreen ?? null,
   )
   const [fundRecords, setFundRecords] = useState<FundRecord[]>(
     () => mockFundRecords.map((r) => ({ ...r })),
   )
   const [activatedDepositKeys, setActivatedDepositKeys] = useState<string[]>([])
-  const [previewPlatform, setPreviewPlatformState] = useState<PreviewPlatform>('app')
-  const [appTheme, setAppThemeState] = useState<AppTheme>(loadAppTheme)
-  const [chartScreen, setChartScreen] = useState<ChartScreenState | null>(null)
+  const [previewPlatform, setPreviewPlatformState] = useState<PreviewPlatform>(
+    preset?.previewPlatform ?? 'app',
+  )
+  const [appTheme, setAppThemeState] = useState<AppTheme>(
+    preset?.appTheme ?? loadAppTheme(),
+  )
+  const [chartScreen, setChartScreen] = useState<ChartScreenState | null>(
+    preset?.chartScreen ?? null,
+  )
 
   const user = isLoggedIn
     ? { ...profile, isLoggedIn: true as const }
