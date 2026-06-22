@@ -1,5 +1,12 @@
+import { CatalogLinkCard, docPageUrl } from './components/figma/CatalogLinkCard'
+import {
+  designSystemDocs,
+  designSystemVisualDemos,
+} from './data/designSystemCatalog'
 import { figmaPageUrl } from './figma/routes'
 import { figmaScreenGroups, figmaScreens } from './figma/screens'
+
+const designSystemUrl = figmaPageUrl('design-system')
 
 export function FigmaIndexPage() {
   return (
@@ -10,6 +17,53 @@ export function FigmaIndexPage() {
           每行链接对应一屏 390×812 移动端 UI，无验证页、无调试面板。复制到
           html.to.design 即可导入给设计 / 技术评审。
         </p>
+
+        <a
+          href={designSystemUrl}
+          className="mt-6 flex items-center justify-between rounded-xl border border-brand/40 bg-brand-muted px-4 py-4 active:opacity-90"
+        >
+          <div>
+            <p className="text-body font-semibold text-primary">全局设计规范</p>
+            <p className="mt-0.5 text-caption text-secondary">
+              配色 · 字体 · 按钮 · Toast / 弹窗规范说明
+            </p>
+          </div>
+          <span className="shrink-0 rounded-md bg-brand px-3 py-1.5 text-caption font-semibold text-brand-dark">
+            查看
+          </span>
+        </a>
+
+        <section className="mt-6 space-y-4">
+          <div>
+            <h2 className="mb-2 text-body-sm font-semibold text-primary">规范文档</h2>
+            <div className="space-y-2">
+              {designSystemDocs.map((doc) => (
+                <CatalogLinkCard
+                  key={doc.slug}
+                  href={docPageUrl(doc.slug)}
+                  title={doc.title}
+                  description={doc.description}
+                  badge="MD"
+                />
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h2 className="mb-2 text-body-sm font-semibold text-primary">图示演示</h2>
+            <div className="space-y-2">
+              {designSystemVisualDemos.map((demo) => (
+                <CatalogLinkCard
+                  key={demo.path}
+                  href={figmaPageUrl(demo.path)}
+                  title={demo.title}
+                  description={demo.description}
+                  badge="图示"
+                />
+              ))}
+            </div>
+          </div>
+        </section>
 
         <div className="mt-8 space-y-8">
           {figmaScreenGroups.map((group) => {

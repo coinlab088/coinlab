@@ -5,19 +5,21 @@ import { usePrototype } from '../../context/PrototypeContext'
 import { SubPageLayout } from '../../components/account/SubPageLayout'
 
 export function DepositFetchingPage() {
-  const { walletScreen, activateDeposit, navigateWallet } = usePrototype()
+  const { walletScreen, activateDeposit, navigateWallet, figmaExport } = usePrototype()
 
   const coin = walletScreen?.coin ?? 'USDT'
   const chain = walletScreen?.chain ?? 'BSC'
 
   useEffect(() => {
+    if (figmaExport) return
+
     const timer = window.setTimeout(() => {
       activateDeposit(coin, chain)
       navigateWallet({ screen: 'deposit-address', coin, chain })
     }, 1200)
 
     return () => window.clearTimeout(timer)
-  }, [activateDeposit, coin, chain, navigateWallet])
+  }, [activateDeposit, coin, chain, navigateWallet, figmaExport])
 
   return (
     <SubPageLayout title={walletCopy.depositFetchingTitle} hideBack>

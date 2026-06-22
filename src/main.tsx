@@ -3,6 +3,8 @@ import { createRoot } from 'react-dom/client'
 import App from './App'
 import { FigmaExportApp } from './FigmaExportApp'
 import { FigmaIndexPage } from './FigmaIndexPage'
+import { DesignSystemDemoPage } from './pages/figma/DesignSystemDemoPage'
+import { DesignSystemDocPage } from './pages/figma/DesignSystemDocPage'
 import { resolveFigmaRoute, stripBasePath } from './figma/routes'
 import './index.css'
 
@@ -17,6 +19,10 @@ createRoot(document.getElementById('root')!).render(
       />
     ) : figmaRoute?.type === 'index' ? (
       <FigmaIndexPage />
+    ) : figmaRoute?.type === 'design-system' ? (
+      <DesignSystemDemoPage />
+    ) : figmaRoute?.type === 'design-system-doc' ? (
+      <DesignSystemDocPage slug={figmaRoute.slug} />
     ) : (
       <App />
     )}

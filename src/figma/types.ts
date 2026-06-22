@@ -7,8 +7,8 @@ import type { PreviewPlatform } from '../data/platform'
 import type { RecordsScreenState } from '../data/records'
 import type { SettingsSheet } from '../data/settings'
 import type { SupportScreenState } from '../data/support'
-import type { PendingOrder, TradeSheet } from '../data/trade'
-import type { WalletScreenState } from '../data/wallet'
+import type { PendingOrder, SpotOrder, TradeSheet } from '../data/trade'
+import type { WalletScreenState, WithdrawDraft } from '../data/wallet'
 
 export type FigmaToastVariant = 'success' | 'error' | 'warning' | 'info'
 
@@ -33,10 +33,22 @@ export interface PrototypePreset {
   activeSheet?: SettingsSheet
   tradeSheet?: TradeSheet
   pendingOrder?: PendingOrder | null
+  orders?: SpotOrder[]
+  withdrawDraft?: WithdrawDraft | null
   figmaToast?: FigmaToastPreset
+  /** Figma 导出页：禁用自动跳转等原型行为 */
+  figmaExport?: boolean
 }
 
-export type FigmaScreenGroup = 'page' | 'overlay'
+export type FigmaScreenGroup =
+  | 'tab'
+  | 'auth'
+  | 'account'
+  | 'wallet'
+  | 'records'
+  | 'support'
+  | 'chart'
+  | 'overlay'
 
 export interface FigmaScreenEntry {
   path: string

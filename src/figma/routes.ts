@@ -3,6 +3,8 @@ import type { FigmaScreenEntry } from './types'
 
 export type FigmaRoute =
   | { type: 'index' }
+  | { type: 'design-system' }
+  | { type: 'design-system-doc'; slug: string }
   | { type: 'screen'; screen: FigmaScreenEntry }
 
 /** 去掉 Vite base（dev `/`，Pages `/coinlab/`） */
@@ -22,6 +24,15 @@ export function resolveFigmaRoute(appPath: string): FigmaRoute | null {
 
   if (normalized === '/figma') {
     return { type: 'index' }
+  }
+
+  if (normalized === '/figma/design-system') {
+    return { type: 'design-system' }
+  }
+
+  const docMatch = normalized.match(/^\/figma\/docs\/([^/]+)$/)
+  if (docMatch) {
+    return { type: 'design-system-doc', slug: docMatch[1] }
   }
 
   if (!normalized.startsWith('/figma/')) {

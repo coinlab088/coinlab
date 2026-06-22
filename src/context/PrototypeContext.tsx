@@ -115,6 +115,7 @@ interface PrototypeContextValue {
   openKline: (pairId?: string) => void
   closeKline: () => void
   figmaToast: FigmaToastPreset | null
+  figmaExport: boolean
 }
 
 const PrototypeContext = createContext<PrototypeContextValue | null>(null)
@@ -171,7 +172,7 @@ export function PrototypeProvider({
   const [spotBalances, setSpotBalances] = useState<SpotBalance[]>(
     defaultSpotBalances.map((b) => ({ ...b })),
   )
-  const [orders, setOrders] = useState<SpotOrder[]>([])
+  const [orders, setOrders] = useState<SpotOrder[]>(preset?.orders ?? [])
   const [pendingOrder, setPendingOrder] = useState<PendingOrder | null>(
     preset?.pendingOrder ?? null,
   )
@@ -184,7 +185,9 @@ export function PrototypeProvider({
   const [walletScreen, setWalletScreen] = useState<WalletScreenState | null>(
     preset?.walletScreen ?? null,
   )
-  const [withdrawDraft, setWithdrawDraft] = useState<WithdrawDraft | null>(null)
+  const [withdrawDraft, setWithdrawDraft] = useState<WithdrawDraft | null>(
+    preset?.withdrawDraft ?? null,
+  )
   const [supportScreen, setSupportScreen] = useState<SupportScreenState | null>(
     preset?.supportScreen ?? null,
   )
@@ -205,6 +208,7 @@ export function PrototypeProvider({
     preset?.chartScreen ?? null,
   )
   const figmaToast = preset?.figmaToast ?? null
+  const figmaExport = preset?.figmaExport ?? false
 
   const user = isLoggedIn
     ? { ...profile, isLoggedIn: true as const }
@@ -589,6 +593,7 @@ export function PrototypeProvider({
       openKline,
       closeKline,
       figmaToast,
+      figmaExport,
     }),
     [
       isLoggedIn,
@@ -663,6 +668,7 @@ export function PrototypeProvider({
       appTheme,
       setAppTheme,
       figmaToast,
+      figmaExport,
     ],
   )
 

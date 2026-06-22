@@ -133,6 +133,86 @@
   }
 }
 
+@layer components {
+  .ds-prose {
+    @apply text-body-sm leading-relaxed text-primary;
+  }
+
+  .ds-prose h1 {
+    @apply mb-4 mt-6 text-h2 font-semibold text-primary first:mt-0;
+  }
+
+  .ds-prose h2 {
+    @apply mb-3 mt-6 border-b border-border-subtle pb-2 text-h3 font-semibold text-primary;
+  }
+
+  .ds-prose h3 {
+    @apply mb-2 mt-4 text-body font-semibold text-primary;
+  }
+
+  .ds-prose h4 {
+    @apply mb-2 mt-3 text-body-sm font-semibold text-primary;
+  }
+
+  .ds-prose p {
+    @apply mb-3 text-secondary;
+  }
+
+  .ds-prose ul,
+  .ds-prose ol {
+    @apply mb-3 list-inside list-disc space-y-1 pl-1 text-secondary;
+  }
+
+  .ds-prose ol {
+    @apply list-decimal;
+  }
+
+  .ds-prose li {
+    @apply text-secondary;
+  }
+
+  .ds-prose blockquote {
+    @apply mb-3 border-l-2 border-brand pl-3 text-body-sm text-secondary;
+    border-left-color: color-mix(in srgb, var(--color-brand) 50%, transparent);
+  }
+
+  .ds-prose hr {
+    @apply my-6 border-border-subtle;
+  }
+
+  .ds-prose a {
+    @apply text-brand underline-offset-2 hover:underline;
+  }
+
+  .ds-prose code {
+    @apply rounded bg-elevated px-1 py-0.5 font-mono text-[12px] text-primary;
+  }
+
+  .ds-prose pre {
+    @apply mb-4 overflow-x-auto rounded-lg border border-border-subtle bg-elevated p-3;
+  }
+
+  .ds-prose pre code {
+    @apply bg-transparent p-0 text-[11px] leading-relaxed text-primary;
+  }
+
+  .ds-prose table {
+    @apply mb-4 w-full border-collapse text-caption;
+  }
+
+  .ds-prose th {
+    @apply border border-border-subtle bg-elevated px-2 py-1.5 text-left font-semibold text-primary;
+  }
+
+  .ds-prose td {
+    @apply border border-border-subtle px-2 py-1.5 text-secondary;
+  }
+
+  .ds-prose strong {
+    @apply font-semibold text-primary;
+  }
+}
+
 @layer utilities {
   .tabular-nums {
     font-variant-numeric: tabular-nums;

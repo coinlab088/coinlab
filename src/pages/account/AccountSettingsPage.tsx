@@ -66,18 +66,17 @@ export function AccountSettingsPage() {
 
       <SettingsGroup title="偏好">
         <SettingsRow
-          label="多语言"
+          label="语言"
           value={localeLabel}
           onClick={() => openSheet('language')}
         />
         <SettingsRow
-          label="法币单位"
+          label="计价币种"
           value={fiatLabel}
           onClick={() => openSheet('fiat')}
         />
         <SettingsRow
-          label="客服"
-          hint="在线聊天与邮件支持"
+          label="在线客服"
           onClick={openSupportCenter}
         />
       </SettingsGroup>
