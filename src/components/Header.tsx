@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react'
 import {
   Bell,
-  CircleDollarSign,
   CircleHelp,
   Globe,
   Headphones,
@@ -47,9 +46,6 @@ export function Header() {
             onClick={() => openSheet('language')}
           >
             <Globe className="h-[18px] w-[18px]" strokeWidth={1.5} />
-          </HeaderIconButton>
-          <HeaderIconButton label="法币" onClick={() => openSheet('fiat')}>
-            <CircleDollarSign className="h-[18px] w-[18px]" strokeWidth={1.5} />
           </HeaderIconButton>
           <HeaderIconButton label="客服" onClick={openSupportCenter}>
             <Headphones className="h-[18px] w-[18px]" strokeWidth={1.5} />

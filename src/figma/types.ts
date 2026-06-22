@@ -5,8 +5,17 @@ import type { ChartScreenState } from '../data/kline'
 import type { BottomTabId } from '../data/mock'
 import type { PreviewPlatform } from '../data/platform'
 import type { RecordsScreenState } from '../data/records'
+import type { SettingsSheet } from '../data/settings'
 import type { SupportScreenState } from '../data/support'
+import type { PendingOrder, TradeSheet } from '../data/trade'
 import type { WalletScreenState } from '../data/wallet'
+
+export type FigmaToastVariant = 'success' | 'error' | 'warning' | 'info'
+
+export interface FigmaToastPreset {
+  variant: FigmaToastVariant
+  message: string
+}
 
 /** 单页 Figma 导出时的初始原型状态 */
 export interface PrototypePreset {
@@ -20,11 +29,19 @@ export interface PrototypePreset {
   supportScreen?: SupportScreenState | null
   recordsScreen?: RecordsScreenState | null
   chartScreen?: ChartScreenState | null
+  showComplianceRestriction?: boolean
+  activeSheet?: SettingsSheet
+  tradeSheet?: TradeSheet
+  pendingOrder?: PendingOrder | null
+  figmaToast?: FigmaToastPreset
 }
+
+export type FigmaScreenGroup = 'page' | 'overlay'
 
 export interface FigmaScreenEntry {
   path: string
   label: string
   description?: string
+  group: FigmaScreenGroup
   preset: PrototypePreset
 }

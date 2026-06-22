@@ -36,7 +36,7 @@ import type { BottomTabId, KycStatus, UserProfile } from '../data/mock'
 import type { ChartScreenState } from '../data/kline'
 import type { PreviewPlatform } from '../data/platform'
 import { loadAppTheme, saveAppTheme, type AppTheme } from '../data/appTheme'
-import type { PrototypePreset } from '../figma/types'
+import type { PrototypePreset, FigmaToastPreset } from '../figma/types'
 
 interface PrototypeContextValue {
   isLoggedIn: boolean
@@ -114,6 +114,7 @@ interface PrototypeContextValue {
   chartScreen: ChartScreenState | null
   openKline: (pairId?: string) => void
   closeKline: () => void
+  figmaToast: FigmaToastPreset | null
 }
 
 const PrototypeContext = createContext<PrototypeContextValue | null>(null)
@@ -165,18 +166,20 @@ export function PrototypeProvider({
   )
   const [locale, setLocale] = useState('zh-CN')
   const [fiat, setFiat] = useState('USD')
-  const [activeSheet, setActiveSheet] = useState<SettingsSheet>(null)
+  const [activeSheet, setActiveSheet] = useState<SettingsSheet>(preset?.activeSheet ?? null)
   const [selectedPairId, setSelectedPairId] = useState(marketPairs[0].id)
   const [spotBalances, setSpotBalances] = useState<SpotBalance[]>(
     defaultSpotBalances.map((b) => ({ ...b })),
   )
   const [orders, setOrders] = useState<SpotOrder[]>([])
-  const [pendingOrder, setPendingOrder] = useState<PendingOrder | null>(null)
-  const [tradeSheet, setTradeSheet] = useState<TradeSheet>(null)
+  const [pendingOrder, setPendingOrder] = useState<PendingOrder | null>(
+    preset?.pendingOrder ?? null,
+  )
+  const [tradeSheet, setTradeSheet] = useState<TradeSheet>(preset?.tradeSheet ?? null)
   const [favoritePairIds, setFavoritePairIds] =
     useState<string[]>(defaultFavoriteIds)
   const [showComplianceRestriction, setShowComplianceRestriction] =
-    useState(false)
+    useState(preset?.showComplianceRestriction ?? false)
   const [complianceModule, setComplianceModule] = useState<string | null>(null)
   const [walletScreen, setWalletScreen] = useState<WalletScreenState | null>(
     preset?.walletScreen ?? null,
@@ -201,6 +204,7 @@ export function PrototypeProvider({
   const [chartScreen, setChartScreen] = useState<ChartScreenState | null>(
     preset?.chartScreen ?? null,
   )
+  const figmaToast = preset?.figmaToast ?? null
 
   const user = isLoggedIn
     ? { ...profile, isLoggedIn: true as const }
@@ -584,6 +588,7 @@ export function PrototypeProvider({
       chartScreen,
       openKline,
       closeKline,
+      figmaToast,
     }),
     [
       isLoggedIn,
@@ -657,6 +662,7 @@ export function PrototypeProvider({
       setPreviewPlatform,
       appTheme,
       setAppTheme,
+      figmaToast,
     ],
   )
 

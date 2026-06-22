@@ -1,14 +1,16 @@
-# CoinLab Design System
+# CoinNova Design System
 
-CoinLab 设计系统目录。所有 UI 实现须遵守本规范。
+CoinNova 设计系统目录。所有 UI 实现须遵守本规范。
 
 ## 结构
 
 ```
 design-system/
 ├── MASTER.md       # 全局规范（唯一 Source of Truth）
-└── pages/          # 页面级 override（按需创建）
-    └── <page>.md   # 覆盖 MASTER 中对应章节
+├── figma/          # Figma Token 与导出清单
+└── pages/          # 页面/专题 override（按需创建）
+    ├── feedback-overlays.md   # Toast、弹窗、Bottom Sheet
+    └── <page>.md              # 其他页面级规则
 ```
 
 ## 使用方式

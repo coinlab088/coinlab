@@ -1,5 +1,6 @@
 import { accountCopy, maskEmail } from '../../data/account'
 import { getKycLabel } from '../../data/mock'
+import { fiatCurrencies, locales } from '../../data/settings'
 import { usePrototype } from '../../context/PrototypeContext'
 import {
   SettingsGroup,
@@ -10,7 +11,20 @@ import { SubPageLayout } from '../../components/account/SubPageLayout'
 import { CopyButton } from '../../components/common/CopyButton'
 
 export function AccountSettingsPage() {
-  const { user, closeAccount, navigateAccount } = usePrototype()
+  const {
+    user,
+    closeAccount,
+    navigateAccount,
+    locale,
+    fiat,
+    openSheet,
+    openSupportCenter,
+  } = usePrototype()
+
+  const localeLabel =
+    locales.find((item) => item.id === locale)?.label ?? locale
+  const fiatLabel =
+    fiatCurrencies.find((item) => item.id === fiat)?.label ?? fiat
 
   return (
     <SubPageLayout title={accountCopy.hubTitle} onBack={closeAccount}>
@@ -47,6 +61,24 @@ export function AccountSettingsPage() {
           label="安全设置"
           hint="Google 验证、密码与支付密码"
           onClick={() => navigateAccount({ screen: 'security' })}
+        />
+      </SettingsGroup>
+
+      <SettingsGroup title="偏好">
+        <SettingsRow
+          label="多语言"
+          value={localeLabel}
+          onClick={() => openSheet('language')}
+        />
+        <SettingsRow
+          label="法币单位"
+          value={fiatLabel}
+          onClick={() => openSheet('fiat')}
+        />
+        <SettingsRow
+          label="客服"
+          hint="在线聊天与邮件支持"
+          onClick={openSupportCenter}
         />
       </SettingsGroup>
 

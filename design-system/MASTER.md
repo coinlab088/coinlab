@@ -572,22 +572,28 @@ Amount input + [25|50|75|100%]
 
 ## 19. 弹窗 / Toast / Loading / Empty / Error 状态规范
 
-### 19.1 Modal / Bottom Sheet
-| 类型 | 用法 |
-|------|------|
-| **Bottom Sheet** | 筛选、确认、选择网络 |
-| **Center Modal** | 重要警告、删除确认 |
-| **Full Screen** | 签名、KYC 步骤 |
+> **详细规范见：** [`pages/feedback-overlays.md`](pages/feedback-overlays.md)（Toast、Bottom Sheet、Center Modal、Alert Dialog 的尺寸、动效、三主题与无障碍）。
 
-- 遮罩：`#00000080`
-- Sheet 顶角 `radius-lg`；必须有 drag handle 或关闭按钮
+### 19.1 Modal / Bottom Sheet
+
+| 类型 | 用法 | z-index |
+|------|------|---------|
+| **Bottom Sheet** | 筛选、选择、下单确认 | 40 |
+| **Center Modal** | 删除确认、解绑等重要操作 | 40 |
+| **Alert Dialog** | 合规阻断、不可误关的安全提示 | 50 |
+| **Full Screen** | 签名、KYC 步骤 | — |
+
+- 遮罩：默认 `black/60`；Alert 用 `black/70`
+- Sheet 顶角 `radius-xl`（仅顶部）；必须有 drag handle + 关闭按钮
 - 禁止 Modal 叠 Modal
 
 ### 19.2 Toast
-- 位置：顶部 safe-area 下 12px 或底部 Tab 上 12px
-- 时长：Success 3s / Error 5s（可手动关闭）
+
+- 位置：顶部 `safe-area + 12px` 优先；底部 Tab 上 12px 备选
+- 时长：Success 3s / Error 5s / Warning 4s（Error、Warning 可手动关闭）
 - 结构：`[Icon 18px] [Message text-body-sm] [×]`
-- Success `#26A69A`；Error `#EF5350`；Info `#38BDF8`
+- 语义色：`success` / `danger` / `warning` / `info` + 对应 `*-bg`
+- 同时仅 1 条；不阻断点击
 
 ### 19.3 Loading
 | 场景 | 模式 |

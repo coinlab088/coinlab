@@ -35,6 +35,8 @@
 
 ### 首页单屏导入（当前任务）
 
+**链接目录（含 Toast / 弹窗）：** https://coinlab088.github.io/coinlab/figma
+
 **推荐：使用 Figma 专用直链（无验证页、无调试面板）**
 
 | 项 | 值 |

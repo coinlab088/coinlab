@@ -1,14 +1,32 @@
 import { useEffect } from 'react'
+import { FigmaToast } from './components/feedback/FigmaToast'
 import { AppShell } from './components/AppShell'
 import { AppFrame } from './components/platform/AppFrame'
+import { ComplianceRestrictionSheet } from './components/sheets/ComplianceRestrictionSheet'
+import { SettingsSheets } from './components/sheets/SettingsSheets'
+import { OrderConfirmSheet, PairPickerSheet } from './components/trade/TradeSheets'
 import { AppRouter } from './AppRouter'
 import { InspectProvider } from './context/InspectContext'
-import { PrototypeProvider } from './context/PrototypeContext'
+import { PrototypeProvider, usePrototype } from './context/PrototypeContext'
 import type { PrototypePreset } from './figma/types'
 
 interface FigmaExportAppProps {
   preset: PrototypePreset
   title: string
+}
+
+function FigmaOverlays() {
+  const { figmaToast } = usePrototype()
+
+  return (
+    <>
+      <SettingsSheets />
+      <PairPickerSheet />
+      <OrderConfirmSheet />
+      <ComplianceRestrictionSheet />
+      {figmaToast && <FigmaToast toast={figmaToast} />}
+    </>
+  )
 }
 
 export function FigmaExportApp({ preset, title }: FigmaExportAppProps) {
@@ -48,6 +66,7 @@ export function FigmaExportApp({ preset, title }: FigmaExportAppProps) {
         <AppFrame>
           <AppShell>
             <AppRouter />
+            <FigmaOverlays />
           </AppShell>
         </AppFrame>
       </InspectProvider>
