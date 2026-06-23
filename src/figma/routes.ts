@@ -46,6 +46,16 @@ export function resolveFigmaRoute(appPath: string): FigmaRoute | null {
   return { type: 'screen', screen }
 }
 
+/** 线上 GitHub Pages 根地址，Figma / html.to.design 导入用 */
+export const FIGMA_PAGES_ORIGIN = 'https://coinlab088.github.io/coinlab'
+
+/** 完整可粘贴的 Figma 导出直链（始终指向线上） */
+export function figmaExportUrl(path: string): string {
+  const slug = path.replace(/^\/+/, '').replace(/\/+$/, '')
+  if (!slug) return `${FIGMA_PAGES_ORIGIN}/figma`
+  return `${FIGMA_PAGES_ORIGIN}/figma/${slug}`
+}
+
 export function figmaPageUrl(path: string): string {
   const base = import.meta.env.BASE_URL
   const slug = path.replace(/^\/+/, '')

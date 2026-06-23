@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { MarkdownDocViewer } from '../../components/figma/MarkdownDocViewer'
 import { getDesignSystemDoc } from '../../data/designSystemCatalog'
 import { designSystemDocContent } from '../../data/designSystemDocContent'
-import { figmaPageUrl } from '../../figma/routes'
+import { figmaExportUrl } from '../../figma/routes'
 
 type Props = {
   slug: string
@@ -25,7 +25,7 @@ export function DesignSystemDocPage({ slug }: Props) {
         <div className="mx-auto max-w-[390px] text-center">
           <p className="text-body text-secondary">未找到该文档</p>
           <a
-            href={figmaPageUrl('design-system')}
+            href={figmaExportUrl('design-system')}
             className="mt-4 inline-block text-body-sm text-brand"
           >
             ← 返回设计规范
@@ -47,13 +47,13 @@ export function DesignSystemDocPage({ slug }: Props) {
           <p className="mt-1 text-caption text-secondary">{doc.file}</p>
           <div className="mt-4 flex flex-wrap gap-2">
             <a
-              href={figmaPageUrl('design-system')}
+              href={figmaExportUrl('design-system')}
               className="inline-flex h-9 items-center rounded-md border border-border px-3 text-caption font-medium text-primary active:bg-elevated"
             >
               ← 设计规范
             </a>
             <a
-              href={figmaPageUrl('')}
+              href={figmaExportUrl('')}
               className="inline-flex h-9 items-center rounded-md border border-border px-3 text-caption font-medium text-secondary active:bg-elevated"
             >
               导出目录

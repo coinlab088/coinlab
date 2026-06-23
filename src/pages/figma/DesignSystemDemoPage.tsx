@@ -6,7 +6,7 @@ import {
   designSystemVisualDemos,
 } from '../../data/designSystemCatalog'
 import { designTokens } from '../../data/designTokens'
-import { figmaPageUrl } from '../../figma/routes'
+import { figmaExportUrl } from '../../figma/routes'
 
 const tokens = designTokens
 
@@ -83,7 +83,7 @@ export function DesignSystemDemoPage() {
             版本 {tokens.version} · 移动端 390×812 · Source: design-system/MASTER.md
           </p>
           <a
-            href={figmaPageUrl('')}
+            href={figmaExportUrl('')}
             className="mt-4 inline-flex h-11 items-center justify-center rounded-md border border-border px-4 text-body-sm font-medium text-primary active:bg-elevated"
           >
             ← 返回导出目录
@@ -98,7 +98,7 @@ export function DesignSystemDemoPage() {
             {designSystemDocs.map((doc) => (
               <CatalogLinkCard
                 key={doc.slug}
-                href={docPageUrl(doc.slug)}
+                path={`docs/${doc.slug}`}
                 title={doc.title}
                 description={doc.description}
                 badge="MD"
@@ -115,7 +115,7 @@ export function DesignSystemDemoPage() {
             {designSystemVisualDemos.map((demo) => (
               <CatalogLinkCard
                 key={demo.path}
-                href={figmaPageUrl(demo.path)}
+                path={demo.path}
                 title={demo.title}
                 description={demo.description}
                 badge="图示"
@@ -274,7 +274,7 @@ export function DesignSystemDemoPage() {
             feedback-overlays.md
           </a>
           {' · '}
-          <a href={figmaPageUrl('')} className="text-brand">
+          <a href={figmaExportUrl('')} className="text-brand">
             导出目录
           </a>
         </footer>
