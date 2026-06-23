@@ -1,6 +1,5 @@
 import { previewPlatforms } from '../../data/platform'
 import { usePrototype } from '../../context/PrototypeContext'
-import { AppThemeSwitcher } from './AppThemeSwitcher'
 
 export function PlatformSwitcher() {
   const { previewPlatform, setPreviewPlatform } = usePrototype()
@@ -33,8 +32,6 @@ export function PlatformSwitcher() {
           )
         })}
       </div>
-
-      {previewPlatform === 'app' && <AppThemeSwitcher />}
 
       <p className="text-caption text-primary-muted">
         {previewPlatforms.find((p) => p.id === previewPlatform)?.hint}

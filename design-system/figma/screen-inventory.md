@@ -2,7 +2,7 @@
 
 **推荐：** 打开 [Figma 导出目录](https://coinlab088.github.io/coinlab/figma) 复制完整链接（非路径）
 
-**主题：** 除行情绿白 / 绿黑样例外，细节页均为 **黄黑** 主题。
+**主题：** 全站统一 **黄黑** 主题。
 
 ---
 
@@ -11,8 +11,6 @@
 | Frame 名 | 完整链接 |
 |----------|----------|
 | market/guest | https://coinlab088.github.io/coinlab/figma/market/guest |
-| market/guest/green-white | https://coinlab088.github.io/coinlab/figma/market/guest/green-white |
-| market/guest/green-black | https://coinlab088.github.io/coinlab/figma/market/guest/green-black |
 | market/logged-in | https://coinlab088.github.io/coinlab/figma/market/logged-in |
 | trade | https://coinlab088.github.io/coinlab/figma/trade |
 | assets/guest | https://coinlab088.github.io/coinlab/figma/assets/guest |

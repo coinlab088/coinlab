@@ -6,11 +6,7 @@ export function GuestWelcome() {
 
   return (
     <section className="flex flex-col items-center px-6 pb-4 pt-7 text-center">
-      <CoinNovaLogo
-        size={96}
-        theme={appTheme}
-        className={appTheme === 'green-white' ? '' : 'shadow-sm'}
-      />
+      <CoinNovaLogo size={96} theme={appTheme} className="shadow-sm" />
 
       <h1 className="mt-7 text-h1 font-semibold tracking-tight text-primary">
         欢迎来到 CoinNova

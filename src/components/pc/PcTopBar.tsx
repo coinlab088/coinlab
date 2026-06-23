@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react'
 import {
-  Bell,
   CircleDollarSign,
   CircleHelp,
   Globe,
@@ -66,11 +65,6 @@ export function PcTopBar() {
         <TopIcon label="帮助中心" onClick={openHelpCenter}>
           <CircleHelp className="h-[18px] w-[18px]" strokeWidth={1.5} />
         </TopIcon>
-        {user.isLoggedIn && (
-          <TopIcon label="通知">
-            <Bell className="h-[18px] w-[18px]" strokeWidth={1.5} />
-          </TopIcon>
-        )}
         <button
           type="button"
           onClick={user.isLoggedIn ? openAccount : openAuth}

@@ -31,8 +31,8 @@ export interface FundRecord {
 export const recordsCopy = {
   fundTitle: '充提记录',
   fundDetailTitle: '流水详情',
-  ordersTitle: '订单明细',
-  orderDetailTitle: '订单详情',
+  ordersTitle: '现货订单',
+  orderDetailTitle: '委托详情',
 } as const
 
 export const mockFundRecords: FundRecord[] = [

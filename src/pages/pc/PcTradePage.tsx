@@ -17,6 +17,7 @@ export function PcTradePage() {
     orders,
     submitOrder,
     cancelOrder,
+    cancelAllOpenOrders,
     openTradeSheet,
     openOrderHistory,
     openKline,
@@ -87,7 +88,9 @@ export function PcTradePage() {
               balances={spotBalances}
               pairBase={pair.base}
               pairQuote={pair.quote}
+              pairId={pair.id}
               onCancel={cancelOrder}
+              onCancelAll={cancelAllOpenOrders}
               onOpenOrderHistory={openOrderHistory}
               isLoggedIn={user.isLoggedIn}
             />

@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react'
 import {
-  Bell,
   CircleHelp,
   Globe,
   Headphones,
@@ -53,11 +52,6 @@ export function Header() {
           <HeaderIconButton label="帮助中心" onClick={openHelpCenter}>
             <CircleHelp className="h-[18px] w-[18px]" strokeWidth={1.5} />
           </HeaderIconButton>
-          {user.isLoggedIn && (
-            <HeaderIconButton label="通知">
-              <Bell className="h-[18px] w-[18px]" strokeWidth={1.5} />
-            </HeaderIconButton>
-          )}
           <HeaderIconButton
             label={user.isLoggedIn ? '个人中心' : '登录'}
             onClick={user.isLoggedIn ? openAccount : openAuth}

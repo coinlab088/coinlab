@@ -1,20 +1,21 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { FileText } from 'lucide-react'
 import type { SpotBalance, SpotOrder, TradePanelTab } from '../../data/trade'
 import {
-  formatOrderPrice,
-  formatOrderTime,
   formatTradeAmount,
   getAvailableBalance,
   tradeCopy,
 } from '../../data/trade'
+import { OpenOrderCard } from './SpotOrderCards'
 
 interface TradeBottomPanelProps {
   orders: SpotOrder[]
   balances: SpotBalance[]
   pairBase: string
   pairQuote: string
+  pairId: string
   onCancel: (orderId: string) => void
+  onCancelAll?: () => void
   onOpenOrderHistory?: () => void
   isLoggedIn: boolean
 }
@@ -24,37 +25,48 @@ export function TradeBottomPanel({
   balances,
   pairBase,
   pairQuote,
+  pairId,
   onCancel,
+  onCancelAll,
   onOpenOrderHistory,
   isLoggedIn,
 }: TradeBottomPanelProps) {
   const [tab, setTab] = useState<TradePanelTab>('orders')
-  const openOrders = orders.filter((o) => o.status === 'open')
+  const [currentPairOnly, setCurrentPairOnly] = useState(false)
+
+  const openOrders = useMemo(() => {
+    const open = orders.filter((o) => o.status === 'open')
+    if (!currentPairOnly) return open
+    return open.filter((o) => o.pairId === pairId)
+  }, [orders, currentPairOnly, pairId])
 
   return (
     <section className="mt-2 border-t border-border-subtle">
       <div className="flex items-center justify-between px-3">
         <div className="flex gap-6">
-        {(
-          [
-            { id: 'orders' as const, label: tradeCopy.openOrders },
-            { id: 'assets' as const, label: tradeCopy.assets },
-          ] as const
-        ).map((item) => (
-          <button
-            key={item.id}
-            type="button"
-            onClick={() => setTab(item.id)}
-            className={`relative py-2.5 text-body-sm font-medium ${
-              tab === item.id ? 'text-primary' : 'text-secondary'
-            }`}
-          >
-            {item.label}
-            {tab === item.id && (
-              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand" />
-            )}
-          </button>
-        ))}
+          {(
+            [
+              {
+                id: 'orders' as const,
+                label: `${tradeCopy.openOrders}(${openOrders.length})`,
+              },
+              { id: 'assets' as const, label: tradeCopy.assets },
+            ] as const
+          ).map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => setTab(item.id)}
+              className={`relative py-2.5 text-body-sm font-medium ${
+                tab === item.id ? 'text-primary' : 'text-secondary'
+              }`}
+            >
+              {item.label}
+              {tab === item.id && (
+                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand" />
+              )}
+            </button>
+          ))}
         </div>
         {isLoggedIn && onOpenOrderHistory && (
           <button
@@ -70,49 +82,43 @@ export function TradeBottomPanel({
       {!isLoggedIn ? (
         <EmptyState text="登录后可查看" />
       ) : tab === 'orders' ? (
-        openOrders.length === 0 ? (
-          <EmptyState text="暂无委托" />
-        ) : (
-          <ul className="divide-y divide-border-subtle">
-            {openOrders.map((order) => (
-              <li key={order.id} className="px-3 py-2.5">
-                <div className="flex items-center justify-between gap-2">
-                  <div>
-                    <p className="text-caption font-medium text-primary">
-                      {order.base}/{order.quote}
-                      <span
-                        className={`ml-1.5 ${
-                          order.side === 'buy' ? 'text-success' : 'text-danger'
-                        }`}
-                      >
-                        {order.side === 'buy' ? '买' : '卖'}
-                      </span>
-                      <span className="ml-1 text-secondary">
-                        {order.type === 'limit' ? '限价' : '市价'}
-                      </span>
-                    </p>
-                    <p className="mt-0.5 text-[10px] text-secondary">
-                      {formatOrderTime(order.createdAt)}
-                    </p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => onCancel(order.id)}
-                    className="rounded border border-border px-2 py-0.5 text-[10px] text-primary"
-                  >
-                    撤单
-                  </button>
-                </div>
-                <div className="mt-1.5 flex justify-between text-[10px] text-secondary">
-                  <span>
-                    {formatOrderPrice(order.price, order.quote)} ×{' '}
-                    {formatTradeAmount(order.amount, order.base)}
-                  </span>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )
+        <>
+          <div className="flex items-center justify-between px-3 py-2">
+            <label className="flex items-center gap-2 text-caption text-secondary">
+              <input
+                type="checkbox"
+                checked={currentPairOnly}
+                onChange={(e) => setCurrentPairOnly(e.target.checked)}
+                className="h-3.5 w-3.5 rounded border-border accent-brand"
+              />
+              只看当前
+            </label>
+            {openOrders.length > 0 && onCancelAll && (
+              <button
+                type="button"
+                onClick={onCancelAll}
+                className="text-caption text-brand"
+              >
+                全部撤单
+              </button>
+            )}
+          </div>
+          {openOrders.length === 0 ? (
+            <EmptyState text="暂无委托" />
+          ) : (
+            <ul className="divide-y divide-border-subtle px-3">
+              {openOrders.map((order) => (
+                <li key={order.id}>
+                  <OpenOrderCard
+                    order={order}
+                    compact
+                    onCancel={() => onCancel(order.id)}
+                  />
+                </li>
+              ))}
+            </ul>
+          )}
+        </>
       ) : (
         <div className="px-3 py-2">
           <AssetRow

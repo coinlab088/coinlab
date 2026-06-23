@@ -1,4 +1,5 @@
-import type { PendingOrder, SpotOrder } from '../data/trade'
+import type { PendingOrder } from '../data/trade'
+import { demoSpotOrders } from '../data/trade'
 import type { WithdrawDraft } from '../data/wallet'
 import type { FigmaScreenEntry } from './types'
 
@@ -31,38 +32,7 @@ const mockWithdrawDraft: WithdrawDraft = {
   receive: 99,
 }
 
-const mockSpotOrders: SpotOrder[] = [
-  {
-    id: 'ord-demo-open',
-    pairId: 'btc',
-    base: 'BTC',
-    quote: 'USDT',
-    side: 'buy',
-    type: 'limit',
-    price: 67_842.5,
-    amount: 0.02,
-    filled: 0,
-    total: 1_356.85,
-    fee: 1.35685,
-    status: 'open',
-    createdAt: Date.now() - 1_800_000,
-  },
-  {
-    id: 'ord-demo-filled',
-    pairId: 'btc',
-    base: 'BTC',
-    quote: 'USDT',
-    side: 'sell',
-    type: 'limit',
-    price: 67_900,
-    amount: 0.01,
-    filled: 0.01,
-    total: 679,
-    fee: 0.679,
-    status: 'filled',
-    createdAt: Date.now() - 86_400_000,
-  },
-]
+const mockSpotOrders = demoSpotOrders
 
 const demoEmail = 'trader@example.com'
 
@@ -73,18 +43,6 @@ const tabScreens: FigmaScreenEntry[] = [
     description: '黄黑 · 默认首页',
     group: 'tab',
     preset: app({ isLoggedIn: false, activeTab: 'market' }),
-  },
-  {
-    path: 'market/guest/green-white',
-    label: '行情 · 游客 · 绿白',
-    group: 'tab',
-    preset: app({ isLoggedIn: false, activeTab: 'market', appTheme: 'green-white' }),
-  },
-  {
-    path: 'market/guest/green-black',
-    label: '行情 · 游客 · 绿黑',
-    group: 'tab',
-    preset: app({ isLoggedIn: false, activeTab: 'market', appTheme: 'green-black' }),
   },
   {
     path: 'market/logged-in',
@@ -432,7 +390,7 @@ const recordsScreens: FigmaScreenEntry[] = [
   },
   {
     path: 'records/orders',
-    label: '订单明细',
+    label: '现货订单 · 历史委托',
     group: 'records',
     preset: app({
       isLoggedIn: true,
@@ -448,7 +406,7 @@ const recordsScreens: FigmaScreenEntry[] = [
     preset: app({
       isLoggedIn: true,
       activeTab: 'trade',
-      recordsScreen: { screen: 'order-detail', orderId: 'ord-demo-filled' },
+      recordsScreen: { screen: 'order-detail', orderId: 'ord-pop-1' },
       orders: mockSpotOrders,
     }),
   },

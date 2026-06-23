@@ -157,6 +157,233 @@ export function formatOrderTime(ts: number): string {
   })
 }
 
+/** 交易记录列表用：含年月日与秒 */
+export function formatTradeRecordTime(ts: number): string {
+  const d = new Date(ts)
+  const pad = (n: number) => String(n).padStart(2, '0')
+  return `${d.getFullYear()}/${pad(d.getMonth() + 1)}/${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`
+}
+
+export function getOrderDisplayStatus(order: SpotOrder): string {
+  if (order.status === 'cancelled') return '已撤销'
+  if (order.status === 'filled' || order.filled >= order.amount) return '完全成交'
+  if (order.filled > 0) return '部分成交'
+  return '委托中'
+}
+
+/** 历史委托列表状态文案（对齐参考稿） */
+export function getOrderHistoryStatus(order: SpotOrder): string {
+  if (order.status === 'cancelled') return '撤销'
+  if (order.status === 'filled' || order.filled >= order.amount) return '完全成交'
+  if (order.filled > 0) return '部分成交'
+  return '委托中'
+}
+
+export function getAvgFillPrice(order: SpotOrder): number {
+  return order.filled > 0 ? order.price : 0
+}
+
+export function getFilledTotal(order: SpotOrder): number {
+  if (order.filled <= 0) return 0
+  return order.filled * order.price
+}
+
+export function getOrderTradeAmount(order: SpotOrder): number {
+  return order.side === 'buy' ? order.total : order.price * order.amount
+}
+
+export function getLiquidityLabel(order: SpotOrder): string {
+  return order.type === 'limit' ? '挂单' : '吃单'
+}
+
+export function formatSpotQuote(value: number, quote = 'USDT'): string {
+  return `${value.toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 8,
+  })} ${quote}`
+}
+
+export function formatSpotBase(value: number, base: string): string {
+  return `${formatTradeAmount(value, base)} ${base}`
+}
+
+function ts(y: number, m: number, d: number, h: number, min: number, s = 0): number {
+  return new Date(y, m - 1, d, h, min, s).getTime()
+}
+
+/** 原型演示用订单数据（现货订单 / 订单记录） */
+export const demoSpotOrders: SpotOrder[] = [
+  {
+    id: 'ord-open-bgb',
+    pairId: 'bgb',
+    base: 'BGB',
+    quote: 'USDT',
+    side: 'buy',
+    type: 'limit',
+    price: 1,
+    amount: 3.1256,
+    filled: 0,
+    total: 3.1256,
+    fee: 0.0031256,
+    status: 'open',
+    createdAt: ts(2026, 6, 23, 22, 36, 7),
+  },
+  {
+    id: 'ord-open-btc',
+    pairId: 'btc',
+    base: 'BTC',
+    quote: 'USDT',
+    side: 'buy',
+    type: 'limit',
+    price: 67_842.5,
+    amount: 0.02,
+    filled: 0,
+    total: 1_356.85,
+    fee: 1.35685,
+    status: 'open',
+    createdAt: Date.now() - 1_800_000,
+  },
+  {
+    id: 'ord-partial-eth',
+    pairId: 'eth',
+    base: 'ETH',
+    quote: 'USDT',
+    side: 'sell',
+    type: 'limit',
+    price: 3_450,
+    amount: 1.5,
+    filled: 0.6,
+    total: 5_175,
+    fee: 5.175,
+    status: 'open',
+    createdAt: Date.now() - 7_200_000,
+  },
+  {
+    id: 'ord-pop-1',
+    pairId: 'pop',
+    base: 'POP',
+    quote: 'USDT',
+    side: 'buy',
+    type: 'market',
+    price: 0.04519,
+    amount: 2_434.23,
+    filled: 2_434.23,
+    total: 110.01,
+    fee: 2.43423,
+    status: 'filled',
+    createdAt: ts(2026, 3, 13, 11, 20, 31),
+  },
+  {
+    id: 'ord-pop-2',
+    pairId: 'pop',
+    base: 'POP',
+    quote: 'USDT',
+    side: 'buy',
+    type: 'market',
+    price: 0.05249,
+    amount: 691.31,
+    filled: 691.31,
+    total: 36.29,
+    fee: 0.69131,
+    status: 'filled',
+    createdAt: ts(2026, 3, 13, 11, 20, 15),
+  },
+  {
+    id: 'ord-pop-3',
+    pairId: 'pop',
+    base: 'POP',
+    quote: 'USDT',
+    side: 'buy',
+    type: 'market',
+    price: 0.05214,
+    amount: 3_705.4,
+    filled: 3_705.4,
+    total: 193.2,
+    fee: 3.7054,
+    status: 'filled',
+    createdAt: ts(2026, 3, 13, 11, 20, 13),
+  },
+  {
+    id: 'ord-hist-preopai',
+    pairId: 'preopai',
+    base: 'preOPAI',
+    quote: 'USDT',
+    side: 'sell',
+    type: 'limit',
+    price: 866.6,
+    amount: 6.0454,
+    filled: 6.0454,
+    total: 5_238.94364,
+    fee: 10.47788728,
+    status: 'filled',
+    createdAt: ts(2026, 6, 16, 23, 37, 3),
+  },
+  {
+    id: 'ord-hist-preopai-cancel',
+    pairId: 'preopai',
+    base: 'preOPAI',
+    quote: 'USDT',
+    side: 'sell',
+    type: 'limit',
+    price: 866.6,
+    amount: 6.0454,
+    filled: 0,
+    total: 5_238.94364,
+    fee: 0,
+    status: 'cancelled',
+    createdAt: ts(2026, 6, 16, 23, 37, 3),
+  },
+  {
+    id: 'ord-hist-btc-sell',
+    pairId: 'btc',
+    base: 'BTC',
+    quote: 'USDT',
+    side: 'sell',
+    type: 'limit',
+    price: 68_200,
+    amount: 0.015,
+    filled: 0.015,
+    total: 1_023,
+    fee: 1.023,
+    status: 'filled',
+    createdAt: ts(2026, 3, 12, 16, 42, 8),
+  },
+  {
+    id: 'ord-hist-sol-cancel',
+    pairId: 'sol',
+    base: 'SOL',
+    quote: 'USDT',
+    side: 'buy',
+    type: 'limit',
+    price: 142.5,
+    amount: 12,
+    filled: 0,
+    total: 1_710,
+    fee: 1.71,
+    status: 'cancelled',
+    createdAt: ts(2026, 3, 11, 9, 15, 0),
+  },
+  {
+    id: 'ord-hist-eth-partial-done',
+    pairId: 'eth',
+    base: 'ETH',
+    quote: 'USDT',
+    side: 'buy',
+    type: 'limit',
+    price: 3_380,
+    amount: 0.8,
+    filled: 0.35,
+    total: 2_704,
+    fee: 2.704,
+    status: 'cancelled',
+    createdAt: ts(2026, 3, 10, 14, 8, 22),
+  },
+]
+
+export function cloneDemoSpotOrders(): SpotOrder[] {
+  return demoSpotOrders.map((o) => ({ ...o }))
+}
+
 export function applyMarketFill(
   balances: SpotBalance[],
   order: Pick<SpotOrder, 'side' | 'base' | 'quote' | 'price' | 'amount' | 'total' | 'fee'>,

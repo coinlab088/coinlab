@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { usePrototype } from '../context/PrototypeContext'
+import { AppToast } from './feedback/AppToast'
 import { BottomTabBar } from './BottomTabBar'
 
 interface AppShellProps {
@@ -29,9 +30,10 @@ export function AppShell({ children }: AppShellProps) {
     !recordsScreen
 
   return (
-    <div className="flex h-full flex-col overflow-hidden">
+    <div className="relative flex h-full flex-col overflow-hidden">
       <div className="relative min-h-0 flex-1 overflow-hidden">{children}</div>
       {showTabBar && <BottomTabBar />}
+      <AppToast />
     </div>
   )
 }

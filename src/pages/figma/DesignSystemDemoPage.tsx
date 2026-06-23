@@ -12,8 +12,6 @@ const tokens = designTokens
 
 const themeLabels: Record<string, string> = {
   'yellow-black': '黄黑（默认）',
-  'green-white': '绿白',
-  'green-black': '绿黑',
 }
 
 const typeSamples = [

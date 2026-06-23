@@ -18,6 +18,7 @@ export function TradePage() {
     orders,
     submitOrder,
     cancelOrder,
+    cancelAllOpenOrders,
     openTradeSheet,
     openOrderHistory,
     openKline,
@@ -88,7 +89,9 @@ export function TradePage() {
         balances={spotBalances}
         pairBase={pair.base}
         pairQuote={pair.quote}
+        pairId={pair.id}
         onCancel={cancelOrder}
+        onCancelAll={cancelAllOpenOrders}
         onOpenOrderHistory={openOrderHistory}
         isLoggedIn={user.isLoggedIn}
       />

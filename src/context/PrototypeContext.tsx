@@ -13,6 +13,7 @@ import type { ComplianceRestrictionOptions } from '../data/compliance'
 import type { SettingsSheet } from '../data/settings'
 import {
   applyMarketFill,
+  cloneDemoSpotOrders,
   defaultSpotBalances,
   freezeForLimitOrder,
   unfreezeLimitOrder,
@@ -21,6 +22,7 @@ import {
   type SpotOrder,
   type TradeSheet,
 } from '../data/trade'
+import { orderSuccessToastMessage } from '../data/feedback'
 import type { FundRecord, RecordsScreenState } from '../data/records'
 import { mockFundRecords } from '../data/records'
 import type { SupportScreenState } from '../data/support'
@@ -37,6 +39,7 @@ import type { ChartScreenState } from '../data/kline'
 import type { PreviewPlatform } from '../data/platform'
 import { loadAppTheme, saveAppTheme, type AppTheme } from '../data/appTheme'
 import type { PrototypePreset, FigmaToastPreset } from '../figma/types'
+import type { AppToastState, ToastVariant } from '../data/feedback'
 
 interface PrototypeContextValue {
   isLoggedIn: boolean
@@ -76,6 +79,7 @@ interface PrototypeContextValue {
   confirmOrder: () => void
   cancelPendingOrder: () => void
   cancelOrder: (orderId: string) => void
+  cancelAllOpenOrders: () => void
   openTradeSheet: (sheet: TradeSheet) => void
   closeTradeSheet: () => void
   favoritePairIds: string[]
@@ -116,6 +120,9 @@ interface PrototypeContextValue {
   closeKline: () => void
   figmaToast: FigmaToastPreset | null
   figmaExport: boolean
+  toast: AppToastState | null
+  showToast: (message: string, variant?: ToastVariant) => void
+  dismissToast: () => void
 }
 
 const PrototypeContext = createContext<PrototypeContextValue | null>(null)
@@ -172,7 +179,9 @@ export function PrototypeProvider({
   const [spotBalances, setSpotBalances] = useState<SpotBalance[]>(
     defaultSpotBalances.map((b) => ({ ...b })),
   )
-  const [orders, setOrders] = useState<SpotOrder[]>(preset?.orders ?? [])
+  const [orders, setOrders] = useState<SpotOrder[]>(
+    preset?.orders ?? cloneDemoSpotOrders(),
+  )
   const [pendingOrder, setPendingOrder] = useState<PendingOrder | null>(
     preset?.pendingOrder ?? null,
   )
@@ -209,6 +218,7 @@ export function PrototypeProvider({
   )
   const figmaToast = preset?.figmaToast ?? null
   const figmaExport = preset?.figmaExport ?? false
+  const [toast, setToast] = useState<AppToastState | null>(null)
 
   const user = isLoggedIn
     ? { ...profile, isLoggedIn: true as const }
@@ -216,7 +226,7 @@ export function PrototypeProvider({
 
   const resetTradeState = useCallback(() => {
     setSpotBalances(defaultSpotBalances.map((b) => ({ ...b })))
-    setOrders([])
+    setOrders(cloneDemoSpotOrders())
     setPendingOrder(null)
     setTradeSheet(null)
     setSelectedPairId(marketPairs[0].id)
@@ -315,6 +325,14 @@ export function PrototypeProvider({
     setTradeSheet(null)
   }, [])
 
+  const dismissToast = useCallback(() => {
+    setToast(null)
+  }, [])
+
+  const showToast = useCallback((message: string, variant: ToastVariant = 'success') => {
+    setToast({ message, variant })
+  }, [])
+
   const submitOrder = useCallback((order: PendingOrder) => {
     setPendingOrder(order)
     setTradeSheet('confirm')
@@ -353,7 +371,8 @@ export function PrototypeProvider({
     setOrders((prev) => [spotOrder, ...prev])
     setPendingOrder(null)
     setTradeSheet(null)
-  }, [pendingOrder])
+    showToast(orderSuccessToastMessage())
+  }, [pendingOrder, showToast])
 
   const cancelOrder = useCallback((orderId: string) => {
     setOrders((prev) => {
@@ -364,6 +383,22 @@ export function PrototypeProvider({
 
       return prev.map((o) =>
         o.id === orderId ? { ...o, status: 'cancelled' as const } : o,
+      )
+    })
+  }, [])
+
+  const cancelAllOpenOrders = useCallback(() => {
+    setOrders((prev) => {
+      const openOrders = prev.filter((o) => o.status === 'open')
+      if (openOrders.length === 0) return prev
+
+      setSpotBalances((balances) =>
+        openOrders.reduce((acc, order) => unfreezeLimitOrder(acc, order), balances),
+      )
+
+      const openIds = new Set(openOrders.map((o) => o.id))
+      return prev.map((o) =>
+        openIds.has(o.id) ? { ...o, status: 'cancelled' as const } : o,
       )
     })
   }, [])
@@ -554,6 +589,7 @@ export function PrototypeProvider({
       confirmOrder,
       cancelPendingOrder,
       cancelOrder,
+      cancelAllOpenOrders,
       openTradeSheet,
       closeTradeSheet,
       favoritePairIds,
@@ -594,6 +630,9 @@ export function PrototypeProvider({
       closeKline,
       figmaToast,
       figmaExport,
+      toast,
+      showToast,
+      dismissToast,
     }),
     [
       isLoggedIn,
@@ -628,6 +667,7 @@ export function PrototypeProvider({
       confirmOrder,
       cancelPendingOrder,
       cancelOrder,
+      cancelAllOpenOrders,
       openTradeSheet,
       closeTradeSheet,
       favoritePairIds,
@@ -669,6 +709,9 @@ export function PrototypeProvider({
       setAppTheme,
       figmaToast,
       figmaExport,
+      toast,
+      showToast,
+      dismissToast,
     ],
   )
 
