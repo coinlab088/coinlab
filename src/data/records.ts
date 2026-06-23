@@ -1,4 +1,4 @@
-import type { WalletChain } from './wallet'
+import type { WalletNetwork } from './wallet'
 
 export type FundRecordType = 'deposit' | 'withdraw'
 export type FundRecordStatus = 'pending' | 'completed' | 'failed'
@@ -19,7 +19,7 @@ export interface FundRecord {
   id: string
   type: FundRecordType
   coin: string
-  chain: WalletChain
+  chain: WalletNetwork
   amount: number
   fee: number
   status: FundRecordStatus
@@ -31,6 +31,8 @@ export interface FundRecord {
 export const recordsCopy = {
   fundTitle: '充提记录',
   fundDetailTitle: '流水详情',
+  withdrawDetailTitle: '提现详情',
+  depositDetailTitle: '充值详情',
   ordersTitle: '现货订单',
   orderDetailTitle: '委托详情',
 } as const
@@ -64,13 +66,13 @@ export const mockFundRecords: FundRecord[] = [
     id: 'fund-003',
     type: 'withdraw',
     coin: 'USDT',
-    chain: 'BSC',
-    amount: 120,
-    fee: 1,
+    chain: 'BEP20',
+    amount: 20_000,
+    fee: 0.15,
     status: 'completed',
-    address: '0x8f3A2b1c9d4e5f6789012345678901234567890ab',
-    txHash: '0xc3d4e5f6789012345678901234567890abcdef1234',
-    createdAt: Date.now() - 86_400_000 * 8,
+    address: '0x7CB9c5dB4e5f6789012345678901234567890abcd',
+    txHash: '0xc3d4e5f6789012345678901234567890abcdef1234567890abcdef1234567890',
+    createdAt: new Date('2026-06-22T19:43:00').getTime(),
   },
   {
     id: 'fund-004',

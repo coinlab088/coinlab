@@ -135,6 +135,10 @@ export function DesignSystemDemoPage() {
             <SpecRow label="底栏高度" value={`${tokens.layout.tabBarHeight}px`} />
             <SpecRow label="最小触控" value={`${tokens.layout.minTouchTarget}×${tokens.layout.minTouchTarget} pt`} />
             <SpecRow label="间距网格" value="4px" />
+            <SpecRow label="屏幕边距" value={`${tokens.layout.screenPaddingX}px (layout-screen-x)`} />
+            <SpecRow label="内容顶距" value={`${tokens.layout.contentPaddingTop}px (layout-content-top)`} />
+            <SpecRow label="区块内距" value={`${tokens.layout.sectionPaddingY}px (layout-section-y)`} />
+            <SpecRow label="同组间距" value={`${tokens.layout.stackGap}px (layout-stack)`} />
             <SpecRow label="字体" value={`${tokens.typography.fontFamily.sans} / ${tokens.typography.fontFamily.mono}`} />
           </div>
         </Section>

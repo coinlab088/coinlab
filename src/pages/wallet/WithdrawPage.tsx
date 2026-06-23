@@ -1,16 +1,17 @@
 import { useMemo, useState } from 'react'
+import { CircleHelp, History } from 'lucide-react'
 import { AuthButton } from '../../components/auth/AuthButton'
 import { TextField } from '../../components/auth/TextField'
 import { CoinAvatar } from '../../components/CoinAvatar'
 import { getKycLabel } from '../../data/mock'
 import {
   calcWithdrawReceive,
-  getChainsForCoin,
+  getWithdrawChainsForCoin,
   walletAssets,
   walletCopy,
   withdrawFees,
-  type WalletChain,
   type WalletCoin,
+  type WalletNetwork,
 } from '../../data/wallet'
 import { formatTradeAmount, getAvailableBalance } from '../../data/trade'
 import { usePrototype } from '../../context/PrototypeContext'
@@ -24,12 +25,13 @@ export function WithdrawPage() {
     closeWallet,
     navigateWallet,
     setWithdrawDraft,
-    openComplianceRestriction,
+    openFundHistory,
+    openHelpCenter,
   } = usePrototype()
 
   const [coin, setCoin] = useState<WalletCoin>(walletScreen?.coin ?? 'USDT')
-  const chains = getChainsForCoin(coin)
-  const [chain, setChain] = useState<WalletChain>(chains[0])
+  const chains = getWithdrawChainsForCoin(coin)
+  const [chain, setChain] = useState<WalletNetwork>(chains[0])
   const [address, setAddress] = useState('')
   const [amount, setAmount] = useState('')
   const [loading, setLoading] = useState(false)
@@ -47,7 +49,7 @@ export function WithdrawPage() {
 
   function handleCoinChange(next: WalletCoin) {
     setCoin(next)
-    setChain(getChainsForCoin(next)[0])
+    setChain(getWithdrawChainsForCoin(next)[0])
     setAmount('')
     setError(undefined)
   }
@@ -95,8 +97,36 @@ export function WithdrawPage() {
     }, 300)
   }
 
+  const headerRight = (
+    <div className="flex items-center gap-0.5">
+      <button
+        type="button"
+        aria-label="帮助"
+        onClick={openHelpCenter}
+        className="flex h-9 w-9 items-center justify-center text-primary active:opacity-70"
+      >
+        <CircleHelp className="h-5 w-5" strokeWidth={1.5} />
+      </button>
+      <button
+        type="button"
+        aria-label="充提记录"
+        onClick={() => {
+          closeWallet()
+          openFundHistory()
+        }}
+        className="flex h-9 w-9 items-center justify-center text-primary active:opacity-70"
+      >
+        <History className="h-5 w-5" strokeWidth={1.5} />
+      </button>
+    </div>
+  )
+
   return (
-    <SubPageLayout title={walletCopy.withdrawTitle} onBack={closeWallet}>
+    <SubPageLayout
+      title={walletCopy.withdrawTitle}
+      onBack={closeWallet}
+      headerRight={headerRight}
+    >
       {user.kycStatus !== 'verified' && (
         <div className="mb-4 rounded-lg border border-brand/30 bg-brand-muted px-3 py-2.5 text-caption text-secondary">
           身份认证：{getKycLabel(user.kycStatus)}。完成 KYC 后可提币。
@@ -147,7 +177,7 @@ export function WithdrawPage() {
           label="提币地址"
           value={address}
           onChange={setAddress}
-          placeholder={`请输入 ${chain} 地址`}
+          placeholder="长按粘贴地址"
         />
         <TextField
           label="数量"
@@ -157,18 +187,23 @@ export function WithdrawPage() {
             setError(undefined)
           }}
           placeholder="0"
+          suffix={
+            <button
+              type="button"
+              onClick={() => setAmount(String(available))}
+              className="text-caption font-medium text-brand"
+            >
+              全部
+            </button>
+          }
         />
 
         <div className="mb-4 space-y-1 text-caption text-secondary">
           <div className="flex justify-between">
             <span>可用</span>
-            <button
-              type="button"
-              onClick={() => setAmount(String(available))}
-              className="tabular-nums text-brand"
-            >
+            <span className="tabular-nums text-brand">
               {formatTradeAmount(available, coin)} {coin}
-            </button>
+            </span>
           </div>
           <div className="flex justify-between">
             <span>网络手续费</span>
@@ -196,14 +231,6 @@ export function WithdrawPage() {
           提币
         </AuthButton>
       </form>
-
-      <button
-        type="button"
-        onClick={() => openComplianceRestriction({ module: 'withdraw' })}
-        className="mt-4 w-full text-center text-caption text-secondary underline"
-      >
-        查看地区合规说明
-      </button>
     </SubPageLayout>
   )
 }

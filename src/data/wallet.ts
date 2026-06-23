@@ -1,5 +1,5 @@
 export type WalletCoin = 'USDT' | 'BNB' | 'TRX'
-export type WalletChain = 'BSC' | 'TRC20'
+export type WalletNetwork = 'BSC' | 'TRC20' | 'BEP20' | 'ERC20' | 'SOL' | 'TON'
 
 export type WalletScreenName =
   | 'deposit'
@@ -12,12 +12,12 @@ export type WalletScreenName =
 export interface WalletScreenState {
   screen: WalletScreenName
   coin?: WalletCoin
-  chain?: WalletChain
+  chain?: WalletNetwork
 }
 
 export interface WithdrawDraft {
   coin: WalletCoin
-  chain: WalletChain
+  chain: WalletNetwork
   address: string
   amount: number
   fee: number
@@ -27,20 +27,93 @@ export interface WithdrawDraft {
 export interface WalletAsset {
   id: string
   symbol: WalletCoin
-  chains: WalletChain[]
+  withdrawChains: WalletNetwork[]
+}
+
+export interface DepositNetworkMeta {
+  id: WalletNetwork
+  label: string
+  blockConfirmations: number
+  minDeposit: string
+  arrivalMinutes: number
+  contractAddress?: string
 }
 
 export const walletAssets: WalletAsset[] = [
-  { id: 'usdt', symbol: 'USDT', chains: ['BSC', 'TRC20'] },
-  { id: 'bnb', symbol: 'BNB', chains: ['BSC'] },
-  { id: 'trx', symbol: 'TRX', chains: ['TRC20'] },
+  { id: 'usdt', symbol: 'USDT', withdrawChains: ['BSC', 'TRC20'] },
+  { id: 'bnb', symbol: 'BNB', withdrawChains: ['BSC'] },
+  { id: 'trx', symbol: 'TRX', withdrawChains: ['TRC20'] },
 ]
 
 const depositAddresses: Record<string, string> = {
-  'USDT-BSC': '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb1',
-  'USDT-TRC20': 'TXk3yP9n8vL2mR4qW6sH1jF5cD7bA9eG0x',
-  'BNB-BSC': '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb1',
+  'USDT-TRC20': 'TWkiCUbq191nxF5aRbVN9EqvDVPJLdPpZS',
+  'USDT-BEP20': '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb1',
+  'USDT-ERC20': '0x8f3A2b1c9d4e5f6789012345678901234567890ab',
+  'USDT-SOL': '7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU',
+  'USDT-TON': 'EQD0vdSA_NedR9uvbgN9EikRX-suesDxGeFg69XQMavfLqIw',
+  'BNB-BEP20': '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb1',
   'TRX-TRC20': 'TXk3yP9n8vL2mR4qW6sH1jF5cD7bA9eG0x',
+}
+
+const depositNetworkMeta: Record<WalletCoin, DepositNetworkMeta[]> = {
+  USDT: [
+    {
+      id: 'TRC20',
+      label: 'TRC20 (Tron)',
+      blockConfirmations: 3,
+      minDeposit: '0.01 USDT',
+      arrivalMinutes: 1,
+      contractAddress: '****jLj6t',
+    },
+    {
+      id: 'BEP20',
+      label: 'BEP20 (Binance Smart Chain)',
+      blockConfirmations: 15,
+      minDeposit: '0.01 USDT',
+      arrivalMinutes: 1,
+      contractAddress: '****9aE2',
+    },
+    {
+      id: 'ERC20',
+      label: 'ERC20 (Ethereum)',
+      blockConfirmations: 12,
+      minDeposit: '0.01 USDT',
+      arrivalMinutes: 1,
+      contractAddress: '****dAC17',
+    },
+    {
+      id: 'SOL',
+      label: 'SOL (Solana)',
+      blockConfirmations: 5,
+      minDeposit: '0.01 USDT',
+      arrivalMinutes: 2,
+    },
+    {
+      id: 'TON',
+      label: 'TON (The Open Network)',
+      blockConfirmations: 10,
+      minDeposit: '0.01 USDT',
+      arrivalMinutes: 1,
+    },
+  ],
+  BNB: [
+    {
+      id: 'BEP20',
+      label: 'BEP20 (Binance Smart Chain)',
+      blockConfirmations: 15,
+      minDeposit: '0.01 BNB',
+      arrivalMinutes: 1,
+    },
+  ],
+  TRX: [
+    {
+      id: 'TRC20',
+      label: 'TRC20 (Tron)',
+      blockConfirmations: 3,
+      minDeposit: '20 TRX',
+      arrivalMinutes: 1,
+    },
+  ],
 }
 
 export const withdrawFees: Record<WalletCoin, number> = {
@@ -58,16 +131,51 @@ export const walletCopy = {
   withdrawSuccessTitle: '提币申请已提交',
 } as const
 
-export function depositKey(coin: WalletCoin, chain: WalletChain): string {
+export function depositKey(coin: WalletCoin, chain: WalletNetwork): string {
   return `${coin}-${chain}`
 }
 
-export function getDepositAddress(coin: WalletCoin, chain: WalletChain): string {
-  return depositAddresses[`${coin}-${chain}`] ?? ''
+export function getDepositAddress(coin: WalletCoin, chain: WalletNetwork): string {
+  return depositAddresses[depositKey(coin, chain)] ?? ''
 }
 
-export function getChainsForCoin(coin: WalletCoin): WalletChain[] {
-  return walletAssets.find((a) => a.symbol === coin)?.chains ?? []
+export function getWithdrawChainsForCoin(coin: WalletCoin): WalletNetwork[] {
+  return walletAssets.find((a) => a.symbol === coin)?.withdrawChains ?? []
+}
+
+/** @deprecated use getWithdrawChainsForCoin */
+export function getChainsForCoin(coin: WalletCoin): WalletNetwork[] {
+  return getWithdrawChainsForCoin(coin)
+}
+
+export function getDepositNetworksForCoin(coin: WalletCoin): DepositNetworkMeta[] {
+  return depositNetworkMeta[coin] ?? []
+}
+
+export function getDepositNetworkMeta(
+  coin: WalletCoin,
+  chain: WalletNetwork,
+): DepositNetworkMeta | undefined {
+  return getDepositNetworksForCoin(coin).find((item) => item.id === chain)
+}
+
+export function formatNetworkLabel(chain: WalletNetwork): string {
+  switch (chain) {
+    case 'BSC':
+      return 'BSC(BEP20)'
+    case 'BEP20':
+      return 'BEP20 (Binance Smart Chain)'
+    case 'TRC20':
+      return 'TRC20 (Tron)'
+    case 'ERC20':
+      return 'ERC20 (Ethereum)'
+    case 'SOL':
+      return 'SOL (Solana)'
+    case 'TON':
+      return 'TON (The Open Network)'
+    default:
+      return chain
+  }
 }
 
 export function calcWithdrawReceive(amount: number, coin: WalletCoin): {
@@ -80,6 +188,4 @@ export function calcWithdrawReceive(amount: number, coin: WalletCoin): {
 
 export const depositWarnings = [
   '请勿向上述地址充值任何非对应网络的资产，否则资产将不可找回',
-  '充币到账时间取决于区块链网络确认速度',
-  '最小充币金额以页面显示为准',
 ] as const

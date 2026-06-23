@@ -15,7 +15,7 @@ export function BalanceHero({ portfolio, user }: BalanceHeroProps) {
   const isPositive = portfolio.pnl24hPercent >= 0
 
   return (
-    <section className="px-4 pt-5 pb-4">
+    <section className="layout-screen-x pb-4 pt-5">
       <div className="mb-1 flex items-center gap-1.5">
         <span className="text-body-sm text-secondary">总资产 (USD)</span>
         <button

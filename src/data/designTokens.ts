@@ -10,6 +10,13 @@ export const designTokens = {
     headerHeight: 48,
     tabBarHeight: 56,
     minTouchTarget: 44,
+    screenPaddingX: 16,
+    contentPaddingTop: 16,
+    sectionPaddingY: 16,
+    sectionPaddingYSm: 12,
+    stackGap: 12,
+    stackGapSm: 8,
+    sectionGapLg: 20,
   },
   radius: { sm: 6, md: 10, lg: 12, xl: 16, phone: 16 },
   overlay: {

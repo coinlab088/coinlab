@@ -8,7 +8,7 @@ export function DepositFetchingPage() {
   const { walletScreen, activateDeposit, navigateWallet, figmaExport } = usePrototype()
 
   const coin = walletScreen?.coin ?? 'USDT'
-  const chain = walletScreen?.chain ?? 'BSC'
+  const chain = walletScreen?.chain ?? 'TRC20'
 
   useEffect(() => {
     if (figmaExport) return

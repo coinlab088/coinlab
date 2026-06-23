@@ -72,6 +72,20 @@ export default {
       spacing: {
         'tab-bar': '56px',
         header: '48px',
+        /** 屏幕左右边距 — 16px，对应 layout-screen-x / px-4 */
+        gutter: '16px',
+        /** 主内容区顶部留白 — 16px */
+        content: '16px',
+        /** 页面区块上下内边距 — 16px */
+        section: '16px',
+        /** 紧凑区块上下内边距 — 12px */
+        'section-sm': '12px',
+        /** 同组元素纵向间距 — 12px */
+        stack: '12px',
+        /** 紧密纵向间距 — 8px */
+        'stack-sm': '8px',
+        /** 大区块间距 — 20px */
+        'section-lg': '20px',
       },
       maxWidth: {
         mobile: '390px',

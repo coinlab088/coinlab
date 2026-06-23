@@ -5,6 +5,7 @@ interface SubPageLayoutProps {
   title: string
   onBack?: () => void
   hideBack?: boolean
+  headerRight?: ReactNode
   children: ReactNode
   footer?: ReactNode
 }
@@ -13,6 +14,7 @@ export function SubPageLayout({
   title,
   onBack,
   hideBack = false,
+  headerRight,
   children,
   footer,
 }: SubPageLayoutProps) {
@@ -31,10 +33,17 @@ export function SubPageLayout({
         ) : (
           <span className="h-11 w-11" />
         )}
-        <h1 className="flex-1 pr-11 text-center text-h3 text-primary">{title}</h1>
+        <h1 className="flex-1 truncate text-center text-h3 text-primary">
+          {title}
+        </h1>
+        {headerRight ? (
+          <div className="flex h-11 shrink-0 items-center justify-end">{headerRight}</div>
+        ) : (
+          <span className="h-11 w-11" />
+        )}
       </header>
 
-      <main className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pt-2">
+      <main className="layout-screen-x layout-content-top min-h-0 flex-1 overflow-y-auto overscroll-contain">
         {children}
       </main>
 

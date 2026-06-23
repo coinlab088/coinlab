@@ -55,19 +55,20 @@ export function MarketPage() {
       )}
 
       {isLoggedIn && (
-        <div className="border-b border-border-subtle">
+        <div className="layout-section-divider">
           <QuickActions actions={marketQuickActions} />
         </div>
       )}
 
-      <Annotatable id="market-search">
-        <MarketSearchBar value={query} onChange={setQuery} />
-      </Annotatable>
+      <div className="layout-screen-x layout-content-top layout-stack layout-section-divider pb-3">
+        <Annotatable id="market-search">
+          <MarketSearchBar value={query} onChange={setQuery} />
+        </Annotatable>
+        <MarketTabs tabs={marketTabs} active={marketTab} onChange={setMarketTab} />
+      </div>
 
-      <MarketTabs tabs={marketTabs} active={marketTab} onChange={setMarketTab} />
-
-      <div className="flex items-center justify-between border-b border-border-subtle px-3">
-        <span className="relative py-2 text-caption font-medium text-primary">
+      <div className="layout-screen-x layout-section-divider">
+        <span className="relative inline-block py-3 text-caption font-medium text-primary">
           现货
           <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand" />
         </span>

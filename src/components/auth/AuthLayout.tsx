@@ -23,7 +23,7 @@ export function AuthLayout({ title, onBack, children, footer }: AuthLayoutProps)
         <h1 className="flex-1 pr-11 text-center text-h3 text-primary">{title}</h1>
       </header>
 
-      <main className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pt-2">
+      <main className="layout-screen-x layout-content-top min-h-0 flex-1 overflow-y-auto overscroll-contain">
         {children}
       </main>
 

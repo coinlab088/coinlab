@@ -28,9 +28,9 @@ import { mockFundRecords } from '../data/records'
 import type { SupportScreenState } from '../data/support'
 import {
   depositKey,
-  getChainsForCoin,
-  type WalletChain,
+  getDepositNetworksForCoin,
   type WalletCoin,
+  type WalletNetwork,
   type WalletScreenState,
   type WithdrawDraft,
 } from '../data/wallet'
@@ -97,8 +97,8 @@ interface PrototypeContextValue {
   navigateWallet: (screen: WalletScreenState) => void
   setWithdrawDraft: (draft: WithdrawDraft | null) => void
   activatedDepositKeys: string[]
-  isDepositActivated: (coin: WalletCoin, chain: WalletChain) => boolean
-  activateDeposit: (coin: WalletCoin, chain: WalletChain) => void
+  isDepositActivated: (coin: WalletCoin, chain: WalletNetwork) => boolean
+  activateDeposit: (coin: WalletCoin, chain: WalletNetwork) => void
   supportScreen: SupportScreenState | null
   openHelpCenter: () => void
   openSupportCenter: () => void
@@ -443,8 +443,8 @@ export function PrototypeProvider({
       }
 
       const coin = options?.coin ?? 'USDT'
-      const chains = getChainsForCoin(coin)
-      const chain = chains[0]
+      const networks = getDepositNetworksForCoin(coin)
+      const chain = networks[0]?.id ?? 'TRC20'
 
       setWalletScreen(
         activatedDepositKeys.includes(depositKey(coin, chain))
@@ -465,12 +465,12 @@ export function PrototypeProvider({
   }, [])
 
   const isDepositActivated = useCallback(
-    (coin: WalletCoin, chain: WalletChain) =>
+    (coin: WalletCoin, chain: WalletNetwork) =>
       activatedDepositKeys.includes(depositKey(coin, chain)),
     [activatedDepositKeys],
   )
 
-  const activateDeposit = useCallback((coin: WalletCoin, chain: WalletChain) => {
+  const activateDeposit = useCallback((coin: WalletCoin, chain: WalletNetwork) => {
     const key = depositKey(coin, chain)
     setActivatedDepositKeys((prev) =>
       prev.includes(key) ? prev : [...prev, key],

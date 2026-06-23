@@ -13,7 +13,7 @@ export function MarketListItem({ pair }: MarketListItemProps) {
   const isPositive = pair.change24h >= 0
 
   return (
-    <div className="flex w-full items-center gap-1 px-3 py-2.5">
+    <div className="layout-screen-x flex w-full items-center gap-1 py-2.5">
       <button
         type="button"
         onClick={() => openTrade(pair.id)}

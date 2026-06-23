@@ -24,7 +24,7 @@ export function QuickActions({ actions }: QuickActionsProps) {
   return (
     <nav
       aria-label="快捷操作"
-      className="grid grid-cols-4 gap-2 px-4 pb-4 pt-1"
+      className="layout-screen-x layout-section-y grid grid-cols-4 gap-2"
     >
       {actions.map((action) => {
         const Icon = iconMap[action.id]

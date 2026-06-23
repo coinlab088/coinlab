@@ -380,12 +380,12 @@ const recordsScreens: FigmaScreenEntry[] = [
   },
   {
     path: 'records/fund-detail',
-    label: '流水详情',
+    label: '提现详情',
     group: 'records',
     preset: app({
       isLoggedIn: true,
       activeTab: 'assets',
-      recordsScreen: { screen: 'fund-detail', fundId: 'fund-001' },
+      recordsScreen: { screen: 'fund-detail', fundId: 'fund-003' },
     }),
   },
   {

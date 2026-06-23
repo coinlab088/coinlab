@@ -8,7 +8,7 @@ interface MarketTabsProps {
 
 export function MarketTabs({ tabs, active, onChange }: MarketTabsProps) {
   return (
-    <div className="flex gap-5 border-b border-border-subtle px-4">
+    <div className="flex gap-5">
       {tabs.map((tab) => {
         const isActive = tab.id === active
         return (
@@ -16,7 +16,7 @@ export function MarketTabs({ tabs, active, onChange }: MarketTabsProps) {
             key={tab.id}
             type="button"
             onClick={() => onChange(tab.id)}
-            className={`relative pb-2.5 text-body-sm font-medium transition-colors duration-200 active:opacity-70 ${
+            className={`relative pb-3 text-body-sm font-medium transition-colors duration-200 active:opacity-70 ${
               isActive ? 'text-primary' : 'text-secondary'
             }`}
           >

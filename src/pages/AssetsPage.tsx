@@ -34,29 +34,31 @@ export function AssetsPage() {
     <AppLayout>
       <BalanceHero portfolio={portfolioSummary} user={user} />
 
-      <div className="flex gap-3 px-4 pb-2">
-        <button
-          type="button"
-          onClick={() => openWallet('deposit')}
-          className="h-10 flex-1 rounded-md bg-brand text-body-sm font-semibold text-brand-dark active:bg-brand-hover"
-        >
-          充币
-        </button>
-        <button
-          type="button"
-          onClick={() => openWallet('withdraw')}
-          className="h-10 flex-1 rounded-md border border-border text-body-sm font-medium text-primary active:bg-elevated"
-        >
-          提币
-        </button>
+      <div className="layout-screen-x space-y-4">
+        <div className="flex gap-3">
+          <button
+            type="button"
+            onClick={() => openWallet('deposit')}
+            className="h-11 flex-1 rounded-md bg-brand text-body-sm font-semibold text-brand-dark active:bg-brand-hover"
+          >
+            充币
+          </button>
+          <button
+            type="button"
+            onClick={() => openWallet('withdraw')}
+            className="h-11 flex-1 rounded-md border border-border text-body-sm font-medium text-primary active:bg-elevated"
+          >
+            提币
+          </button>
+        </div>
+
+        <div className="divide-y divide-border-subtle overflow-hidden rounded-lg border border-border-subtle bg-elevated">
+          <RecordLink label="充提记录" onClick={openFundHistory} />
+          <RecordLink label="订单明细" onClick={openOrderHistory} />
+        </div>
       </div>
 
-      <div className="mx-4 mb-4 divide-y divide-border-subtle rounded-lg border border-border-subtle bg-elevated">
-        <RecordLink label="充提记录" onClick={openFundHistory} />
-        <RecordLink label="订单明细" onClick={openOrderHistory} />
-      </div>
-
-      <div className="px-4 pt-2">
+      <section className="layout-screen-x mt-5 pb-4">
         <h2 className="mb-3 text-body-sm font-medium text-secondary">我的资产</h2>
         <ul className="divide-y divide-border-subtle">
           {coinBalances.map((coin) => {
@@ -108,7 +110,7 @@ export function AssetsPage() {
             )
           })}
         </ul>
-      </div>
+      </section>
     </AppLayout>
   )
 }
@@ -124,7 +126,7 @@ function RecordLink({
     <button
       type="button"
       onClick={onClick}
-      className="flex w-full items-center justify-between px-4 py-3.5 text-left active:bg-sunken"
+      className="flex min-h-11 w-full items-center justify-between px-4 text-left active:bg-sunken"
     >
       <span className="text-body-sm text-primary">{label}</span>
       <ChevronRight className="h-4 w-4 text-secondary" />

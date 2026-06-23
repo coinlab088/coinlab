@@ -134,6 +134,36 @@
 }
 
 @layer components {
+  /** 屏幕水平边距（16px）— 列表、表单、工具栏统一使用 */
+  .layout-screen-x {
+    @apply px-4;
+  }
+
+  /** 主内容区顶部留白（16px） */
+  .layout-content-top {
+    @apply pt-4;
+  }
+
+  /** 页面区块标准上下内边距（16px） */
+  .layout-section-y {
+    @apply py-4;
+  }
+
+  /** 紧凑区块上下内边距（12px） */
+  .layout-section-y-sm {
+    @apply py-3;
+  }
+
+  /** 同组纵向元素间距（12px），用于搜索+Tab 等工具栏组合 */
+  .layout-stack {
+    @apply flex flex-col gap-3;
+  }
+
+  /** 区块底部分割线 */
+  .layout-section-divider {
+    @apply border-b border-border-subtle;
+  }
+
   .ds-prose {
     @apply text-body-sm leading-relaxed text-primary;
   }

@@ -66,11 +66,9 @@ export function PcMarketPage() {
           </aside>
 
           <section className="min-w-0 rounded-xl border border-border-subtle bg-elevated">
-            <div className="border-b border-border-subtle p-4">
+            <div className="layout-section-divider layout-screen-x layout-section-y layout-stack pb-3">
               <MarketSearchBar value={query} onChange={setQuery} />
-              <div className="mt-3">
-                <MarketTabs tabs={marketTabs} active={marketTab} onChange={setMarketTab} />
-              </div>
+              <MarketTabs tabs={marketTabs} active={marketTab} onChange={setMarketTab} />
             </div>
 
             {marketTab === 'favorites' ? (

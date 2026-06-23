@@ -1,61 +1,188 @@
-import { depositWarnings, getDepositAddress, walletCopy } from '../../data/wallet'
+import { useState } from 'react'
+import { ArrowLeftRight, CircleHelp, History } from 'lucide-react'
+import { AuthButton } from '../../components/auth/AuthButton'
+import { CoinAvatar } from '../../components/CoinAvatar'
+import {
+  depositWarnings,
+  getDepositAddress,
+  getDepositNetworkMeta,
+  getDepositNetworksForCoin,
+  type WalletNetwork,
+} from '../../data/wallet'
 import { usePrototype } from '../../context/PrototypeContext'
 import { SubPageLayout } from '../../components/account/SubPageLayout'
 import { Annotatable } from '../../components/inspect/Annotatable'
-import { CopyField } from '../../components/common/CopyButton'
+import { CopyButton } from '../../components/common/CopyButton'
+import { BottomSheet } from '../../components/sheets/BottomSheet'
 
 export function DepositAddressPage() {
-  const { walletScreen, navigateWallet, closeWallet } = usePrototype()
+  const {
+    walletScreen,
+    closeWallet,
+    navigateWallet,
+    openFundHistory,
+    openHelpCenter,
+    showToast,
+  } = usePrototype()
 
   const coin = walletScreen?.coin ?? 'USDT'
-  const chain = walletScreen?.chain ?? 'BSC'
+  const chain = walletScreen?.chain ?? 'TRC20'
   const address = getDepositAddress(coin, chain)
+  const networkMeta = getDepositNetworkMeta(coin, chain)
+  const networks = getDepositNetworksForCoin(coin)
+  const [networkSheetOpen, setNetworkSheetOpen] = useState(false)
 
   function handleBack() {
-    closeWallet()
-  }
-
-  function handleSwitchCoin() {
     navigateWallet({ screen: 'deposit', coin, chain })
   }
 
+  function handleNetworkSelect(next: WalletNetwork) {
+    setNetworkSheetOpen(false)
+    navigateWallet({ screen: 'deposit-address', coin, chain: next })
+  }
+
+  function handleSaveOrShare() {
+    showToast('地址已保存')
+  }
+
+  const headerRight = (
+    <div className="flex items-center gap-0.5">
+      <button
+        type="button"
+        aria-label="帮助"
+        onClick={openHelpCenter}
+        className="flex h-9 w-9 items-center justify-center text-primary active:opacity-70"
+      >
+        <CircleHelp className="h-5 w-5" strokeWidth={1.5} />
+      </button>
+      <button
+        type="button"
+        aria-label="充提记录"
+        onClick={() => {
+          closeWallet()
+          openFundHistory()
+        }}
+        className="flex h-9 w-9 items-center justify-center text-primary active:opacity-70"
+      >
+        <History className="h-5 w-5" strokeWidth={1.5} />
+      </button>
+    </div>
+  )
+
   return (
-    <SubPageLayout title={walletCopy.depositAddressTitle} onBack={handleBack}>
-      <div className="mb-4 flex items-center justify-between">
-        <div>
-          <p className="text-body font-semibold text-primary">{coin}</p>
-          <p className="text-caption text-secondary">{chain} 网络</p>
+    <SubPageLayout
+      title={`充值 ${coin}`}
+      onBack={handleBack}
+      headerRight={headerRight}
+      footer={
+        <>
+          <p className="mb-3 text-center text-caption text-secondary">
+            * {depositWarnings[0]}
+          </p>
+          <AuthButton onClick={handleSaveOrShare}>保存或分享地址</AuthButton>
+        </>
+      }
+    >
+      <div className="mb-5 flex justify-center">
+        <div className="relative flex h-44 w-44 items-center justify-center rounded-xl border border-border-subtle bg-elevated">
+          <div className="grid h-36 w-36 grid-cols-8 grid-rows-8 gap-0.5 opacity-80">
+            {Array.from({ length: 64 }).map((_, i) => (
+              <span
+                key={i}
+                className={`block rounded-[1px] ${
+                  (i + chain.length) % 3 === 0 ? 'bg-primary' : 'bg-transparent'
+                }`}
+              />
+            ))}
+          </div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <CoinAvatar symbol={coin} size={40} />
+          </div>
         </div>
+      </div>
+
+      <div className="mb-3 rounded-lg border border-border-subtle bg-elevated px-4 py-3">
         <button
           type="button"
-          onClick={handleSwitchCoin}
-          className="rounded-full border border-border px-2.5 py-1 text-caption font-medium text-brand"
+          onClick={() => setNetworkSheetOpen(true)}
+          className="flex w-full items-start justify-between gap-3 text-left"
         >
-          切换币种
+          <div className="min-w-0 flex-1">
+            <p className="text-caption text-secondary">网络</p>
+            <p className="mt-0.5 text-body-sm font-medium text-primary">
+              {networkMeta?.label ?? chain}
+            </p>
+            {networkMeta?.contractAddress && (
+              <p className="mt-1 text-caption text-secondary">
+                合约地址 {networkMeta.contractAddress}
+              </p>
+            )}
+          </div>
+          <ArrowLeftRight className="mt-1 h-5 w-5 shrink-0 text-secondary" strokeWidth={1.5} />
         </button>
       </div>
 
-      <div className="mb-4 flex justify-center">
-        <div className="flex h-40 w-40 items-center justify-center rounded-lg border border-dashed border-border bg-sunken text-caption text-secondary">
-          二维码占位
-        </div>
-      </div>
-
       <Annotatable id="deposit-address">
-        <CopyField label="充币地址" value={address} />
+        <div className="rounded-lg border border-border-subtle bg-elevated px-4 py-3">
+          <p className="text-body-sm font-medium text-primary">充值地址</p>
+          <p className="mt-2 break-all text-body-sm leading-relaxed text-primary">
+            {address}
+          </p>
+          <div className="mt-3 flex justify-end">
+            <CopyButton
+              value={address}
+              className="rounded-md bg-brand px-4 py-2 text-body-sm font-semibold text-brand-dark"
+            />
+          </div>
+        </div>
       </Annotatable>
 
-      <ul className="mt-4 space-y-2">
-        {depositWarnings.map((tip) => (
-          <li key={tip} className="text-caption leading-relaxed text-secondary">
-            · {tip}
-          </li>
-        ))}
-      </ul>
+      <div className="mt-4 space-y-3 border-t border-border-subtle pt-4 text-body-sm">
+        <DetailRow label="最小充值" value={networkMeta?.minDeposit ?? '—'} />
+        <DetailRow
+          label="充值确认"
+          value={`${networkMeta?.blockConfirmations ?? '—'}次网络确认`}
+        />
+        <DetailRow
+          label="提现解锁"
+          value={`${networkMeta?.blockConfirmations ?? '—'}次网络确认`}
+        />
+      </div>
 
-      <p className="mt-4 text-center text-caption text-primary-muted">
-        最小充币：{coin === 'USDT' ? '10 USDT' : coin === 'BNB' ? '0.01 BNB' : '20 TRX'}
-      </p>
+      <BottomSheet
+        title="选择网络"
+        open={networkSheetOpen}
+        onClose={() => setNetworkSheetOpen(false)}
+      >
+        <div className="max-h-[60vh] space-y-2 overflow-y-auto">
+          {networks.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => handleNetworkSelect(item.id)}
+              className={`w-full rounded-lg border px-4 py-3 text-left active:opacity-80 ${
+                chain === item.id
+                  ? 'border-brand bg-brand-muted'
+                  : 'border-border-subtle bg-sunken'
+              }`}
+            >
+              <p className="text-body-sm font-medium text-primary">{item.label}</p>
+              <p className="mt-1 text-caption leading-relaxed text-secondary">
+                {item.blockConfirmations} 次区块确认 · 最小充值 {item.minDeposit}
+              </p>
+            </button>
+          ))}
+        </div>
+      </BottomSheet>
     </SubPageLayout>
+  )
+}
+
+function DetailRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex items-center justify-between gap-4">
+      <span className="text-secondary">{label}</span>
+      <span className="text-right text-primary">{value}</span>
+    </div>
   )
 }
