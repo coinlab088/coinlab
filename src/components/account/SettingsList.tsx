@@ -24,6 +24,7 @@ export function SettingsGroup({ title, children }: SettingsGroupProps) {
 interface SettingsRowProps {
   label: string
   value?: string
+  valueClassName?: string
   hint?: string
   danger?: boolean
   showChevron?: boolean
@@ -33,6 +34,7 @@ interface SettingsRowProps {
 export function SettingsRow({
   label,
   value,
+  valueClassName,
   hint,
   danger,
   showChevron = true,
@@ -62,7 +64,11 @@ export function SettingsRow({
       </div>
       <div className="flex shrink-0 items-center gap-1">
         {value && (
-          <span className="max-w-[140px] truncate text-body-sm text-secondary">
+          <span
+            className={`max-w-[140px] truncate text-body-sm ${
+              valueClassName ?? 'text-secondary'
+            }`}
+          >
             {value}
           </span>
         )}

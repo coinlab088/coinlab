@@ -4,6 +4,7 @@ import { accountCopy, kycProviderCopy } from '../../data/account'
 import { getKycLabel } from '../../data/mock'
 import { usePrototype } from '../../context/PrototypeContext'
 import { SubPageLayout } from '../../components/account/SubPageLayout'
+import { KycStatusBanner } from '../../components/account/KycStatusBanner'
 
 function KycStatusIcon({
   status,
@@ -77,10 +78,17 @@ export function KycPage() {
         </>
       )}
 
+      {user.kycStatus === 'verified' && (
+        <KycStatusBanner status="verified" />
+      )}
+
       {user.kycStatus === 'pending' && (
-        <div className="rounded-lg border border-brand/30 bg-brand-muted px-4 py-3 text-body-sm text-secondary">
-          Sumsub 审核期间您可正常交易与充币，提币功能将在认证通过后开放。
-        </div>
+        <>
+          <KycStatusBanner status="pending" className="mb-3" />
+          <p className="text-body-sm text-secondary">
+            Sumsub 审核期间您可正常交易与充币，提币功能将在认证通过后开放。
+          </p>
+        </>
       )}
     </SubPageLayout>
   )

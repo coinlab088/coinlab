@@ -172,3 +172,41 @@ export function getKycLabel(status: KycStatus): string {
       return '未认证'
   }
 }
+
+export function getKycBannerClassName(status: KycStatus): string {
+  switch (status) {
+    case 'verified':
+      return 'border-success/30 bg-success-bg'
+    case 'pending':
+      return 'border-brand/30 bg-brand-muted'
+    default:
+      return 'border-brand/30 bg-brand-muted'
+  }
+}
+
+export function getKycValueClassName(status: KycStatus): string {
+  switch (status) {
+    case 'verified':
+      return 'text-success'
+    case 'pending':
+      return 'text-brand'
+    default:
+      return 'text-secondary'
+  }
+}
+
+export function getKycBannerMessage(
+  status: KycStatus,
+  scene: 'withdraw' | 'account' = 'account',
+): string {
+  switch (status) {
+    case 'verified':
+      return scene === 'withdraw'
+        ? '身份认证：已认证。您可正常提币。'
+        : '身份认证：已认证。账户功能已全部解锁。'
+    case 'pending':
+      return '身份认证：审核中。完成 KYC 后可提币。'
+    default:
+      return '身份认证：未认证。完成 KYC 后可提币。'
+  }
+}

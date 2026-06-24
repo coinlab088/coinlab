@@ -5,20 +5,35 @@ interface CoinNovaLogoProps {
   className?: string
   /** Pass app theme for homepage / in-app branding; omit for default yellow-black */
   theme?: AppTheme | null
+  /** White tile background — for light share cards and exports */
+  variant?: 'default' | 'white-bg'
 }
 
 export function CoinNovaLogo({
   size = 96,
   className = '',
   theme = null,
+  variant = 'default',
 }: CoinNovaLogoProps) {
   const isLight = theme === 'green-white'
   const themed = theme !== null
+  const onWhiteBg = variant === 'white-bg'
 
-  const accent = themed ? 'var(--color-logo-accent)' : '#FFCC00'
-  const bg = themed && !isLight ? 'var(--color-logo-bg)' : '#0A0A0A'
-  const coreInk = isLight ? '#ffffff' : themed ? 'var(--color-brand-dark)' : '#0A0A0A'
-  const rayInk = isLight ? accent : coreInk
+  const accent = onWhiteBg ? '#FFCC00' : themed ? 'var(--color-logo-accent)' : '#FFCC00'
+  const bg = onWhiteBg
+    ? '#FFFFFF'
+    : themed && !isLight
+      ? 'var(--color-logo-bg)'
+      : '#0A0A0A'
+  const coreInk = onWhiteBg
+    ? '#0A0A0A'
+    : isLight
+      ? '#ffffff'
+      : themed
+        ? 'var(--color-brand-dark)'
+        : '#0A0A0A'
+  const rayInk = onWhiteBg ? '#0A0A0A' : isLight ? accent : coreInk
+  const showTile = onWhiteBg || !isLight
 
   return (
     <svg
@@ -31,7 +46,16 @@ export function CoinNovaLogo({
       aria-label="CoinNova"
       role="img"
     >
-      {!isLight && <rect width="96" height="96" rx="22" fill={bg} />}
+      {showTile && (
+        <rect
+          width="96"
+          height="96"
+          rx="22"
+          fill={bg}
+          stroke={onWhiteBg ? '#E4E4E7' : undefined}
+          strokeWidth={onWhiteBg ? 1 : undefined}
+        />
+      )}
 
       <circle
         cx="48"
@@ -67,7 +91,7 @@ export function CoinNovaLogo({
       />
 
       <circle cx="67" cy="33" r="4.5" fill={accent} />
-      {!isLight && (
+      {showTile && !onWhiteBg && (
         <circle
           cx="67"
           cy="33"

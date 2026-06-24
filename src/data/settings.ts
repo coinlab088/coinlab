@@ -19,9 +19,12 @@ export interface HelpLink {
 }
 
 export const locales: LocaleOption[] = [
-  { id: 'zh-CN', label: '简体中文', short: '中文' },
-  { id: 'zh-TW', label: '繁體中文', short: '繁中' },
   { id: 'en-US', label: 'English', short: 'EN' },
+  { id: 'zh-TW', label: '繁體中文', short: '繁中' },
+  { id: 'ja-JP', label: '日本語', short: 'JP' },
+  { id: 'ko-KR', label: '한국어', short: 'KR' },
+  { id: 'vi-VN', label: 'Tiếng Việt', short: 'VN' },
+  { id: 'zh-CN', label: '简体中文', short: '中文' },
 ]
 
 export const fiatCurrencies: FiatOption[] = [

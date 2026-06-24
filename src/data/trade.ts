@@ -452,6 +452,20 @@ export function unfreezeLimitOrder(
   return next
 }
 
+export const orderBookDepthOptions = ['0.0001', '0.001', '0.01', '0.1'] as const
+export type OrderBookDepth = (typeof orderBookDepthOptions)[number]
+
+export function formatOrderBookPrice(
+  price: number,
+  depth: OrderBookDepth,
+): string {
+  const step = Number(depth)
+  const decimals =
+    depth === '0.0001' ? 4 : depth === '0.001' ? 3 : depth === '0.01' ? 2 : 1
+  const rounded = Math.round(price / step) * step
+  return rounded.toFixed(decimals)
+}
+
 export const tradeCopy = {
   buy: '买入',
   sell: '卖出',
@@ -461,4 +475,5 @@ export const tradeCopy = {
   assets: '资产',
   confirmTitle: '确认下单',
   placeOrder: '下单',
+  orderBookDepthTitle: '委托表展示深度',
 } as const

@@ -14,6 +14,7 @@ import { SubPageLayout } from '../../components/account/SubPageLayout'
 import { Annotatable } from '../../components/inspect/Annotatable'
 import { CopyButton } from '../../components/common/CopyButton'
 import { BottomSheet } from '../../components/sheets/BottomSheet'
+import { DepositShareSheet } from '../../components/wallet/DepositShareSheet'
 
 export function DepositAddressPage() {
   const {
@@ -31,6 +32,7 @@ export function DepositAddressPage() {
   const networkMeta = getDepositNetworkMeta(coin, chain)
   const networks = getDepositNetworksForCoin(coin)
   const [networkSheetOpen, setNetworkSheetOpen] = useState(false)
+  const [shareSheetOpen, setShareSheetOpen] = useState(false)
 
   function handleBack() {
     navigateWallet({ screen: 'deposit', coin, chain })
@@ -42,7 +44,28 @@ export function DepositAddressPage() {
   }
 
   function handleSaveOrShare() {
-    showToast('地址已保存')
+    setShareSheetOpen(true)
+  }
+
+  async function handleSaveImage() {
+    setShareSheetOpen(false)
+    showToast('已保存到相册')
+  }
+
+  async function handleShare() {
+    const text = `充值 ${coin} 地址：${address}\n网络：${networkMeta?.label ?? chain}`
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: `充值 ${coin} 到 CoinNova`, text })
+        setShareSheetOpen(false)
+        return
+      }
+      await navigator.clipboard.writeText(text)
+      setShareSheetOpen(false)
+      showToast('地址已复制，可粘贴分享')
+    } catch {
+      showToast('分享已取消', 'info')
+    }
   }
 
   const headerRight = (
@@ -174,6 +197,17 @@ export function DepositAddressPage() {
           ))}
         </div>
       </BottomSheet>
+
+      <DepositShareSheet
+        open={shareSheetOpen}
+        onClose={() => setShareSheetOpen(false)}
+        coin={coin}
+        address={address}
+        networkLabel={networkMeta?.label ?? chain}
+        minDeposit={networkMeta?.minDeposit ?? '—'}
+        onSave={handleSaveImage}
+        onShare={handleShare}
+      />
     </SubPageLayout>
   )
 }

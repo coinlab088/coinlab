@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { ChevronDown, RefreshCw } from 'lucide-react'
+import { ChevronDown, Plus, RefreshCw } from 'lucide-react'
 import type { MarketPair } from '../../data/mock'
 import {
   calcOrderTotal,
@@ -12,6 +12,8 @@ import {
   type OrderType,
   type SpotBalance,
 } from '../../data/trade'
+import type { WalletCoin } from '../../data/wallet'
+import { usePrototype } from '../../context/PrototypeContext'
 
 interface OrderFormProps {
   pair: MarketPair
@@ -31,6 +33,12 @@ interface OrderFormProps {
 
 const percentMarks = [0, 25, 50, 75, 100] as const
 
+const depositCoinMap: Record<string, WalletCoin> = {
+  USDT: 'USDT',
+  BNB: 'BNB',
+  TRX: 'TRX',
+}
+
 export function OrderForm({
   pair,
   balances,
@@ -39,6 +47,7 @@ export function OrderForm({
   isLoggedIn,
   selectedPrice,
 }: OrderFormProps) {
+  const { openWallet } = usePrototype()
   const [side, setSide] = useState<OrderSide>('buy')
   const [orderType, setOrderType] = useState<OrderType>('limit')
   const [price, setPrice] = useState(String(pair.price))
@@ -149,6 +158,15 @@ export function OrderForm({
     })
   }
 
+  function handleAddAssets() {
+    if (!isLoggedIn) {
+      onLogin()
+      return
+    }
+    const coin = depositCoinMap[availableSymbol] ?? 'USDT'
+    openWallet('deposit', { coin })
+  }
+
   return (
     <div className="min-w-0 flex-[1.15]">
       <div className="mb-2 grid grid-cols-2 overflow-hidden rounded-md">
@@ -247,10 +265,20 @@ export function OrderForm({
           可用
           <RefreshCw className="h-3 w-3" strokeWidth={1.5} />
         </span>
-        <span className="tabular-nums text-primary">
+        <span className="flex items-center gap-1 tabular-nums text-primary">
           {isLoggedIn
             ? `${formatTradeAmount(available, availableSymbol)} ${availableSymbol}`
             : '—'}
+          {isLoggedIn && (
+            <button
+              type="button"
+              aria-label="充币"
+              onClick={handleAddAssets}
+              className="flex h-4 w-4 items-center justify-center rounded border border-border text-secondary active:bg-elevated"
+            >
+              <Plus className="h-2.5 w-2.5" strokeWidth={2} />
+            </button>
+          )}
         </span>
       </div>
 

@@ -1,5 +1,5 @@
 import { accountCopy, maskEmail } from '../../data/account'
-import { getKycLabel } from '../../data/mock'
+import { getKycLabel, getKycValueClassName } from '../../data/mock'
 import { fiatCurrencies, locales } from '../../data/settings'
 import { usePrototype } from '../../context/PrototypeContext'
 import {
@@ -52,6 +52,7 @@ export function AccountSettingsPage() {
         <SettingsRow
           label="身份认证"
           value={getKycLabel(user.kycStatus)}
+          valueClassName={getKycValueClassName(user.kycStatus)}
           onClick={() => navigateAccount({ screen: 'kyc' })}
         />
       </SettingsGroup>

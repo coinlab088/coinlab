@@ -3,7 +3,6 @@ import { CircleHelp, History } from 'lucide-react'
 import { AuthButton } from '../../components/auth/AuthButton'
 import { TextField } from '../../components/auth/TextField'
 import { CoinAvatar } from '../../components/CoinAvatar'
-import { getKycLabel } from '../../data/mock'
 import {
   calcWithdrawReceive,
   getWithdrawChainsForCoin,
@@ -16,6 +15,7 @@ import {
 import { formatTradeAmount, getAvailableBalance } from '../../data/trade'
 import { usePrototype } from '../../context/PrototypeContext'
 import { SubPageLayout } from '../../components/account/SubPageLayout'
+import { KycStatusBanner } from '../../components/account/KycStatusBanner'
 
 export function WithdrawPage() {
   const {
@@ -127,11 +127,11 @@ export function WithdrawPage() {
       onBack={closeWallet}
       headerRight={headerRight}
     >
-      {user.kycStatus !== 'verified' && (
-        <div className="mb-4 rounded-lg border border-brand/30 bg-brand-muted px-3 py-2.5 text-caption text-secondary">
-          身份认证：{getKycLabel(user.kycStatus)}。完成 KYC 后可提币。
-        </div>
-      )}
+      <KycStatusBanner
+        status={user.kycStatus}
+        scene="withdraw"
+        className="mb-4"
+      />
 
       <p className="mb-2 text-caption text-secondary">币种</p>
       <div className="mb-4 grid grid-cols-3 gap-2">

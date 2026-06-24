@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { usePrototype } from '../context/PrototypeContext'
-import type { BottomTabId } from '../data/mock'
+import type { BottomTabId, KycStatus } from '../data/mock'
+import { getKycLabel } from '../data/mock'
 import { previewPlatforms } from '../data/platform'
 import { useInspect } from '../context/InspectContext'
 
@@ -10,10 +11,14 @@ const tabs: { id: BottomTabId; label: string }[] = [
   { id: 'assets', label: '资产' },
 ]
 
+const kycStatuses: KycStatus[] = ['unverified', 'pending', 'verified']
+
 export function DevPanel() {
   const {
     isLoggedIn,
     setLoggedIn,
+    user,
+    updateProfile,
     activeTab,
     setActiveTab,
     previewPlatform,
@@ -25,6 +30,11 @@ export function DevPanel() {
     openKline,
   } = usePrototype()
   const { inspectMode, toggleInspectMode } = useInspect()
+
+  function setKycStatus(status: KycStatus) {
+    if (!isLoggedIn) setLoggedIn(true)
+    updateProfile({ kycStatus: status })
+  }
 
   return (
     <div className="fixed bottom-4 right-4 z-50 w-52 rounded-lg border border-border bg-elevated p-3 shadow-md">
@@ -72,6 +82,21 @@ export function DevPanel() {
           <ToggleBtn active={isLoggedIn} onClick={() => setLoggedIn(true)}>
             已登录
           </ToggleBtn>
+        </div>
+      </div>
+
+      <div className="mb-3">
+        <p className="mb-1.5 text-caption text-secondary">身份认证</p>
+        <div className="grid grid-cols-3 gap-1">
+          {kycStatuses.map((status) => (
+            <ToggleBtn
+              key={status}
+              active={isLoggedIn && user.kycStatus === status}
+              onClick={() => setKycStatus(status)}
+            >
+              {getKycLabel(status)}
+            </ToggleBtn>
+          ))}
         </div>
       </div>
 

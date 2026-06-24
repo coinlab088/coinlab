@@ -1,7 +1,15 @@
-import type { OrderBookLevel } from '../../data/trade'
-import { formatTradeAmount } from '../../data/trade'
+import { useState } from 'react'
+import { ChevronDown } from 'lucide-react'
+import type { OrderBookLevel, OrderBookDepth } from '../../data/trade'
+import {
+  formatOrderBookPrice,
+  formatTradeAmount,
+  orderBookDepthOptions,
+  tradeCopy,
+} from '../../data/trade'
 import type { MarketPair } from '../../data/mock'
 import { formatPrice } from '../../data/mock'
+import { BottomSheet, SheetOption } from '../sheets/BottomSheet'
 
 interface OrderBookProps {
   pair: MarketPair
@@ -28,14 +36,21 @@ function DepthBar({
 }
 
 export function OrderBook({ pair, asks, bids, onPriceSelect }: OrderBookProps) {
+  const [depth, setDepth] = useState<OrderBookDepth>('0.0001')
+  const [depthSheetOpen, setDepthSheetOpen] = useState(false)
+
   const maxAmount = Math.max(
     ...asks.map((l) => l.amount),
     ...bids.map((l) => l.amount),
   )
   const isPositive = pair.change24h >= 0
 
+  function formatLevelPrice(price: number) {
+    return formatOrderBookPrice(price, depth)
+  }
+
   return (
-    <div className="min-w-0 flex-1">
+    <div className="flex min-w-0 flex-1 flex-col">
       <div className="mb-1 flex justify-between text-[9px] text-secondary">
         <span>价格({pair.quote})</span>
         <span>数量({pair.base})</span>
@@ -51,7 +66,7 @@ export function OrderBook({ pair, asks, bids, onPriceSelect }: OrderBookProps) {
           >
             <DepthBar width={(level.amount / maxAmount) * 100} tone="ask" />
             <span className="relative z-10 tabular-nums text-[10px] text-danger">
-              {formatPrice(level.price)}
+              {formatLevelPrice(level.price)}
             </span>
             <span className="relative z-10 tabular-nums text-[10px] text-secondary">
               {formatTradeAmount(level.amount, pair.base)}
@@ -83,7 +98,7 @@ export function OrderBook({ pair, asks, bids, onPriceSelect }: OrderBookProps) {
           >
             <DepthBar width={(level.amount / maxAmount) * 100} tone="bid" />
             <span className="relative z-10 tabular-nums text-[10px] text-success">
-              {formatPrice(level.price)}
+              {formatLevelPrice(level.price)}
             </span>
             <span className="relative z-10 tabular-nums text-[10px] text-secondary">
               {formatTradeAmount(level.amount, pair.base)}
@@ -91,6 +106,38 @@ export function OrderBook({ pair, asks, bids, onPriceSelect }: OrderBookProps) {
           </button>
         ))}
       </div>
+
+      <button
+        type="button"
+        onClick={() => setDepthSheetOpen(true)}
+        className="relative mt-1.5 flex h-7 w-full items-center justify-center rounded-md bg-sunken px-2 text-[10px] text-primary active:opacity-80"
+      >
+        <span className="tabular-nums font-medium">{depth}</span>
+        <ChevronDown
+          className="absolute right-2 h-3.5 w-3.5 text-secondary"
+          strokeWidth={1.5}
+        />
+      </button>
+
+      <BottomSheet
+        title={tradeCopy.orderBookDepthTitle}
+        open={depthSheetOpen}
+        onClose={() => setDepthSheetOpen(false)}
+      >
+        <div className="space-y-2">
+          {orderBookDepthOptions.map((option) => (
+            <SheetOption
+              key={option}
+              label={option}
+              selected={depth === option}
+              onClick={() => {
+                setDepth(option)
+                setDepthSheetOpen(false)
+              }}
+            />
+          ))}
+        </div>
+      </BottomSheet>
     </div>
   )
 }
