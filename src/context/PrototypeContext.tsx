@@ -122,6 +122,7 @@ interface PrototypeContextValue {
   figmaExport: boolean
   figmaWalletOverlay: 'deposit-share' | null
   figmaTradeOverlay: 'order-book-depth' | null
+  figmaAccountOverlay: 'security' | 'logout' | 'delete' | null
   toast: AppToastState | null
   showToast: (message: string, variant?: ToastVariant) => void
   dismissToast: () => void
@@ -169,6 +170,9 @@ export function PrototypeProvider({
   const [profile, setProfile] = useState({
     ...loggedInProfileDefaults,
     ...(preset?.userKycStatus ? { kycStatus: preset.userKycStatus } : {}),
+    ...(preset?.userPaymentPasswordSet !== undefined
+      ? { paymentPasswordSet: preset.userPaymentPasswordSet }
+      : {}),
   })
   const [activeTab, setActiveTab] = useState<BottomTabId>(preset?.activeTab ?? 'market')
   const [authScreen, setAuthScreen] = useState<AuthScreenState | null>(
@@ -225,6 +229,7 @@ export function PrototypeProvider({
   const figmaExport = preset?.figmaExport ?? false
   const figmaWalletOverlay = preset?.walletOverlay ?? null
   const figmaTradeOverlay = preset?.tradeOverlay ?? null
+  const figmaAccountOverlay = preset?.accountOverlay ?? null
   const [toast, setToast] = useState<AppToastState | null>(null)
 
   const user = isLoggedIn
@@ -639,6 +644,7 @@ export function PrototypeProvider({
       figmaExport,
       figmaWalletOverlay,
       figmaTradeOverlay,
+      figmaAccountOverlay,
       toast,
       showToast,
       dismissToast,
@@ -720,6 +726,7 @@ export function PrototypeProvider({
       figmaExport,
       figmaWalletOverlay,
       figmaTradeOverlay,
+      figmaAccountOverlay,
       toast,
       showToast,
       dismissToast,

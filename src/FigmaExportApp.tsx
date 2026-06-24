@@ -1,7 +1,10 @@
 import { useEffect } from 'react'
+import type { ReactNode } from 'react'
 import { FigmaToast } from './components/feedback/FigmaToast'
 import { AppShell } from './components/AppShell'
 import { AppFrame } from './components/platform/AppFrame'
+import { H5ExportFrame } from './components/platform/H5ExportFrame'
+import { PcExportFrame } from './components/platform/PcExportFrame'
 import { ComplianceRestrictionSheet } from './components/sheets/ComplianceRestrictionSheet'
 import { SettingsSheets } from './components/sheets/SettingsSheets'
 import { OrderConfirmSheet, PairPickerSheet } from './components/trade/TradeSheets'
@@ -29,7 +32,36 @@ function FigmaOverlays() {
   )
 }
 
+function FigmaExportShell({ children }: { children: ReactNode }) {
+  const { previewPlatform } = usePrototype()
+  const Frame =
+    previewPlatform === 'pc'
+      ? PcExportFrame
+      : previewPlatform === 'h5'
+        ? H5ExportFrame
+        : AppFrame
+
+  return (
+    <Frame>
+      <AppShell>{children}</AppShell>
+    </Frame>
+  )
+}
+
+function exportViewport(previewPlatform: PrototypePreset['previewPlatform']) {
+  switch (previewPlatform) {
+    case 'pc':
+      return { width: '1440px', height: '900px' }
+    case 'h5':
+      return { width: '390px', height: '856px' }
+    default:
+      return { width: '390px', height: '812px' }
+  }
+}
+
 export function FigmaExportApp({ preset, title }: FigmaExportAppProps) {
+  const viewport = exportViewport(preset.previewPlatform)
+
   useEffect(() => {
     document.title = `${title} — CoinNova Figma`
     const html = document.documentElement
@@ -43,8 +75,8 @@ export function FigmaExportApp({ preset, title }: FigmaExportAppProps) {
       bodyBg: body.style.background,
     }
 
-    html.style.width = '390px'
-    html.style.height = '812px'
+    html.style.width = viewport.width
+    html.style.height = viewport.height
     html.style.margin = '0'
     body.style.margin = '0'
     body.style.overflow = 'hidden'
@@ -58,17 +90,15 @@ export function FigmaExportApp({ preset, title }: FigmaExportAppProps) {
       body.style.overflow = prev.bodyOverflow
       body.style.background = prev.bodyBg
     }
-  }, [title])
+  }, [title, viewport.height, viewport.width])
 
   return (
     <PrototypeProvider preset={preset}>
       <InspectProvider>
-        <AppFrame>
-          <AppShell>
-            <AppRouter />
-            <FigmaOverlays />
-          </AppShell>
-        </AppFrame>
+        <FigmaExportShell>
+          <AppRouter />
+          <FigmaOverlays />
+        </FigmaExportShell>
       </InspectProvider>
     </PrototypeProvider>
   )

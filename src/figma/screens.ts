@@ -1,7 +1,7 @@
 import type { PendingOrder } from '../data/trade'
 import { demoSpotOrders } from '../data/trade'
 import type { WithdrawDraft } from '../data/wallet'
-import type { FigmaScreenEntry } from './types'
+import type { FigmaScreenEntry, FigmaScreenGroup, MobileFigmaScreenGroup } from './types'
 
 const yellowBlack = { appTheme: 'yellow-black' as const, figmaExport: true }
 
@@ -10,6 +10,26 @@ const app = (preset: FigmaScreenEntry['preset']): FigmaScreenEntry['preset'] => 
   ...yellowBlack,
   ...preset,
 })
+
+const pc = (preset: FigmaScreenEntry['preset']): FigmaScreenEntry['preset'] => ({
+  previewPlatform: 'pc',
+  ...yellowBlack,
+  ...preset,
+})
+
+const h5 = (preset: FigmaScreenEntry['preset']): FigmaScreenEntry['preset'] => ({
+  previewPlatform: 'h5',
+  ...yellowBlack,
+  ...preset,
+})
+
+type MobileScreenDef = {
+  path: string
+  label: string
+  description?: string
+  group: MobileFigmaScreenGroup
+  preset: FigmaScreenEntry['preset']
+}
 
 const mockBuyOrder: PendingOrder = {
   pairId: 'btc',
@@ -36,7 +56,7 @@ const mockSpotOrders = demoSpotOrders
 
 const demoEmail = 'trader@example.com'
 
-const tabScreens: FigmaScreenEntry[] = [
+const tabScreens: MobileScreenDef[] = [
   {
     path: 'market/guest',
     label: '行情 · 游客',
@@ -71,7 +91,7 @@ const tabScreens: FigmaScreenEntry[] = [
   },
 ]
 
-const authScreens: FigmaScreenEntry[] = [
+const authScreens: MobileScreenDef[] = [
   {
     path: 'auth/entry',
     label: '登录入口',
@@ -169,7 +189,7 @@ const authScreens: FigmaScreenEntry[] = [
   },
 ]
 
-const accountScreens: FigmaScreenEntry[] = [
+const accountScreens: MobileScreenDef[] = [
   {
     path: 'account/settings',
     label: '账户设置',
@@ -325,7 +345,7 @@ const accountScreens: FigmaScreenEntry[] = [
   },
 ]
 
-const walletScreens: FigmaScreenEntry[] = [
+const walletScreens: MobileScreenDef[] = [
   {
     path: 'wallet/deposit',
     label: '充币',
@@ -405,7 +425,7 @@ const walletScreens: FigmaScreenEntry[] = [
   },
 ]
 
-const recordsScreens: FigmaScreenEntry[] = [
+const recordsScreens: MobileScreenDef[] = [
   {
     path: 'records/fund',
     label: '充提记录',
@@ -450,7 +470,7 @@ const recordsScreens: FigmaScreenEntry[] = [
   },
 ]
 
-const supportScreens: FigmaScreenEntry[] = [
+const supportScreens: MobileScreenDef[] = [
   {
     path: 'support/help',
     label: '帮助中心',
@@ -494,7 +514,7 @@ const supportScreens: FigmaScreenEntry[] = [
   },
 ]
 
-const chartScreens: FigmaScreenEntry[] = [
+const chartScreens: MobileScreenDef[] = [
   {
     path: 'chart/kline',
     label: 'K 线',
@@ -507,7 +527,7 @@ const chartScreens: FigmaScreenEntry[] = [
   },
 ]
 
-const overlayScreens: FigmaScreenEntry[] = [
+const overlayScreens: MobileScreenDef[] = [
   {
     path: 'overlay/sheet-language',
     label: 'Bottom Sheet · 语言',
@@ -632,12 +652,176 @@ const overlayScreens: FigmaScreenEntry[] = [
   },
 ]
 
-/** @deprecated 使用 overlay/alert-compliance */
+const pcScreens: FigmaScreenEntry[] = [
+  {
+    path: 'pc/home',
+    label: 'PC · 首页',
+    description: '1440×900 · 落地页',
+    group: 'pc',
+    preset: pc({ isLoggedIn: false, activeTab: 'home' }),
+  },
+  {
+    path: 'pc/market',
+    label: 'PC · 行情',
+    group: 'pc',
+    preset: pc({ isLoggedIn: true, activeTab: 'market' }),
+  },
+  {
+    path: 'pc/trade',
+    label: 'PC · 交易',
+    description: '图表 · 盘口 · 下单',
+    group: 'pc',
+    preset: pc({ isLoggedIn: true, activeTab: 'trade' }),
+  },
+  {
+    path: 'pc/assets',
+    label: 'PC · 资产中心',
+    description: '个人中心与资产合并',
+    group: 'pc',
+    preset: pc({
+      isLoggedIn: true,
+      activeTab: 'assets',
+      userKycStatus: 'verified',
+    }),
+  },
+  {
+    path: 'pc/assets/security',
+    label: 'PC · 安全设置弹窗',
+    group: 'pc',
+    preset: pc({
+      isLoggedIn: true,
+      activeTab: 'assets',
+      userKycStatus: 'verified',
+      accountOverlay: 'security',
+    }),
+  },
+  {
+    path: 'pc/assets/logout',
+    label: 'PC · 退出登录弹窗',
+    group: 'pc',
+    preset: pc({
+      isLoggedIn: true,
+      activeTab: 'assets',
+      userKycStatus: 'verified',
+      accountOverlay: 'logout',
+    }),
+  },
+  {
+    path: 'pc/assets/delete',
+    label: 'PC · 注销账户弹窗',
+    group: 'pc',
+    preset: pc({
+      isLoggedIn: true,
+      activeTab: 'assets',
+      userKycStatus: 'verified',
+      accountOverlay: 'delete',
+    }),
+  },
+  {
+    path: 'pc/auth/login',
+    label: 'PC · 登录',
+    description: '左右分栏',
+    group: 'pc',
+    preset: pc({
+      isLoggedIn: false,
+      activeTab: 'home',
+      authScreen: { screen: 'login' },
+    }),
+  },
+  {
+    path: 'pc/auth/register',
+    label: 'PC · 注册',
+    description: '左右分栏',
+    group: 'pc',
+    preset: pc({
+      isLoggedIn: false,
+      activeTab: 'home',
+      authScreen: { screen: 'register' },
+    }),
+  },
+  {
+    path: 'pc/wallet/deposit',
+    label: 'PC · 充币',
+    group: 'pc',
+    preset: pc({
+      isLoggedIn: true,
+      activeTab: 'assets',
+      walletScreen: { screen: 'deposit' },
+    }),
+  },
+  {
+    path: 'pc/wallet/deposit-address-share',
+    label: 'PC · 充币地址分享',
+    group: 'pc',
+    preset: pc({
+      isLoggedIn: true,
+      activeTab: 'assets',
+      walletScreen: { screen: 'deposit-address', coin: 'USDT', chain: 'TRC20' },
+      walletOverlay: 'deposit-share',
+    }),
+  },
+  {
+    path: 'pc/wallet/withdraw',
+    label: 'PC · 提币',
+    description: '未设支付密码时引导前往设置',
+    group: 'pc',
+    preset: pc({
+      isLoggedIn: true,
+      activeTab: 'assets',
+      walletScreen: { screen: 'withdraw' },
+    }),
+  },
+  {
+    path: 'pc/wallet/withdraw-verify',
+    label: 'PC · 提币 · 支付密码验证',
+    group: 'pc',
+    preset: pc({
+      isLoggedIn: true,
+      activeTab: 'assets',
+      userPaymentPasswordSet: true,
+      walletScreen: { screen: 'withdraw-verify', coin: 'USDT', chain: 'TRC20' },
+      withdrawDraft: mockWithdrawDraft,
+    }),
+  },
+  {
+    path: 'pc/overlay/sheet-fiat',
+    label: 'PC · 法币设置',
+    group: 'pc',
+    preset: pc({
+      isLoggedIn: true,
+      activeTab: 'trade',
+      activeSheet: 'fiat',
+    }),
+  },
+  {
+    path: 'pc/overlay/sheet-pair-picker',
+    label: 'PC · 交易对选择',
+    description: '含搜索',
+    group: 'pc',
+    preset: pc({
+      isLoggedIn: true,
+      activeTab: 'trade',
+      tradeSheet: 'pair-picker',
+    }),
+  },
+  {
+    path: 'pc/overlay/sheet-order-book-depth',
+    label: 'PC · 盘口深度',
+    group: 'pc',
+    preset: pc({
+      isLoggedIn: true,
+      activeTab: 'trade',
+      tradeOverlay: 'order-book-depth',
+    }),
+  },
+]
+
+/** @deprecated 使用 app/overlay/alert-compliance */
 const legacyScreens: FigmaScreenEntry[] = [
   {
     path: 'compliance/restriction',
     label: '地区限制弹窗（旧路径）',
-    group: 'overlay',
+    group: 'app-overlay',
     preset: app({
       isLoggedIn: true,
       activeTab: 'trade',
@@ -646,7 +830,7 @@ const legacyScreens: FigmaScreenEntry[] = [
   },
 ]
 
-export const figmaScreens: FigmaScreenEntry[] = [
+const mobileScreens: MobileScreenDef[] = [
   ...tabScreens,
   ...authScreens,
   ...accountScreens,
@@ -655,22 +839,74 @@ export const figmaScreens: FigmaScreenEntry[] = [
   ...supportScreens,
   ...chartScreens,
   ...overlayScreens,
+]
+
+function stripExportMeta(preset: FigmaScreenEntry['preset']): FigmaScreenEntry['preset'] {
+  const { previewPlatform, appTheme, figmaExport, ...rest } = preset
+  return rest
+}
+
+function expandPlatformScreens(
+  screens: MobileScreenDef[],
+  platform: 'app' | 'h5',
+): FigmaScreenEntry[] {
+  const wrap = platform === 'app' ? app : h5
+  const tag = platform === 'app' ? 'APP' : 'H5'
+
+  return screens.map((screen) => ({
+    path: `${platform}/${screen.path}`,
+    label: `${tag} · ${screen.label}`,
+    description: screen.description,
+    group: `${platform}-${screen.group}` as FigmaScreenGroup,
+    preset: wrap(stripExportMeta(screen.preset)),
+  }))
+}
+
+const appScreens = expandPlatformScreens(mobileScreens, 'app')
+const h5Screens = expandPlatformScreens(mobileScreens, 'h5')
+
+const legacyPathAliases = new Map<string, string>([
+  ['compliance/restriction', 'app/overlay/alert-compliance'],
+  ...mobileScreens.map((screen) => [screen.path, `app/${screen.path}`] as const),
+])
+
+export const figmaScreens: FigmaScreenEntry[] = [
+  ...pcScreens,
+  ...appScreens,
+  ...h5Screens,
   ...legacyScreens,
 ]
 
+const mobileGroupTitles: Record<MobileFigmaScreenGroup, string> = {
+  tab: '主 Tab',
+  auth: '登录注册',
+  account: '账户设置',
+  wallet: '充提',
+  records: '记录',
+  support: '帮助与客服',
+  chart: '行情详情',
+  overlay: 'Toast / 弹窗 / Bottom Sheet',
+}
+
 export const figmaScreenGroups = [
-  { id: 'tab' as const, title: '主 Tab' },
-  { id: 'auth' as const, title: '登录注册' },
-  { id: 'account' as const, title: '账户设置' },
-  { id: 'wallet' as const, title: '充提' },
-  { id: 'records' as const, title: '记录' },
-  { id: 'support' as const, title: '帮助与客服' },
-  { id: 'chart' as const, title: '行情详情' },
-  { id: 'overlay' as const, title: 'Toast / 弹窗 / Bottom Sheet' },
+  { id: 'pc' as const, title: 'PC 端 (1440×900)' },
+  ...(['app', 'h5'] as const).flatMap((platform) =>
+    (Object.keys(mobileGroupTitles) as MobileFigmaScreenGroup[]).map((group) => ({
+      id: `${platform}-${group}` as FigmaScreenGroup,
+      title:
+        platform === 'app'
+          ? `APP 端 (390×812) · ${mobileGroupTitles[group]}`
+          : `H5 端 (390×856) · ${mobileGroupTitles[group]}`,
+    })),
+  ),
 ]
 
 const screenByPath = new Map(figmaScreens.map((s) => [s.path, s]))
 
 export function getFigmaScreen(path: string): FigmaScreenEntry | undefined {
-  return screenByPath.get(path.replace(/^\/+|\/+$/g, ''))
+  const normalized = path.replace(/^\/+|\/+$/g, '')
+  return (
+    screenByPath.get(normalized) ??
+    screenByPath.get(legacyPathAliases.get(normalized) ?? '')
+  )
 }

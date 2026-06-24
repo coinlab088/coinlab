@@ -38,6 +38,10 @@ export interface PrototypePreset {
   figmaToast?: FigmaToastPreset
   /** Figma 导出：覆盖登录用户 KYC 状态 */
   userKycStatus?: KycStatus
+  /** Figma 导出：覆盖是否已设置支付密码 */
+  userPaymentPasswordSet?: boolean
+  /** Figma 导出：资产中心叠加层 */
+  accountOverlay?: 'security' | 'logout' | 'delete'
   /** Figma 导出：钱包页叠加层 */
   walletOverlay?: 'deposit-share'
   /** Figma 导出：交易页叠加层 */
@@ -46,7 +50,7 @@ export interface PrototypePreset {
   figmaExport?: boolean
 }
 
-export type FigmaScreenGroup =
+export type MobileFigmaScreenGroup =
   | 'tab'
   | 'auth'
   | 'account'
@@ -55,6 +59,11 @@ export type FigmaScreenGroup =
   | 'support'
   | 'chart'
   | 'overlay'
+
+export type FigmaScreenGroup =
+  | 'pc'
+  | `app-${MobileFigmaScreenGroup}`
+  | `h5-${MobileFigmaScreenGroup}`
 
 export interface FigmaScreenEntry {
   path: string

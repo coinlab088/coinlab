@@ -30,11 +30,12 @@ export function PcAssetsPage() {
     openSheet,
     logout,
     deleteAccount,
+    figmaAccountOverlay,
   } = usePrototype()
   const autoOpened = useRef(false)
   const [confirmModal, setConfirmModal] = useState<
     null | 'logout' | 'delete' | 'security'
-  >(null)
+  >(figmaAccountOverlay ?? null)
 
   useEffect(() => {
     if (!user.isLoggedIn && !autoOpened.current) {

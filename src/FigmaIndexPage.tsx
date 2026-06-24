@@ -15,8 +15,8 @@ export function FigmaIndexPage() {
       <div className="mx-auto max-w-lg">
         <h1 className="text-h2 font-semibold">CoinNova Figma 导出页</h1>
         <p className="mt-2 text-body-sm text-secondary">
-          每行对应一屏 390×812 移动端 UI。复制下方完整链接粘贴到 html.to.design
-          即可导入 Figma，无需调试面板。
+          APP 端 390×812、H5 端 390×856（含 Telegram 顶栏）、PC 端 1440×900。复制下方完整链接粘贴到
+          html.to.design 即可导入 Figma，无需调试面板。
         </p>
 
         <div className="mt-6 rounded-xl border border-brand/40 bg-brand-muted px-4 py-4">

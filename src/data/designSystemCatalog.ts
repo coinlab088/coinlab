@@ -49,7 +49,7 @@ export function getDesignSystemDoc(slug: string): DesignSystemDocEntry | undefin
 
 /** 反馈层图示演示（390×812 可导入 Figma） */
 export const designSystemVisualDemos: DesignSystemVisualEntry[] = figmaScreens
-  .filter((s) => s.group === 'overlay' && !s.path.startsWith('compliance/'))
+  .filter((s) => s.group === 'app-overlay')
   .map((s) => ({
     path: s.path,
     title: s.label,
