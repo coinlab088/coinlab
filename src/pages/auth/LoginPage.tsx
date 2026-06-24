@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { AuthButton } from '../../components/auth/AuthButton'
-import { AuthLayout } from '../../components/auth/AuthLayout'
+import { AuthPageShell } from '../../components/auth/AuthPageShell'
 import { TextField } from '../../components/auth/TextField'
 import {
   authCopy,
@@ -52,7 +52,7 @@ export function LoginPage() {
   }
 
   return (
-    <AuthLayout title={authCopy.loginTitle} onBack={closeAuth}>
+    <AuthPageShell title={authCopy.loginTitle} onBack={closeAuth}>
       <div className="mb-6 flex border-b border-border-subtle">
         <button
           type="button"
@@ -130,6 +130,6 @@ export function LoginPage() {
           立即注册
         </button>
       </p>
-    </AuthLayout>
+    </AuthPageShell>
   )
 }

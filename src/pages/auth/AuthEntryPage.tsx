@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { AuthButton } from '../../components/auth/AuthButton'
-import { AuthLayout } from '../../components/auth/AuthLayout'
+import { AuthPageShell } from '../../components/auth/AuthPageShell'
 import { TextField } from '../../components/auth/TextField'
 import {
   authCopy,
@@ -62,7 +62,7 @@ export function AuthEntryPage() {
   }
 
   return (
-    <AuthLayout title="注册 / 登录" onBack={closeAuth}>
+    <AuthPageShell title="注册 / 登录" onBack={closeAuth}>
       <div className="mb-6 flex border-b border-border-subtle">
         <button
           type="button"
@@ -182,6 +182,6 @@ export function AuthEntryPage() {
               : '获取验证码'}
         </AuthButton>
       </form>
-    </AuthLayout>
+    </AuthPageShell>
   )
 }

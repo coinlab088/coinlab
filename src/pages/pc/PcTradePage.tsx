@@ -3,10 +3,11 @@ import { usePrototype } from '../../context/PrototypeContext'
 import { marketPairs } from '../../data/mock'
 import { generateOrderBook } from '../../data/trade'
 import { PcAppLayout } from '../../components/pc/PcAppLayout'
+import { PcTradeChartPanel } from '../../components/pc/PcTradeChartPanel'
+import { PcTradeTickerBar } from '../../components/pc/PcTradeTickerBar'
 import { OrderBook } from '../../components/trade/OrderBook'
 import { OrderForm } from '../../components/trade/OrderForm'
 import { TradeBottomPanel } from '../../components/trade/TradeBottomPanel'
-import { TradePairBar } from '../../components/trade/TradePairBar'
 
 export function PcTradePage() {
   const {
@@ -20,7 +21,6 @@ export function PcTradePage() {
     cancelAllOpenOrders,
     openTradeSheet,
     openOrderHistory,
-    openKline,
   } = usePrototype()
 
   const [selectedPrice, setSelectedPrice] = useState<number | null>(null)
@@ -36,21 +36,45 @@ export function PcTradePage() {
   )
 
   return (
-    <PcAppLayout>
-      <div className="flex h-full min-h-0 flex-col p-6">
-        <div className="mb-4 flex items-center justify-between">
-          <TradePairBar
-            pair={pair}
-            onSelectPair={() => openTradeSheet('pair-picker')}
-            onOpenKline={() => openKline(pair.id)}
-          />
-          <span className="rounded-full bg-brand-muted px-3 py-1 text-caption font-medium text-brand">
-            现货交易
-          </span>
-        </div>
+    <PcAppLayout scroll="hidden">
+      <div className="flex h-full min-h-0 flex-col">
+        <PcTradeTickerBar
+          pair={pair}
+          onSelectPair={() => openTradeSheet('pair-picker')}
+        />
 
-        <div className="grid min-h-0 flex-1 grid-cols-[minmax(280px,320px)_minmax(200px,1fr)_minmax(280px,360px)] gap-4">
-          <div className="rounded-xl border border-border-subtle bg-elevated p-4">
+        <div className="flex min-h-0 flex-1">
+          <div className="flex min-w-0 flex-1 flex-col">
+            <div className="flex min-h-0 flex-1">
+              <PcTradeChartPanel pair={pair} />
+
+              <div className="flex w-[260px] shrink-0 flex-col border-l border-border-subtle bg-base p-2">
+                <OrderBook
+                  pair={pair}
+                  asks={asks}
+                  bids={bids}
+                  onPriceSelect={setSelectedPrice}
+                />
+              </div>
+            </div>
+
+            <div className="h-[200px] shrink-0 border-t border-border-subtle bg-base">
+              <TradeBottomPanel
+                variant="pc"
+                orders={orders}
+                balances={spotBalances}
+                pairBase={pair.base}
+                pairQuote={pair.quote}
+                pairId={pair.id}
+                onCancel={cancelOrder}
+                onCancelAll={cancelAllOpenOrders}
+                onOpenOrderHistory={openOrderHistory}
+                isLoggedIn={user.isLoggedIn}
+              />
+            </div>
+          </div>
+
+          <div className="w-[300px] shrink-0 overflow-y-auto border-l border-border-subtle bg-base p-3">
             <OrderForm
               pair={pair}
               balances={spotBalances}
@@ -70,29 +94,6 @@ export function PcTradePage() {
                   fee,
                 })
               }
-            />
-          </div>
-
-          <div className="rounded-xl border border-border-subtle bg-elevated p-3">
-            <OrderBook
-              pair={pair}
-              asks={asks}
-              bids={bids}
-              onPriceSelect={setSelectedPrice}
-            />
-          </div>
-
-          <div className="min-h-0 overflow-hidden rounded-xl border border-border-subtle bg-elevated">
-            <TradeBottomPanel
-              orders={orders}
-              balances={spotBalances}
-              pairBase={pair.base}
-              pairQuote={pair.quote}
-              pairId={pair.id}
-              onCancel={cancelOrder}
-              onCancelAll={cancelAllOpenOrders}
-              onOpenOrderHistory={openOrderHistory}
-              isLoggedIn={user.isLoggedIn}
             />
           </div>
         </div>

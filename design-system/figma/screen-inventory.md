@@ -64,8 +64,8 @@
 | wallet/deposit-fetching | https://coinlab088.github.io/coinlab/figma/wallet/deposit-fetching |
 | wallet/deposit-address | https://coinlab088.github.io/coinlab/figma/wallet/deposit-address |
 | wallet/deposit-address-share | https://coinlab088.github.io/coinlab/figma/wallet/deposit-address-share | 分享卡片 Sheet |
-| wallet/withdraw | https://coinlab088.github.io/coinlab/figma/wallet/withdraw |
-| wallet/withdraw-verify | https://coinlab088.github.io/coinlab/figma/wallet/withdraw-verify |
+| wallet/withdraw | https://coinlab088.github.io/coinlab/figma/wallet/withdraw | 未设支付密码时引导前往设置 |
+| wallet/withdraw-verify | https://coinlab088.github.io/coinlab/figma/wallet/withdraw-verify | 支付密码验证 |
 | wallet/withdraw-success | https://coinlab088.github.io/coinlab/figma/wallet/withdraw-success |
 
 ---

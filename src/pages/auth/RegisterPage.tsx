@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { AuthButton } from '../../components/auth/AuthButton'
-import { AuthLayout } from '../../components/auth/AuthLayout'
+import { AuthPageShell } from '../../components/auth/AuthPageShell'
 import { TextField } from '../../components/auth/TextField'
 import { authCopy, isValidEmail } from '../../data/auth'
 import { usePrototype } from '../../context/PrototypeContext'
@@ -41,7 +41,7 @@ export function RegisterPage() {
   }
 
   return (
-    <AuthLayout title={authCopy.registerTitle} onBack={closeAuth}>
+    <AuthPageShell title={authCopy.registerTitle} onBack={closeAuth}>
       <p className="mb-6 text-body-sm text-secondary">
         使用邮箱注册 CoinNova 账户
       </p>
@@ -87,6 +87,6 @@ export function RegisterPage() {
           去登录
         </button>
       </p>
-    </AuthLayout>
+    </AuthPageShell>
   )
 }

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { AuthButton } from '../../components/auth/AuthButton'
-import { AuthLayout } from '../../components/auth/AuthLayout'
+import { AuthPageShell } from '../../components/auth/AuthPageShell'
 import { OtpField } from '../../components/auth/OtpField'
 import { authCopy, isValidOtp } from '../../data/auth'
 import { usePrototype } from '../../context/PrototypeContext'
@@ -71,7 +71,7 @@ export function VerifyCodePage({
   }
 
   return (
-    <AuthLayout title={title} onBack={handleBack}>
+    <AuthPageShell title={title} onBack={handleBack}>
       {isEmail2fa ? (
         <>
           <p className="mb-2 text-body-sm text-secondary">{authCopy.email2faHint}</p>
@@ -113,6 +113,6 @@ export function VerifyCodePage({
           原型提示：任意 6 位数字即可继续
         </p>
       )}
-    </AuthLayout>
+    </AuthPageShell>
   )
 }

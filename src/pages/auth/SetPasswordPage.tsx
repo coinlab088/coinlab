@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { AuthButton } from '../../components/auth/AuthButton'
-import { AuthLayout } from '../../components/auth/AuthLayout'
+import { AuthPageShell } from '../../components/auth/AuthPageShell'
 import { TextField } from '../../components/auth/TextField'
 import { authCopy, isValidPassword } from '../../data/auth'
 import { usePrototype } from '../../context/PrototypeContext'
@@ -42,7 +42,7 @@ export function SetPasswordPage({ email }: SetPasswordPageProps) {
   }
 
   return (
-    <AuthLayout
+    <AuthPageShell
       title={authCopy.passwordTitle}
       onBack={() => setAuthScreen({ screen: 'register-verify', email })}
     >
@@ -74,6 +74,6 @@ export function SetPasswordPage({ email }: SetPasswordPageProps) {
           完成注册
         </AuthButton>
       </form>
-    </AuthLayout>
+    </AuthPageShell>
   )
 }

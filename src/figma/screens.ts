@@ -372,6 +372,7 @@ const walletScreens: FigmaScreenEntry[] = [
   {
     path: 'wallet/withdraw',
     label: '提币',
+    description: '未设支付密码时引导前往设置',
     group: 'wallet',
     preset: app({
       isLoggedIn: true,
@@ -381,7 +382,8 @@ const walletScreens: FigmaScreenEntry[] = [
   },
   {
     path: 'wallet/withdraw-verify',
-    label: '提币 · 安全验证',
+    label: '提币 · 支付密码验证',
+    description: '资金操作改为支付密码校验',
     group: 'wallet',
     preset: app({
       isLoggedIn: true,

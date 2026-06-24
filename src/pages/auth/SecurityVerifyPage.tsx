@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { AuthButton } from '../../components/auth/AuthButton'
-import { AuthLayout } from '../../components/auth/AuthLayout'
+import { AuthPageShell } from '../../components/auth/AuthPageShell'
 import { OtpField } from '../../components/auth/OtpField'
 import { authCopy, isValidOtp } from '../../data/auth'
 import { usePrototype } from '../../context/PrototypeContext'
@@ -40,7 +40,7 @@ export function SecurityVerifyPage({ email, flow }: SecurityVerifyPageProps) {
   }
 
   return (
-    <AuthLayout title={authCopy.securityTitle} onBack={handleBack}>
+    <AuthPageShell title={authCopy.securityTitle} onBack={handleBack}>
       <p className="mb-2 text-body-sm text-secondary">
         请输入 Google 验证器中的 6 位动态码
       </p>
@@ -64,6 +64,6 @@ export function SecurityVerifyPage({ email, flow }: SecurityVerifyPageProps) {
       <p className="mt-4 text-center text-caption text-primary-muted">
         原型提示：任意 6 位数字即可通过
       </p>
-    </AuthLayout>
+    </AuthPageShell>
   )
 }

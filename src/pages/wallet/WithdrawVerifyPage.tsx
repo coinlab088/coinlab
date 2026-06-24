@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import { AuthButton } from '../../components/auth/AuthButton'
-import { OtpField } from '../../components/auth/OtpField'
-import { isValidOtp } from '../../data/auth'
+import { TextField } from '../../components/auth/TextField'
+import { isValidPassword } from '../../data/auth'
 import { formatTradeAmount } from '../../data/trade'
 import { walletCopy } from '../../data/wallet'
 import { usePrototype } from '../../context/PrototypeContext'
 import { SubPageLayout } from '../../components/account/SubPageLayout'
 
 export function WithdrawVerifyPage() {
-  const { withdrawDraft, navigateWallet } = usePrototype()
-  const [otp, setOtp] = useState('')
+  const { withdrawDraft, navigateWallet, user } = usePrototype()
+  const [paymentPassword, setPaymentPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string>()
 
@@ -26,8 +26,12 @@ export function WithdrawVerifyPage() {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!withdrawDraft) return
-    if (!isValidOtp(otp)) {
-      setError('请输入 6 位 Google 验证码')
+    if (!user.paymentPasswordSet) {
+      setError('请先设置支付密码')
+      return
+    }
+    if (!isValidPassword(paymentPassword)) {
+      setError('请输入至少 8 位支付密码')
       return
     }
     setError(undefined)
@@ -46,6 +50,9 @@ export function WithdrawVerifyPage() {
 
   return (
     <SubPageLayout title={walletCopy.withdrawVerifyTitle} onBack={handleBack}>
+      <p className="mb-4 text-body-sm text-secondary">
+        为确认本次提币，请输入支付密码完成资金验证。
+      </p>
       <div className="mb-5 rounded-lg border border-border-subtle bg-sunken px-4 py-3 text-body-sm">
         <div className="flex justify-between py-1">
           <span className="text-secondary">币种</span>
@@ -78,11 +85,14 @@ export function WithdrawVerifyPage() {
       </div>
 
       <form onSubmit={handleSubmit}>
-        <OtpField
-          label="Google 验证码"
-          value={otp}
-          onChange={setOtp}
+        <TextField
+          label="支付密码"
+          type="password"
+          value={paymentPassword}
+          onChange={setPaymentPassword}
+          placeholder="请输入支付密码"
           error={error}
+          autoComplete="current-password"
         />
         <AuthButton type="submit" loading={loading}>
           确认提币
