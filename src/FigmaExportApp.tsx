@@ -108,6 +108,7 @@ export function FigmaExportApp({ preset, title }: FigmaExportAppProps) {
     html.style.height = viewport.height
     html.style.minHeight = viewport.minHeight
     html.style.margin = '0'
+    html.dataset.figmaExport = 'true'
     body.style.margin = '0'
     body.style.height = viewport.height
     body.style.minHeight = viewport.minHeight
@@ -124,6 +125,7 @@ export function FigmaExportApp({ preset, title }: FigmaExportAppProps) {
       html.style.height = prev.htmlHeight
       html.style.minHeight = prev.htmlMinHeight
       html.style.margin = prev.htmlMargin
+      html.dataset.figmaExport = ''
       body.style.margin = prev.bodyMargin
       body.style.height = prev.bodyHeight
       body.style.minHeight = prev.bodyMinHeight

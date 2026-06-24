@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useFigmaExport } from '../hooks/useFigmaExport'
 import { getCoinIconUrl } from '../utils/coinIcons'
 
 interface CoinAvatarProps {
@@ -8,9 +9,10 @@ interface CoinAvatarProps {
 
 export function CoinAvatar({ symbol, size = 28 }: CoinAvatarProps) {
   const [failed, setFailed] = useState(false)
+  const figmaExport = useFigmaExport()
   const iconUrl = getCoinIconUrl(symbol)
 
-  if (iconUrl && !failed) {
+  if (!figmaExport && iconUrl && !failed) {
     return (
       <img
         src={iconUrl}

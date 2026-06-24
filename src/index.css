@@ -258,3 +258,26 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* html.to.design：增强文字、图标与外链图片的抓取稳定性 */
+html[data-figma-export] {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC',
+    'Microsoft YaHei', sans-serif;
+}
+
+html[data-figma-export] svg.lucide {
+  display: inline-block;
+  flex-shrink: 0;
+  overflow: visible;
+  stroke: currentColor;
+  fill: none;
+  opacity: 1 !important;
+}
+
+html[data-figma-export] p,
+html[data-figma-export] span,
+html[data-figma-export] h1,
+html[data-figma-export] h2,
+html[data-figma-export] button {
+  opacity: 1 !important;
+}

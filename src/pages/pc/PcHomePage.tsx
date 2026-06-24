@@ -7,6 +7,7 @@ import {
   Smartphone,
 } from 'lucide-react'
 import { Annotatable } from '../../components/inspect/Annotatable'
+import { FigmaQrPlaceholder } from '../../components/figma/FigmaQrPlaceholder'
 import { CoinAvatar } from '../../components/CoinAvatar'
 import { PcAppLayout } from '../../components/pc/PcAppLayout'
 import { marketPairs } from '../../data/marketPairs'
@@ -15,6 +16,7 @@ import {
   formatPrice,
 } from '../../data/mock'
 import { usePrototype } from '../../context/PrototypeContext'
+import { useFigmaExport } from '../../hooks/useFigmaExport'
 
 const heroStats = [
   {
@@ -64,9 +66,10 @@ const faqItems = [
 
 export function PcHomePage() {
   const { setActiveTab, openAuth, openTrade, user } = usePrototype()
+  const figmaExport = useFigmaExport()
   const [email, setEmail] = useState('')
   const [marketTab, setMarketTab] = useState<'hot' | 'new'>('hot')
-  const [openFaq, setOpenFaq] = useState<number | null>(0)
+  const [openFaq, setOpenFaq] = useState<number | null>(figmaExport ? -1 : 0)
 
   const hotPairs = useMemo(() => marketPairs.slice(0, 6), [])
   const displayPairs = marketTab === 'hot' ? hotPairs : marketPairs.slice(6, 12)
@@ -96,7 +99,7 @@ export function PcHomePage() {
                   className="rounded-xl border border-border-subtle bg-elevated p-5"
                 >
                   <div className="flex items-center gap-2">
-                    <span className="rounded bg-brand px-1.5 py-0.5 text-[10px] font-bold text-brand-dark">
+                    <span className="rounded bg-brand px-1.5 py-0.5 text-caption font-bold text-brand-dark">
                       {item.rank}
                     </span>
                     <span className="text-body-sm text-secondary">{item.title}</span>
@@ -196,7 +199,7 @@ export function PcHomePage() {
           </div>
 
           <aside className="rounded-xl border border-border-subtle bg-elevated p-5">
-            <span className="inline-block rounded bg-brand-muted px-2 py-0.5 text-[10px] font-medium text-brand">
+            <span className="inline-block rounded bg-brand-muted px-2 py-0.5 text-caption font-medium text-brand">
               新币
             </span>
             <p className="mt-3 text-h3 font-semibold text-primary">LAB</p>
@@ -207,14 +210,18 @@ export function PcHomePage() {
                   <span className="flex h-10 w-10 items-center justify-center rounded-md bg-sunken text-body font-semibold">
                     {n}
                   </span>
-                  <span className="mt-1 text-[10px] text-secondary">
+                  <span className="mt-1 text-caption text-secondary">
                     {['时', '分', '秒'][i]}
                   </span>
                 </span>
               ))}
             </div>
             <div className="mt-5 flex flex-col items-center rounded-lg border border-dashed border-border bg-sunken py-4">
-              <QrCode className="h-10 w-10 text-secondary" strokeWidth={1.25} />
+              {figmaExport ? (
+                <FigmaQrPlaceholder size={80} />
+              ) : (
+                <QrCode className="h-10 w-10 text-secondary" strokeWidth={1.25} />
+              )}
               <p className="mt-2 text-caption text-secondary">扫描下载 App</p>
             </div>
           </aside>
@@ -236,7 +243,13 @@ export function PcHomePage() {
         <section className="grid grid-cols-2 gap-8 border-b border-border-subtle px-8 py-10">
           <div>
             <div className="flex items-center gap-2">
-              <Shield className="h-6 w-6 text-brand" strokeWidth={1.5} />
+              {figmaExport ? (
+                <span className="text-h3" aria-hidden>
+                  🛡
+                </span>
+              ) : (
+                <Shield className="h-6 w-6 text-brand" strokeWidth={1.5} />
+              )}
               <h2 className="text-h3 font-semibold text-primary">
                 资金受 SAFU 保护
               </h2>
@@ -255,12 +268,10 @@ export function PcHomePage() {
             {safuStats.map((item) => (
               <div
                 key={item.label}
-                className="rounded-lg border border-border-subtle bg-elevated p-4"
+                className="min-h-[88px] rounded-lg border border-border-subtle bg-elevated p-4"
               >
-                <p className="text-[10px] text-secondary">{item.label}</p>
-                <p className="mt-1 tabular-nums text-body-sm font-medium text-primary">
-                  {item.value}
-                </p>
+                <p className="text-body-sm text-secondary">{item.label}</p>
+                <p className="mt-2 text-body font-semibold text-primary">{item.value}</p>
               </div>
             ))}
           </div>
@@ -270,7 +281,11 @@ export function PcHomePage() {
           <h2 className="text-h2 font-semibold text-primary">随时随地，开启交易</h2>
           <div className="mt-6 flex items-center gap-10">
             <div className="flex h-36 w-36 items-center justify-center rounded-xl border border-dashed border-border bg-sunken">
-              <QrCode className="h-16 w-16 text-secondary" strokeWidth={1} />
+              {figmaExport ? (
+                <FigmaQrPlaceholder size={112} />
+              ) : (
+                <QrCode className="h-16 w-16 text-secondary" strokeWidth={1} />
+              )}
             </div>
             <div>
               <p className="text-body-sm text-secondary">扫码下载 App</p>
@@ -279,9 +294,11 @@ export function PcHomePage() {
                   (platform) => (
                     <span
                       key={platform}
-                      className="inline-flex items-center gap-1.5 rounded-md border border-border-subtle bg-elevated px-3 py-2 text-caption text-primary"
+                      className="inline-flex items-center gap-1.5 rounded-md border border-border-subtle bg-elevated px-3 py-2 text-body-sm text-primary"
                     >
-                      <Smartphone className="h-3.5 w-3.5 text-secondary" />
+                      {!figmaExport && (
+                        <Smartphone className="h-3.5 w-3.5 text-secondary" strokeWidth={1.5} />
+                      )}
                       {platform}
                     </span>
                   ),
@@ -301,12 +318,12 @@ export function PcHomePage() {
           <h2 className="text-h2 font-semibold text-primary">常见问题</h2>
           <ul className="mt-6 divide-y divide-border-subtle rounded-xl border border-border-subtle bg-elevated">
             {faqItems.map((item, index) => {
-              const expanded = openFaq === index
+              const expanded = figmaExport || openFaq === index
               return (
                 <li key={item.q}>
                   <button
                     type="button"
-                    onClick={() => setOpenFaq(expanded ? null : index)}
+                    onClick={() => !figmaExport && setOpenFaq(expanded ? null : index)}
                     className="flex w-full items-start justify-between gap-4 px-5 py-4 text-left"
                   >
                     <span className="flex gap-3">
@@ -317,7 +334,11 @@ export function PcHomePage() {
                         {item.q}
                       </span>
                     </span>
-                    {expanded ? (
+                    {figmaExport ? (
+                      <span className="shrink-0 text-secondary" aria-hidden>
+                        {expanded ? '▲' : '▼'}
+                      </span>
+                    ) : expanded ? (
                       <ChevronUp className="h-4 w-4 shrink-0 text-secondary" />
                     ) : (
                       <ChevronDown className="h-4 w-4 shrink-0 text-secondary" />

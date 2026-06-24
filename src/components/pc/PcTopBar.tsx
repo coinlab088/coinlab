@@ -2,6 +2,7 @@ import { useState, type ReactNode } from 'react'
 import { CircleDollarSign, Download, Globe, Search, User } from 'lucide-react'
 import { CoinNovaLogo } from '../CoinNovaLogo'
 import { usePrototype } from '../../context/PrototypeContext'
+import { useFigmaExport } from '../../hooks/useFigmaExport'
 
 function TopIcon({
   label,
@@ -33,6 +34,7 @@ export function PcTopBar() {
     openRegister,
     openSheet,
   } = usePrototype()
+  const figmaExport = useFigmaExport()
   const [search, setSearch] = useState('')
 
   function handleSearchSubmit(e: React.FormEvent) {
@@ -121,18 +123,30 @@ export function PcTopBar() {
         )}
 
         <TopIcon label="下载 App">
-          <Download className="h-[18px] w-[18px]" strokeWidth={1.5} />
+          {figmaExport ? (
+            <span className="text-caption font-medium text-secondary">下载</span>
+          ) : (
+            <Download className="h-[18px] w-[18px]" strokeWidth={1.5} />
+          )}
         </TopIcon>
         <button
           type="button"
           onClick={() => openSheet('fiat')}
           aria-label="法币计价"
-          className="flex h-9 w-9 items-center justify-center rounded-lg border border-border-subtle bg-elevated text-primary hover:border-brand/40"
+          className="flex h-9 items-center justify-center gap-1 rounded-lg border border-border-subtle bg-elevated px-2 text-primary hover:border-brand/40"
         >
-          <CircleDollarSign className="h-4 w-4 text-secondary" strokeWidth={1.5} />
+          {figmaExport ? (
+            <span className="text-caption font-medium text-secondary">USD</span>
+          ) : (
+            <CircleDollarSign className="h-4 w-4 text-secondary" strokeWidth={1.5} />
+          )}
         </button>
         <TopIcon label="语言" onClick={() => openSheet('language')}>
-          <Globe className="h-[18px] w-[18px]" strokeWidth={1.5} />
+          {figmaExport ? (
+            <span className="text-caption font-medium text-secondary">中</span>
+          ) : (
+            <Globe className="h-[18px] w-[18px]" strokeWidth={1.5} />
+          )}
         </TopIcon>
       </div>
     </header>
