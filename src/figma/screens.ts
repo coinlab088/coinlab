@@ -671,7 +671,7 @@ const pcScreens: FigmaScreenEntry[] = [
     label: 'PC · 交易',
     description: '图表 · 盘口 · 下单',
     group: 'pc',
-    preset: pc({ isLoggedIn: true, activeTab: 'trade' }),
+    preset: pc({ isLoggedIn: true, activeTab: 'trade', figmaPcViewport: 'fixed' }),
   },
   {
     path: 'pc/assets',
@@ -791,6 +791,7 @@ const pcScreens: FigmaScreenEntry[] = [
       isLoggedIn: true,
       activeTab: 'trade',
       activeSheet: 'fiat',
+      figmaPcViewport: 'fixed',
     }),
   },
   {
@@ -802,6 +803,7 @@ const pcScreens: FigmaScreenEntry[] = [
       isLoggedIn: true,
       activeTab: 'trade',
       tradeSheet: 'pair-picker',
+      figmaPcViewport: 'fixed',
     }),
   },
   {
@@ -812,6 +814,7 @@ const pcScreens: FigmaScreenEntry[] = [
       isLoggedIn: true,
       activeTab: 'trade',
       tradeOverlay: 'order-book-depth',
+      figmaPcViewport: 'fixed',
     }),
   },
 ]

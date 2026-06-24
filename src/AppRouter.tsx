@@ -1,4 +1,5 @@
 import { usePrototype } from './context/PrototypeContext'
+import { useFigmaPcDocument } from './hooks/useFigmaPcDocument'
 import { AccountRouter } from './AccountRouter'
 import { AuthRouter } from './AuthRouter'
 import { ChartRouter } from './ChartRouter'
@@ -24,6 +25,7 @@ export function AppRouter() {
     chartScreen,
     previewPlatform,
   } = usePrototype()
+  const pcDocument = useFigmaPcDocument()
 
   const content = (() => {
     if (authScreen) return <AuthRouter />
@@ -59,5 +61,5 @@ export function AppRouter() {
     }
   })()
 
-  return <div className="h-full min-h-0">{content}</div>
+  return <div className={pcDocument ? '' : 'h-full min-h-0'}>{content}</div>
 }

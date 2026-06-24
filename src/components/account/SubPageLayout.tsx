@@ -1,6 +1,7 @@
 import { ChevronLeft } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { usePrototype } from '../../context/PrototypeContext'
+import { useFigmaPcDocument } from '../../hooks/useFigmaPcDocument'
 import { PcTopBar } from '../pc/PcTopBar'
 
 interface SubPageLayoutProps {
@@ -21,8 +22,49 @@ export function SubPageLayout({
   footer,
 }: SubPageLayoutProps) {
   const { previewPlatform } = usePrototype()
+  const pcDocument = useFigmaPcDocument()
 
   if (previewPlatform === 'pc') {
+    if (pcDocument) {
+      return (
+        <div className="flex min-h-[900px] flex-col bg-base">
+          <PcTopBar />
+          <div className="bg-base">
+            <div className="mx-auto flex w-full max-w-[1240px] flex-col px-6 py-6">
+              <div className="overflow-hidden rounded-2xl border border-border-subtle bg-elevated shadow-[0_24px_80px_rgba(0,0,0,0.28)]">
+                <header className="flex h-16 items-center border-b border-border-subtle px-5">
+                  {!hideBack ? (
+                    <button
+                      type="button"
+                      aria-label="返回"
+                      onClick={onBack}
+                      className="flex h-10 w-10 items-center justify-center rounded-lg text-primary hover:bg-sunken"
+                    >
+                      <ChevronLeft className="h-5 w-5" strokeWidth={1.5} />
+                    </button>
+                  ) : (
+                    <span className="h-10 w-10" />
+                  )}
+                  <h1 className="flex-1 truncate text-center text-h3 font-semibold text-primary">
+                    {title}
+                  </h1>
+                  {headerRight ? (
+                    <div className="flex min-w-10 items-center justify-end">{headerRight}</div>
+                  ) : (
+                    <span className="h-10 w-10" />
+                  )}
+                </header>
+
+                <main className="px-6 py-6">{children}</main>
+
+                {footer && <div className="border-t border-border-subtle px-6 py-5">{footer}</div>}
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    }
+
     return (
       <div className="flex h-full min-h-0 flex-col bg-base">
         <PcTopBar />

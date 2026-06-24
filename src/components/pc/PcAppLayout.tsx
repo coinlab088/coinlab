@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { useFigmaPcDocument } from '../../hooks/useFigmaPcDocument'
 import { PcTopBar } from './PcTopBar'
 
 interface PcAppLayoutProps {
@@ -8,6 +9,17 @@ interface PcAppLayoutProps {
 }
 
 export function PcAppLayout({ children, scroll = 'auto' }: PcAppLayoutProps) {
+  const pcDocument = useFigmaPcDocument()
+
+  if (pcDocument) {
+    return (
+      <div className="flex min-h-[900px] flex-col bg-base">
+        <PcTopBar />
+        <main>{children}</main>
+      </div>
+    )
+  }
+
   return (
     <div className="flex h-full min-h-0 flex-col bg-base">
       <PcTopBar />

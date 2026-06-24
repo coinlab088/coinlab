@@ -120,6 +120,7 @@ interface PrototypeContextValue {
   closeKline: () => void
   figmaToast: FigmaToastPreset | null
   figmaExport: boolean
+  figmaPcViewport: 'fixed' | 'document'
   figmaWalletOverlay: 'deposit-share' | null
   figmaTradeOverlay: 'order-book-depth' | null
   figmaAccountOverlay: 'security' | 'logout' | 'delete' | null
@@ -227,6 +228,7 @@ export function PrototypeProvider({
   )
   const figmaToast = preset?.figmaToast ?? null
   const figmaExport = preset?.figmaExport ?? false
+  const figmaPcViewport = preset?.figmaPcViewport ?? 'document'
   const figmaWalletOverlay = preset?.walletOverlay ?? null
   const figmaTradeOverlay = preset?.tradeOverlay ?? null
   const figmaAccountOverlay = preset?.accountOverlay ?? null
@@ -642,6 +644,7 @@ export function PrototypeProvider({
       closeKline,
       figmaToast,
       figmaExport,
+      figmaPcViewport,
       figmaWalletOverlay,
       figmaTradeOverlay,
       figmaAccountOverlay,
@@ -724,6 +727,7 @@ export function PrototypeProvider({
       setAppTheme,
       figmaToast,
       figmaExport,
+      figmaPcViewport,
       figmaWalletOverlay,
       figmaTradeOverlay,
       figmaAccountOverlay,

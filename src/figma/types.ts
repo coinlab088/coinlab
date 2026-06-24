@@ -48,6 +48,8 @@ export interface PrototypePreset {
   tradeOverlay?: 'order-book-depth'
   /** Figma 导出页：禁用自动跳转等原型行为 */
   figmaExport?: boolean
+  /** Figma 导出：PC 固定视口（交易台）或文档高度（落地页等） */
+  figmaPcViewport?: 'fixed' | 'document'
 }
 
 export type MobileFigmaScreenGroup =
