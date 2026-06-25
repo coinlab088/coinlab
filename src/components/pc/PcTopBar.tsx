@@ -33,6 +33,7 @@ export function PcTopBar() {
     openLogin,
     openRegister,
     openSheet,
+    showToast,
   } = usePrototype()
   const figmaExport = useFigmaExport()
   const [search, setSearch] = useState('')
@@ -71,9 +72,8 @@ export function PcTopBar() {
           </button>
           <button
             type="button"
-            disabled
-            className="cursor-not-allowed py-4 text-body-sm text-secondary/50"
-            title="即将上线"
+            onClick={() => showToast('该功能暂未开放', 'info')}
+            className="py-4 text-body-sm font-medium text-secondary hover:text-primary"
           >
             合约
           </button>
