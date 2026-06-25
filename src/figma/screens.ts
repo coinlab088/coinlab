@@ -55,6 +55,7 @@ const mockWithdrawDraft: WithdrawDraft = {
 const mockSpotOrders = demoSpotOrders
 
 const demoEmail = 'trader@example.com'
+const demoInviteCode = 'CN8888'
 
 const tabScreens: MobileScreenDef[] = [
   {
@@ -137,13 +138,28 @@ const authScreens: MobileScreenDef[] = [
     }),
   },
   {
+    path: 'auth/register-invite',
+    label: '注册 · 邀请码',
+    description: '邀请码选填',
+    group: 'auth',
+    preset: app({
+      isLoggedIn: false,
+      activeTab: 'market',
+      authScreen: { screen: 'register', inviteCode: demoInviteCode },
+    }),
+  },
+  {
     path: 'auth/register-verify',
     label: '注册 · 验证码',
     group: 'auth',
     preset: app({
       isLoggedIn: false,
       activeTab: 'market',
-      authScreen: { screen: 'register-verify', email: 'new@example.com' },
+      authScreen: {
+        screen: 'register-verify',
+        email: 'new@example.com',
+        inviteCode: demoInviteCode,
+      },
     }),
   },
   {
@@ -153,7 +169,11 @@ const authScreens: MobileScreenDef[] = [
     preset: app({
       isLoggedIn: false,
       activeTab: 'market',
-      authScreen: { screen: 'register-password', email: 'new@example.com' },
+      authScreen: {
+        screen: 'register-password',
+        email: 'new@example.com',
+        inviteCode: demoInviteCode,
+      },
     }),
   },
   {
@@ -211,6 +231,17 @@ const accountScreens: MobileScreenDef[] = [
     }),
   },
   {
+    path: 'account/invite',
+    label: '邀请好友',
+    description: '邀请码、邀请链接与返佣规则',
+    group: 'account',
+    preset: app({
+      isLoggedIn: true,
+      activeTab: 'market',
+      accountScreen: { screen: 'invite' },
+    }),
+  },
+  {
     path: 'account/security',
     label: '安全设置',
     group: 'account',
@@ -227,7 +258,41 @@ const accountScreens: MobileScreenDef[] = [
     preset: app({
       isLoggedIn: true,
       activeTab: 'market',
+      userGoogleAuthBound: true,
       accountScreen: { screen: 'security-google' },
+    }),
+  },
+  {
+    path: 'account/security-google-unbound',
+    label: 'Google 验证器 · 未绑定',
+    group: 'account',
+    preset: app({
+      isLoggedIn: true,
+      activeTab: 'market',
+      userGoogleAuthBound: false,
+      accountScreen: { screen: 'security-google' },
+    }),
+  },
+  {
+    path: 'account/security-google-setup',
+    label: 'Google 验证器 · 绑定步骤',
+    group: 'account',
+    preset: app({
+      isLoggedIn: true,
+      activeTab: 'market',
+      userGoogleAuthBound: false,
+      accountScreen: { screen: 'security-google-setup' },
+    }),
+  },
+  {
+    path: 'account/security-google-verify',
+    label: 'Google 验证器 · 安全验证',
+    group: 'account',
+    preset: app({
+      isLoggedIn: true,
+      activeTab: 'market',
+      userGoogleAuthBound: false,
+      accountScreen: { screen: 'security-google-verify' },
     }),
   },
   {
@@ -685,6 +750,18 @@ const pcScreens: FigmaScreenEntry[] = [
     }),
   },
   {
+    path: 'pc/account/invite',
+    label: 'PC · 邀请好友',
+    description: '邀请码、邀请链接与返佣规则',
+    group: 'pc',
+    preset: pc({
+      isLoggedIn: true,
+      activeTab: 'assets',
+      userKycStatus: 'verified',
+      accountScreen: { screen: 'invite' },
+    }),
+  },
+  {
     path: 'pc/assets/security',
     label: 'PC · 安全设置弹窗',
     group: 'pc',
@@ -693,6 +770,42 @@ const pcScreens: FigmaScreenEntry[] = [
       activeTab: 'assets',
       userKycStatus: 'verified',
       accountOverlay: 'security',
+    }),
+  },
+  {
+    path: 'pc/account/security-google-unbound',
+    label: 'PC · Google 验证器 · 未绑定',
+    group: 'pc',
+    preset: pc({
+      isLoggedIn: true,
+      activeTab: 'assets',
+      userKycStatus: 'verified',
+      userGoogleAuthBound: false,
+      accountScreen: { screen: 'security-google' },
+    }),
+  },
+  {
+    path: 'pc/account/security-google-setup',
+    label: 'PC · Google 验证器 · 绑定步骤',
+    group: 'pc',
+    preset: pc({
+      isLoggedIn: true,
+      activeTab: 'assets',
+      userKycStatus: 'verified',
+      userGoogleAuthBound: false,
+      accountScreen: { screen: 'security-google-setup' },
+    }),
+  },
+  {
+    path: 'pc/account/security-google-verify',
+    label: 'PC · Google 验证器 · 安全验证',
+    group: 'pc',
+    preset: pc({
+      isLoggedIn: true,
+      activeTab: 'assets',
+      userKycStatus: 'verified',
+      userGoogleAuthBound: false,
+      accountScreen: { screen: 'security-google-verify' },
     }),
   },
   {
@@ -737,6 +850,17 @@ const pcScreens: FigmaScreenEntry[] = [
       isLoggedIn: false,
       activeTab: 'home',
       authScreen: { screen: 'register' },
+    }),
+  },
+  {
+    path: 'pc/auth/register-invite',
+    label: 'PC · 注册 · 邀请码',
+    description: '邀请码选填',
+    group: 'pc',
+    preset: pc({
+      isLoggedIn: false,
+      activeTab: 'home',
+      authScreen: { screen: 'register', inviteCode: demoInviteCode },
     }),
   },
   {

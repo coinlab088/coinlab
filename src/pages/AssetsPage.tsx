@@ -15,7 +15,14 @@ const coinToWallet: Record<string, WalletCoin> = {
 }
 
 export function AssetsPage() {
-  const { user, openAuth, openWallet, openFundHistory, openOrderHistory } =
+  const {
+    user,
+    openAuth,
+    openWallet,
+    openFundHistory,
+    openOrderHistory,
+    navigateAccount,
+  } =
     usePrototype()
   const autoOpened = useRef(false)
 
@@ -53,6 +60,10 @@ export function AssetsPage() {
         </div>
 
         <div className="divide-y divide-border-subtle overflow-hidden rounded-lg border border-border-subtle bg-elevated">
+          <RecordLink
+            label="邀请好友"
+            onClick={() => navigateAccount({ screen: 'invite' })}
+          />
           <RecordLink label="充提记录" onClick={openFundHistory} />
           <RecordLink label="订单明细" onClick={openOrderHistory} />
         </div>

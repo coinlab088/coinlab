@@ -40,6 +40,8 @@ export interface PrototypePreset {
   userKycStatus?: KycStatus
   /** Figma 导出：覆盖是否已设置支付密码 */
   userPaymentPasswordSet?: boolean
+  /** Figma 导出：覆盖是否已绑定 Google 验证器 */
+  userGoogleAuthBound?: boolean
   /** Figma 导出：资产中心叠加层 */
   accountOverlay?: 'security' | 'logout' | 'delete'
   /** Figma 导出：钱包页叠加层 */

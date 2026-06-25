@@ -16,11 +16,16 @@
 | pc/market | https://coinlab088.github.io/coinlab/figma/pc/market | 行情 |
 | pc/trade | https://coinlab088.github.io/coinlab/figma/pc/trade | 图表 · 盘口 · 下单 |
 | pc/assets | https://coinlab088.github.io/coinlab/figma/pc/assets | 个人中心与资产合并 |
+| pc/account/invite | https://coinlab088.github.io/coinlab/figma/pc/account/invite | 邀请好友 |
 | pc/assets/security | https://coinlab088.github.io/coinlab/figma/pc/assets/security | 安全设置弹窗 |
+| pc/account/security-google-unbound | https://coinlab088.github.io/coinlab/figma/pc/account/security-google-unbound | Google 未绑定 |
+| pc/account/security-google-setup | https://coinlab088.github.io/coinlab/figma/pc/account/security-google-setup | Google 绑定步骤 |
+| pc/account/security-google-verify | https://coinlab088.github.io/coinlab/figma/pc/account/security-google-verify | Google 安全验证 |
 | pc/assets/logout | https://coinlab088.github.io/coinlab/figma/pc/assets/logout | 退出登录弹窗 |
 | pc/assets/delete | https://coinlab088.github.io/coinlab/figma/pc/assets/delete | 注销账户弹窗 |
 | pc/auth/login | https://coinlab088.github.io/coinlab/figma/pc/auth/login | 左右分栏登录 |
 | pc/auth/register | https://coinlab088.github.io/coinlab/figma/pc/auth/register | 左右分栏注册 |
+| pc/auth/register-invite | https://coinlab088.github.io/coinlab/figma/pc/auth/register-invite | 注册页含邀请码 |
 | pc/wallet/deposit | https://coinlab088.github.io/coinlab/figma/pc/wallet/deposit | 充币 |
 | pc/wallet/deposit-address-share | https://coinlab088.github.io/coinlab/figma/pc/wallet/deposit-address-share | 充币地址分享 |
 | pc/wallet/withdraw | https://coinlab088.github.io/coinlab/figma/pc/wallet/withdraw | 未设支付密码时引导设置 |
@@ -51,6 +56,7 @@
 | app/auth/login | https://coinlab088.github.io/coinlab/figma/app/auth/login |
 | app/auth/login-verify | https://coinlab088.github.io/coinlab/figma/app/auth/login-verify |
 | app/auth/register | https://coinlab088.github.io/coinlab/figma/app/auth/register |
+| app/auth/register-invite | https://coinlab088.github.io/coinlab/figma/app/auth/register-invite |
 | app/auth/register-verify | https://coinlab088.github.io/coinlab/figma/app/auth/register-verify |
 | app/auth/set-password | https://coinlab088.github.io/coinlab/figma/app/auth/set-password |
 | app/auth/security-verify | https://coinlab088.github.io/coinlab/figma/app/auth/security-verify |
@@ -64,9 +70,13 @@
 | Frame 名 | 完整链接 |
 |----------|----------|
 | app/account/settings | https://coinlab088.github.io/coinlab/figma/app/account/settings |
+| app/account/invite | https://coinlab088.github.io/coinlab/figma/app/account/invite |
 | app/account/profile | https://coinlab088.github.io/coinlab/figma/app/account/profile |
 | app/account/security | https://coinlab088.github.io/coinlab/figma/app/account/security |
 | app/account/security-google | https://coinlab088.github.io/coinlab/figma/app/account/security-google |
+| app/account/security-google-unbound | https://coinlab088.github.io/coinlab/figma/app/account/security-google-unbound |
+| app/account/security-google-setup | https://coinlab088.github.io/coinlab/figma/app/account/security-google-setup |
+| app/account/security-google-verify | https://coinlab088.github.io/coinlab/figma/app/account/security-google-verify |
 | app/account/security-email | https://coinlab088.github.io/coinlab/figma/app/account/security-email |
 | app/account/security-login-password | https://coinlab088.github.io/coinlab/figma/app/account/security-login-password |
 | app/account/security-payment-password | https://coinlab088.github.io/coinlab/figma/app/account/security-payment-password |
@@ -163,6 +173,7 @@
 | h5/auth/login | https://coinlab088.github.io/coinlab/figma/h5/auth/login |
 | h5/auth/login-verify | https://coinlab088.github.io/coinlab/figma/h5/auth/login-verify |
 | h5/auth/register | https://coinlab088.github.io/coinlab/figma/h5/auth/register |
+| h5/auth/register-invite | https://coinlab088.github.io/coinlab/figma/h5/auth/register-invite |
 | h5/auth/register-verify | https://coinlab088.github.io/coinlab/figma/h5/auth/register-verify |
 | h5/auth/set-password | https://coinlab088.github.io/coinlab/figma/h5/auth/set-password |
 | h5/auth/security-verify | https://coinlab088.github.io/coinlab/figma/h5/auth/security-verify |
@@ -176,9 +187,13 @@
 | Frame 名 | 完整链接 |
 |----------|----------|
 | h5/account/settings | https://coinlab088.github.io/coinlab/figma/h5/account/settings |
+| h5/account/invite | https://coinlab088.github.io/coinlab/figma/h5/account/invite |
 | h5/account/profile | https://coinlab088.github.io/coinlab/figma/h5/account/profile |
 | h5/account/security | https://coinlab088.github.io/coinlab/figma/h5/account/security |
 | h5/account/security-google | https://coinlab088.github.io/coinlab/figma/h5/account/security-google |
+| h5/account/security-google-unbound | https://coinlab088.github.io/coinlab/figma/h5/account/security-google-unbound |
+| h5/account/security-google-setup | https://coinlab088.github.io/coinlab/figma/h5/account/security-google-setup |
+| h5/account/security-google-verify | https://coinlab088.github.io/coinlab/figma/h5/account/security-google-verify |
 | h5/account/security-email | https://coinlab088.github.io/coinlab/figma/h5/account/security-email |
 | h5/account/security-login-password | https://coinlab088.github.io/coinlab/figma/h5/account/security-login-password |
 | h5/account/security-payment-password | https://coinlab088.github.io/coinlab/figma/h5/account/security-payment-password |

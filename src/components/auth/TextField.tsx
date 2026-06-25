@@ -27,9 +27,11 @@ export function TextField({
 
   return (
     <div className="mb-4">
-      <label htmlFor={id} className="mb-1 block text-body-sm text-secondary">
-        {label}
-      </label>
+      {label ? (
+        <label htmlFor={id} className="mb-1 block text-body-sm text-secondary">
+          {label}
+        </label>
+      ) : null}
       <div className="relative">
         <input
           id={id}

@@ -92,6 +92,10 @@ export function PcAssetsPage() {
 
             <section className="rounded-2xl border border-border-subtle bg-elevated p-3 shadow-[0_24px_80px_rgba(0,0,0,0.24)]">
               <SidebarLink label="订单" onClick={openOrderHistory} />
+              <SidebarLink
+                label="邀请好友"
+                onClick={() => navigateAccount({ screen: 'invite' })}
+              />
               <SidebarLink label="安全设置" onClick={() => setConfirmModal('security')} />
               <SidebarLink label="语言设置" onClick={() => openSheet('language')} />
               <SidebarLink label="法币计价" onClick={() => openSheet('fiat')} />
@@ -130,6 +134,13 @@ export function PcAssetsPage() {
                     className="h-11 rounded-xl border border-border px-6 text-body-sm font-medium text-primary hover:bg-sunken"
                   >
                     充提记录
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => navigateAccount({ screen: 'invite' })}
+                    className="h-11 rounded-xl border border-border px-6 text-body-sm font-medium text-primary hover:bg-sunken"
+                  >
+                    邀请好友
                   </button>
                 </div>
               </div>

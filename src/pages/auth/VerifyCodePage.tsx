@@ -9,12 +9,14 @@ interface VerifyCodePageProps {
   email: string
   purpose: 'login' | 'register'
   loginMethod?: 'password' | 'code'
+  inviteCode?: string
 }
 
 export function VerifyCodePage({
   email,
   purpose,
   loginMethod,
+  inviteCode,
 }: VerifyCodePageProps) {
   const { setAuthScreen } = usePrototype()
   const [otp, setOtp] = useState('')
@@ -29,7 +31,7 @@ export function VerifyCodePage({
     if (purpose === 'login') {
       setAuthScreen({ screen: 'login' })
     } else {
-      setAuthScreen({ screen: 'register' })
+      setAuthScreen({ screen: 'register', inviteCode })
     }
   }
 
@@ -65,7 +67,7 @@ export function VerifyCodePage({
           flow: 'login',
         })
       } else {
-        setAuthScreen({ screen: 'register-password', email })
+        setAuthScreen({ screen: 'register-password', email, inviteCode })
       }
     }, 400)
   }
@@ -80,7 +82,14 @@ export function VerifyCodePage({
           </p>
         </>
       ) : (
-        <p className="mb-6 text-body-sm text-secondary">{authCopy.emailSent(email)}</p>
+        <>
+          <p className="mb-2 text-body-sm text-secondary">{authCopy.emailSent(email)}</p>
+          {inviteCode ? (
+            <p className="mb-6 text-caption text-brand">已绑定邀请码：{inviteCode}</p>
+          ) : (
+            <p className="mb-6 text-caption text-primary-muted">邀请码为选填，可跳过</p>
+          )}
+        </>
       )}
 
       <form onSubmit={handleSubmit}>

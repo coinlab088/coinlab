@@ -58,6 +58,11 @@ export function AccountSettingsPage() {
           <div>
             <SettingsGroup title="账户">
               <SettingsRow
+                label="邀请好友"
+                hint="分享邀请码与邀请链接，获得返佣奖励"
+                onClick={() => navigateAccount({ screen: 'invite' })}
+              />
+              <SettingsRow
                 label="个人资料"
                 hint="昵称、邮箱与基础账户信息"
                 onClick={() => navigateAccount({ screen: 'profile' })}
@@ -130,6 +135,11 @@ export function AccountSettingsPage() {
           </div>
 
           <SettingsGroup title="账户">
+            <SettingsRow
+              label="邀请好友"
+              hint="分享邀请码与邀请链接，获得返佣奖励"
+              onClick={() => navigateAccount({ screen: 'invite' })}
+            />
             <SettingsRow
               label="个人资料"
               onClick={() => navigateAccount({ screen: 'profile' })}

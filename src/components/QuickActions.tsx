@@ -1,7 +1,7 @@
 import {
   ArrowDownToLine,
   ArrowUpFromLine,
-  CircleHelp,
+  Gift,
   Headphones,
 } from 'lucide-react'
 import type { QuickAction } from '../data/mock'
@@ -10,7 +10,7 @@ import { usePrototype } from '../context/PrototypeContext'
 const iconMap = {
   deposit: ArrowDownToLine,
   withdraw: ArrowUpFromLine,
-  help: CircleHelp,
+  invite: Gift,
   support: Headphones,
 } as const
 
@@ -19,7 +19,7 @@ interface QuickActionsProps {
 }
 
 export function QuickActions({ actions }: QuickActionsProps) {
-  const { openWallet, openHelpCenter, openSupportCenter } = usePrototype()
+  const { openWallet, openSupportCenter, navigateAccount } = usePrototype()
 
   return (
     <nav
@@ -36,7 +36,7 @@ export function QuickActions({ actions }: QuickActionsProps) {
             onClick={() => {
               if (action.id === 'deposit') openWallet('deposit')
               if (action.id === 'withdraw') openWallet('withdraw')
-              if (action.id === 'help') openHelpCenter()
+              if (action.id === 'invite') navigateAccount({ screen: 'invite' })
               if (action.id === 'support') openSupportCenter()
             }}
             className="flex flex-col items-center gap-1.5 py-1 active:opacity-70"

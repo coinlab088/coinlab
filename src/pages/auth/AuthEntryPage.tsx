@@ -1,3 +1,4 @@
+import { ChevronDown, ChevronUp } from 'lucide-react'
 import { useState } from 'react'
 import { AuthButton } from '../../components/auth/AuthButton'
 import { AuthPageShell } from '../../components/auth/AuthPageShell'
@@ -17,6 +18,8 @@ export function AuthEntryPage() {
   const [tab, setTab] = useState<EntryTab>('login')
   const [loginMode, setLoginMode] = useState<LoginMode>('password')
   const [email, setEmail] = useState('')
+  const [inviteCode, setInviteCode] = useState('')
+  const [showInviteCode, setShowInviteCode] = useState(false)
   const [password, setPassword] = useState('')
   const [agreed, setAgreed] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -49,7 +52,11 @@ export function AuthEntryPage() {
       const trimmed = email.trim()
 
       if (tab === 'register') {
-        setAuthScreen({ screen: 'register-verify', email: trimmed })
+        setAuthScreen({
+          screen: 'register-verify',
+          email: trimmed,
+          inviteCode: inviteCode.trim().toUpperCase(),
+        })
         return
       }
 
@@ -155,6 +162,27 @@ export function AuthEntryPage() {
             <p className="mb-4 text-body-sm text-secondary">
               使用邮箱注册 CoinNova 账户
             </p>
+            <button
+              type="button"
+              onClick={() => setShowInviteCode((v) => !v)}
+              className="mb-3 flex items-center gap-1 text-body-sm text-secondary"
+            >
+              <span>邀请码（选填）</span>
+              {showInviteCode ? (
+                <ChevronUp className="h-4 w-4" strokeWidth={1.5} />
+              ) : (
+                <ChevronDown className="h-4 w-4" strokeWidth={1.5} />
+              )}
+            </button>
+            {showInviteCode && (
+              <TextField
+                label=""
+                value={inviteCode}
+                onChange={setInviteCode}
+                placeholder="请输入邀请码"
+                autoComplete="off"
+              />
+            )}
             <label className="mb-6 flex items-start gap-2">
               <input
                 type="checkbox"

@@ -1,3 +1,4 @@
+import { ChevronDown, ChevronUp } from 'lucide-react'
 import { useState } from 'react'
 import { AuthButton } from '../../components/auth/AuthButton'
 import { AuthPageShell } from '../../components/auth/AuthPageShell'
@@ -6,8 +7,10 @@ import { authCopy, isValidEmail } from '../../data/auth'
 import { usePrototype } from '../../context/PrototypeContext'
 
 export function RegisterPage() {
-  const { closeAuth, openLogin, setAuthScreen } = usePrototype()
+  const { closeAuth, openLogin, setAuthScreen, authScreen } = usePrototype()
   const [email, setEmail] = useState('')
+  const [inviteCode, setInviteCode] = useState(authScreen?.inviteCode ?? '')
+  const [showInviteCode, setShowInviteCode] = useState(Boolean(authScreen?.inviteCode))
   const [agreed, setAgreed] = useState(false)
   const [loading, setLoading] = useState(false)
   const [emailError, setEmailError] = useState<string>()
@@ -36,7 +39,11 @@ export function RegisterPage() {
     setLoading(true)
     window.setTimeout(() => {
       setLoading(false)
-      setAuthScreen({ screen: 'register-verify', email: email.trim() })
+      setAuthScreen({
+        screen: 'register-verify',
+        email: email.trim(),
+        inviteCode: inviteCode.trim().toUpperCase(),
+      })
     }, 400)
   }
 
@@ -56,6 +63,27 @@ export function RegisterPage() {
           error={emailError}
           autoComplete="email"
         />
+        <button
+          type="button"
+          onClick={() => setShowInviteCode((v) => !v)}
+          className="mb-3 flex items-center gap-1 text-body-sm text-secondary"
+        >
+          <span>邀请码（选填）</span>
+          {showInviteCode ? (
+            <ChevronUp className="h-4 w-4" strokeWidth={1.5} />
+          ) : (
+            <ChevronDown className="h-4 w-4" strokeWidth={1.5} />
+          )}
+        </button>
+        {showInviteCode && (
+          <TextField
+            label=""
+            value={inviteCode}
+            onChange={setInviteCode}
+            placeholder="请输入邀请码"
+            autoComplete="off"
+          />
+        )}
 
         <label className="mb-6 flex items-start gap-2">
           <input

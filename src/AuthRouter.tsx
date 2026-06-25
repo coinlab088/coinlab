@@ -33,10 +33,19 @@ export function AuthRouter() {
       return <RegisterPage />
     case 'register-verify':
       return (
-        <VerifyCodePage email={authScreen.email ?? ''} purpose="register" />
+        <VerifyCodePage
+          email={authScreen.email ?? ''}
+          purpose="register"
+          inviteCode={authScreen.inviteCode}
+        />
       )
     case 'register-password':
-      return <SetPasswordPage email={authScreen.email ?? ''} />
+      return (
+        <SetPasswordPage
+          email={authScreen.email ?? ''}
+          inviteCode={authScreen.inviteCode}
+        />
+      )
     case 'security-verify':
       return (
         <SecurityVerifyPage

@@ -1,8 +1,11 @@
 export type AccountScreenName =
   | 'hub'
+  | 'invite'
   | 'profile'
   | 'security'
   | 'security-google'
+  | 'security-google-setup'
+  | 'security-google-verify'
   | 'security-email'
   | 'security-login-password'
   | 'security-payment-password'
@@ -26,8 +29,11 @@ export interface SecurityItem {
 
 export const accountCopy = {
   hubTitle: '账户设置',
+  inviteTitle: '邀请好友',
   profileTitle: '个人资料',
   securityTitle: '安全设置',
+  googleSetupTitle: 'Google 身份验证器',
+  googleVerifyTitle: '安全验证',
   kycTitle: '身份认证',
   kycSumsubTitle: 'Sumsub 验证',
   logoutTitle: '退出登录',

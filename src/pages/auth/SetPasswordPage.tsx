@@ -7,9 +7,10 @@ import { usePrototype } from '../../context/PrototypeContext'
 
 interface SetPasswordPageProps {
   email: string
+  inviteCode?: string
 }
 
-export function SetPasswordPage({ email }: SetPasswordPageProps) {
+export function SetPasswordPage({ email, inviteCode }: SetPasswordPageProps) {
   const { setAuthScreen } = usePrototype()
   const [password, setPassword] = useState('')
   const [confirm, setConfirm] = useState('')
@@ -36,6 +37,7 @@ export function SetPasswordPage({ email }: SetPasswordPageProps) {
       setAuthScreen({
         screen: 'security-verify',
         email,
+        inviteCode,
         flow: 'register',
       })
     }, 400)
@@ -44,11 +46,14 @@ export function SetPasswordPage({ email }: SetPasswordPageProps) {
   return (
     <AuthPageShell
       title={authCopy.passwordTitle}
-      onBack={() => setAuthScreen({ screen: 'register-verify', email })}
+      onBack={() => setAuthScreen({ screen: 'register-verify', email, inviteCode })}
     >
       <p className="mb-6 text-body-sm text-secondary">
         为 <span className="text-primary">{email}</span> 设置登录密码
       </p>
+      {inviteCode && (
+        <p className="-mt-3 mb-6 text-caption text-brand">邀请码：{inviteCode}</p>
+      )}
 
       <form onSubmit={handleSubmit}>
         <TextField

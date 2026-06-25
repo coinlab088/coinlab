@@ -31,7 +31,7 @@ export interface BannerSlide {
 }
 
 export interface QuickAction {
-  id: 'deposit' | 'withdraw' | 'help' | 'support'
+  id: 'deposit' | 'withdraw' | 'invite' | 'support'
   label: string
 }
 
@@ -95,7 +95,7 @@ export const tradeQuickActions: QuickAction[] = [
 export const marketQuickActions: QuickAction[] = [
   { id: 'deposit', label: '充币' },
   { id: 'withdraw', label: '提币' },
-  { id: 'help', label: '帮助中心' },
+  { id: 'invite', label: '邀请好友' },
   { id: 'support', label: '联系客服' },
 ]
 

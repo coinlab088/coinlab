@@ -4,13 +4,16 @@ import { ChangeLoginPasswordPage } from './pages/account/ChangeLoginPasswordPage
 import { DeleteAccountPage } from './pages/account/DeleteAccountPage'
 import { DeleteAccountSuccessPage } from './pages/account/DeleteAccountSuccessPage'
 import { DeleteAccountVerifyPage } from './pages/account/DeleteAccountVerifyPage'
+import { InviteFriendsPage } from './pages/account/InviteFriendsPage'
 import { KycPage } from './pages/account/KycPage'
 import { KycSumsubPage } from './pages/account/KycSumsubPage'
 import { LogoutPage } from './pages/account/LogoutPage'
 import { PaymentPasswordPage } from './pages/account/PaymentPasswordPage'
 import { ProfilePage } from './pages/account/ProfilePage'
 import { SecurityEmailPage } from './pages/account/SecurityEmailPage'
+import { SecurityGoogleSetupPage } from './pages/account/SecurityGoogleSetupPage'
 import { SecurityGooglePage } from './pages/account/SecurityGooglePage'
+import { SecurityGoogleVerifyPage } from './pages/account/SecurityGoogleVerifyPage'
 import { SecuritySettingsPage } from './pages/account/SecuritySettingsPage'
 
 export function AccountRouter() {
@@ -21,12 +24,18 @@ export function AccountRouter() {
   switch (accountScreen.screen) {
     case 'hub':
       return <AccountSettingsPage />
+    case 'invite':
+      return <InviteFriendsPage />
     case 'profile':
       return <ProfilePage />
     case 'security':
       return <SecuritySettingsPage />
     case 'security-google':
       return <SecurityGooglePage />
+    case 'security-google-setup':
+      return <SecurityGoogleSetupPage />
+    case 'security-google-verify':
+      return <SecurityGoogleVerifyPage />
     case 'security-email':
       return <SecurityEmailPage />
     case 'security-login-password':

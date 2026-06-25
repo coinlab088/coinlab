@@ -171,6 +171,9 @@ export function PrototypeProvider({
   const [profile, setProfile] = useState({
     ...loggedInProfileDefaults,
     ...(preset?.userKycStatus ? { kycStatus: preset.userKycStatus } : {}),
+    ...(preset?.userGoogleAuthBound !== undefined
+      ? { googleAuthBound: preset.userGoogleAuthBound }
+      : {}),
     ...(preset?.userPaymentPasswordSet !== undefined
       ? { paymentPasswordSet: preset.userPaymentPasswordSet }
       : {}),

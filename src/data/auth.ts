@@ -13,6 +13,7 @@ export type AuthScreenName =
 export interface AuthScreenState {
   screen: AuthScreenName
   email?: string
+  inviteCode?: string
   flow?: 'login' | 'register'
   /** 登录验证码页来源：密码登录后的邮箱二次验证 / 验证码登录主验证 */
   loginMethod?: 'password' | 'code'
