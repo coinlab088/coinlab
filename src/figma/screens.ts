@@ -798,6 +798,40 @@ const pcScreens: FigmaScreenEntry[] = [
     }),
   },
   {
+    path: 'pc/account/security-email',
+    label: 'PC · 邮箱弹窗',
+    group: 'pc',
+    preset: pc({
+      isLoggedIn: true,
+      activeTab: 'assets',
+      userKycStatus: 'verified',
+      accountScreen: { screen: 'security-email' },
+    }),
+  },
+  {
+    path: 'pc/account/security-login-password',
+    label: 'PC · 修改登录密码弹窗',
+    group: 'pc',
+    preset: pc({
+      isLoggedIn: true,
+      activeTab: 'assets',
+      userKycStatus: 'verified',
+      accountScreen: { screen: 'security-login-password' },
+    }),
+  },
+  {
+    path: 'pc/account/security-payment-password',
+    label: 'PC · 设置支付密码弹窗',
+    group: 'pc',
+    preset: pc({
+      isLoggedIn: true,
+      activeTab: 'assets',
+      userKycStatus: 'verified',
+      userPaymentPasswordSet: false,
+      accountScreen: { screen: 'security-payment-password' },
+    }),
+  },
+  {
     path: 'pc/assets/logout',
     label: 'PC · 退出登录弹窗',
     group: 'pc',

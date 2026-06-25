@@ -6,7 +6,13 @@ import { ChartRouter } from './ChartRouter'
 import { RecordsRouter } from './RecordsRouter'
 import { SupportRouter } from './SupportRouter'
 import { WalletRouter } from './WalletRouter'
-import { isPcGoogleAuthScreen, PcGoogleAuthModal } from './components/pc/PcGoogleAuthModal'
+import { PcGoogleAuthModal } from './components/pc/PcGoogleAuthModal'
+import {
+  isPcAccountModalScreen,
+  isPcGoogleAuthScreen,
+  isPcSecuritySettingsScreen,
+} from './components/pc/pcAccountModalScreens'
+import { PcSecuritySettingsModal } from './components/pc/PcSecuritySettingsModal'
 import { AssetsPage } from './pages/AssetsPage'
 import { MarketPage } from './pages/MarketPage'
 import { TradePage } from './pages/TradePage'
@@ -29,7 +35,9 @@ export function AppRouter() {
     navigateAccount,
   } = usePrototype()
   const pcDocument = useFigmaPcDocument()
+  const pcAccountModalScreen = isPcAccountModalScreen(previewPlatform, accountScreen)
   const pcGoogleAuthScreen = isPcGoogleAuthScreen(previewPlatform, accountScreen)
+  const pcSecuritySettingsScreen = isPcSecuritySettingsScreen(previewPlatform, accountScreen)
 
   const content = (() => {
     if (authScreen) return <AuthRouter />
@@ -37,7 +45,7 @@ export function AppRouter() {
     if (recordsScreen) return <RecordsRouter />
     if (walletScreen) return <WalletRouter />
     if (supportScreen) return <SupportRouter />
-    if (accountScreen && !pcGoogleAuthScreen) return <AccountRouter />
+    if (accountScreen && !pcAccountModalScreen) return <AccountRouter />
 
     if (previewPlatform === 'pc') {
       switch (activeTab) {
@@ -74,6 +82,9 @@ export function AppRouter() {
           onClose={closeAccount}
           onNavigate={navigateAccount}
         />
+      )}
+      {pcSecuritySettingsScreen && (
+        <PcSecuritySettingsModal screen={accountScreen.screen} onClose={closeAccount} />
       )}
     </>
   )
