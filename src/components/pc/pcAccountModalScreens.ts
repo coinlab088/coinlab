@@ -10,7 +10,15 @@ export type PcSecuritySettingsScreen =
   | 'security-login-password'
   | 'security-payment-password'
 
-export type PcAccountModalScreen = PcGoogleAuthScreen | PcSecuritySettingsScreen
+export type PcInviteScreen = 'invite'
+
+export type PcKycScreen = 'kyc' | 'kyc-sumsub'
+
+export type PcAccountModalScreen =
+  | PcGoogleAuthScreen
+  | PcSecuritySettingsScreen
+  | PcInviteScreen
+  | PcKycScreen
 
 const pcAccountModalScreens = new Set<AccountScreenState['screen']>([
   'security-google',
@@ -19,6 +27,9 @@ const pcAccountModalScreens = new Set<AccountScreenState['screen']>([
   'security-email',
   'security-login-password',
   'security-payment-password',
+  'invite',
+  'kyc',
+  'kyc-sumsub',
 ])
 
 export function isPcAccountModalScreen(
@@ -55,5 +66,23 @@ export function isPcSecuritySettingsScreen(
     (accountScreen.screen === 'security-email' ||
       accountScreen.screen === 'security-login-password' ||
       accountScreen.screen === 'security-payment-password')
+  )
+}
+
+export function isPcInviteScreen(
+  previewPlatform: string,
+  accountScreen: AccountScreenState | null,
+): accountScreen is AccountScreenState & { screen: PcInviteScreen } {
+  return previewPlatform === 'pc' && accountScreen?.screen === 'invite'
+}
+
+export function isPcKycScreen(
+  previewPlatform: string,
+  accountScreen: AccountScreenState | null,
+): accountScreen is AccountScreenState & { screen: PcKycScreen } {
+  return (
+    previewPlatform === 'pc' &&
+    !!accountScreen &&
+    (accountScreen.screen === 'kyc' || accountScreen.screen === 'kyc-sumsub')
   )
 }

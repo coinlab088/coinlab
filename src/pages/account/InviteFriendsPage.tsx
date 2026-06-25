@@ -20,14 +20,21 @@ function formatCommission(value: number) {
 }
 
 export function InviteFriendsPage() {
-  const { navigateAccount, previewPlatform } = usePrototype()
-  const isPc = previewPlatform === 'pc'
+  const { navigateAccount } = usePrototype()
 
   return (
     <SubPageLayout
       title={accountCopy.inviteTitle}
       onBack={() => navigateAccount({ screen: 'hub' })}
     >
+      <InviteFriendsContent />
+    </SubPageLayout>
+  )
+}
+
+export function InviteFriendsContent() {
+  return (
+    <>
       <section className="mb-5 overflow-hidden rounded-2xl border border-brand/20 bg-[linear-gradient(135deg,rgba(255,204,0,0.16),rgba(255,204,0,0.04))]">
         <div className="flex items-start justify-between gap-4 px-5 py-5">
           <div className="min-w-0 flex-1">
@@ -49,9 +56,7 @@ export function InviteFriendsPage() {
         </div>
 
         <div
-          className={`grid gap-3 border-t border-border-subtle/80 px-5 py-4 ${
-            isPc ? 'md:grid-cols-3' : 'grid-cols-1'
-          }`}
+          className="grid gap-3 border-t border-border-subtle/80 px-5 py-4 md:grid-cols-3"
         >
           <StatCard
             icon={<Users className="h-5 w-5 text-brand" strokeWidth={1.75} />}
@@ -71,16 +76,12 @@ export function InviteFriendsPage() {
         </div>
       </section>
 
-      <div className={`mb-5 grid gap-4 ${previewPlatform === 'pc' ? 'lg:grid-cols-2' : ''}`}>
+      <div className="mb-5 grid gap-4 lg:grid-cols-2">
         <CopyField label="邀请码" value={referralSummary.inviteCode} />
         <CopyField label="邀请链接" value={referralSummary.inviteLink} />
       </div>
 
-      <div
-        className={`mb-5 grid gap-4 ${
-          isPc ? 'lg:grid-cols-2' : 'grid-cols-1'
-        }`}
-      >
+      <div className="mb-5 grid gap-4 lg:grid-cols-2">
         {referralHighlights.map((item) => (
           <div
             key={item.label}
@@ -125,7 +126,7 @@ export function InviteFriendsPage() {
       </section>
 
       <AuthButton type="button">立即邀请好友</AuthButton>
-    </SubPageLayout>
+    </>
   )
 }
 

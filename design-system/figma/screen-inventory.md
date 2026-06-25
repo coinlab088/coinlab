@@ -16,7 +16,11 @@
 | pc/market | https://coinlab088.github.io/coinlab/figma/pc/market | 行情 |
 | pc/trade | https://coinlab088.github.io/coinlab/figma/pc/trade | 图表 · 盘口 · 下单 |
 | pc/assets | https://coinlab088.github.io/coinlab/figma/pc/assets | 个人中心与资产合并 |
-| pc/account/invite | https://coinlab088.github.io/coinlab/figma/pc/account/invite | 邀请好友 |
+| pc/account/invite | https://coinlab088.github.io/coinlab/figma/pc/account/invite | 邀请好友弹窗 |
+| pc/account/kyc | https://coinlab088.github.io/coinlab/figma/pc/account/kyc | 身份认证弹窗 · 未认证 |
+| pc/account/kyc-pending | https://coinlab088.github.io/coinlab/figma/pc/account/kyc-pending | 身份认证弹窗 · 审核中 |
+| pc/account/kyc-verified | https://coinlab088.github.io/coinlab/figma/pc/account/kyc-verified | 身份认证弹窗 · 已认证 |
+| pc/account/kyc-sumsub | https://coinlab088.github.io/coinlab/figma/pc/account/kyc-sumsub | Sumsub 验证弹窗 |
 | pc/assets/security | https://coinlab088.github.io/coinlab/figma/pc/assets/security | 安全设置弹窗 |
 | pc/account/security-google-unbound | https://coinlab088.github.io/coinlab/figma/pc/account/security-google-unbound | Google 未绑定弹窗 |
 | pc/account/security-google-setup | https://coinlab088.github.io/coinlab/figma/pc/account/security-google-setup | Google 绑定步骤弹窗 |
@@ -29,9 +33,10 @@
 | pc/auth/login | https://coinlab088.github.io/coinlab/figma/pc/auth/login | 左右分栏登录 |
 | pc/auth/register | https://coinlab088.github.io/coinlab/figma/pc/auth/register | 左右分栏注册 |
 | pc/auth/register-invite | https://coinlab088.github.io/coinlab/figma/pc/auth/register-invite | 注册页含邀请码 |
-| pc/wallet/deposit | https://coinlab088.github.io/coinlab/figma/pc/wallet/deposit | 充币三步流程 |
-| pc/wallet/withdraw | https://coinlab088.github.io/coinlab/figma/pc/wallet/withdraw | 未设支付密码时引导设置 |
-| pc/wallet/withdraw-verify | https://coinlab088.github.io/coinlab/figma/pc/wallet/withdraw-verify | 支付密码验证 |
+| pc/wallet/deposit | https://coinlab088.github.io/coinlab/figma/pc/wallet/deposit | 充币弹窗 |
+| pc/wallet/withdraw | https://coinlab088.github.io/coinlab/figma/pc/wallet/withdraw | 提币弹窗 |
+| pc/wallet/withdraw-verify | https://coinlab088.github.io/coinlab/figma/pc/wallet/withdraw-verify | 提币支付密码验证弹窗 |
+| pc/records/fund | https://coinlab088.github.io/coinlab/figma/pc/records/fund | 充提记录弹窗 |
 | pc/overlay/sheet-fiat | https://coinlab088.github.io/coinlab/figma/pc/overlay/sheet-fiat | 顶栏法币设置 |
 | pc/overlay/sheet-pair-picker | https://coinlab088.github.io/coinlab/figma/pc/overlay/sheet-pair-picker | 交易对选择 · 含搜索 |
 | pc/overlay/sheet-order-book-depth | https://coinlab088.github.io/coinlab/figma/pc/overlay/sheet-order-book-depth | 盘口深度 |

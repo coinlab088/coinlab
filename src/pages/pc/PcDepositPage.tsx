@@ -3,7 +3,6 @@ import { ChevronDown, ChevronRight, FileWarning } from 'lucide-react'
 import { CoinAvatar } from '../../components/CoinAvatar'
 import { CopyButton } from '../../components/common/CopyButton'
 import { FigmaQrPlaceholder } from '../../components/figma/FigmaQrPlaceholder'
-import { SubPageLayout } from '../../components/account/SubPageLayout'
 import { usePrototype } from '../../context/PrototypeContext'
 import {
   depositWarnings,
@@ -13,15 +12,13 @@ import {
   getDepositNetworksForCoin,
   getPcDepositNetworkLabel,
   walletAssets,
-  walletCopy,
   type WalletCoin,
   type WalletNetwork,
 } from '../../data/wallet'
 
-export function PcDepositPage() {
+export function PcDepositPanel() {
   const {
     walletScreen,
-    closeWallet,
     isDepositActivated,
     activateDeposit,
     figmaExport,
@@ -79,8 +76,7 @@ export function PcDepositPage() {
   const step3Done = addressReady && Boolean(address)
 
   return (
-    <SubPageLayout title={walletCopy.depositTitle} onBack={closeWallet}>
-      <div className="mx-auto max-w-[720px]">
+    <div className="mx-auto max-w-[720px]">
         <div className="relative space-y-8 pl-10">
           <div className="absolute bottom-4 left-[11px] top-2 w-px bg-border-subtle" />
 
@@ -278,8 +274,7 @@ export function PcDepositPage() {
             <p className="mt-4 text-body-sm text-secondary">暂无充币记录</p>
           </div>
         </section>
-      </div>
-    </SubPageLayout>
+    </div>
   )
 }
 

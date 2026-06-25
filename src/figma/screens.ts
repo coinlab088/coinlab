@@ -740,7 +740,7 @@ const pcScreens: FigmaScreenEntry[] = [
   },
   {
     path: 'pc/account/invite',
-    label: 'PC · 邀请好友',
+    label: 'PC · 邀请好友弹窗',
     description: '邀请码、邀请链接与返佣规则',
     group: 'pc',
     preset: pc({
@@ -748,6 +748,50 @@ const pcScreens: FigmaScreenEntry[] = [
       activeTab: 'assets',
       userKycStatus: 'verified',
       accountScreen: { screen: 'invite' },
+    }),
+  },
+  {
+    path: 'pc/account/kyc',
+    label: 'PC · 身份认证弹窗 · 未认证',
+    group: 'pc',
+    preset: pc({
+      isLoggedIn: true,
+      activeTab: 'assets',
+      userKycStatus: 'unverified',
+      accountScreen: { screen: 'kyc' },
+    }),
+  },
+  {
+    path: 'pc/account/kyc-pending',
+    label: 'PC · 身份认证弹窗 · 审核中',
+    group: 'pc',
+    preset: pc({
+      isLoggedIn: true,
+      activeTab: 'assets',
+      userKycStatus: 'pending',
+      accountScreen: { screen: 'kyc' },
+    }),
+  },
+  {
+    path: 'pc/account/kyc-verified',
+    label: 'PC · 身份认证弹窗 · 已认证',
+    group: 'pc',
+    preset: pc({
+      isLoggedIn: true,
+      activeTab: 'assets',
+      userKycStatus: 'verified',
+      accountScreen: { screen: 'kyc' },
+    }),
+  },
+  {
+    path: 'pc/account/kyc-sumsub',
+    label: 'PC · Sumsub 验证弹窗',
+    group: 'pc',
+    preset: pc({
+      isLoggedIn: true,
+      activeTab: 'assets',
+      userKycStatus: 'unverified',
+      accountScreen: { screen: 'kyc-sumsub' },
     }),
   },
   {
@@ -888,7 +932,7 @@ const pcScreens: FigmaScreenEntry[] = [
   },
   {
     path: 'pc/wallet/deposit',
-    label: 'PC · 充币',
+    label: 'PC · 充币弹窗',
     description: '三步流程 · 选资产 / 网络 / 地址',
     group: 'pc',
     preset: pc({
@@ -899,7 +943,7 @@ const pcScreens: FigmaScreenEntry[] = [
   },
   {
     path: 'pc/wallet/withdraw',
-    label: 'PC · 提币',
+    label: 'PC · 提币弹窗',
     description: '未设支付密码时引导前往设置',
     group: 'pc',
     preset: pc({
@@ -910,7 +954,7 @@ const pcScreens: FigmaScreenEntry[] = [
   },
   {
     path: 'pc/wallet/withdraw-verify',
-    label: 'PC · 提币 · 支付密码验证',
+    label: 'PC · 提币 · 支付密码验证弹窗',
     group: 'pc',
     preset: pc({
       isLoggedIn: true,
@@ -918,6 +962,17 @@ const pcScreens: FigmaScreenEntry[] = [
       userPaymentPasswordSet: true,
       walletScreen: { screen: 'withdraw-verify', coin: 'USDT', chain: 'TRC20' },
       withdrawDraft: mockWithdrawDraft,
+    }),
+  },
+  {
+    path: 'pc/records/fund',
+    label: 'PC · 充提记录弹窗',
+    group: 'pc',
+    preset: pc({
+      isLoggedIn: true,
+      activeTab: 'assets',
+      userKycStatus: 'verified',
+      recordsScreen: { screen: 'fund' },
     }),
   },
   {
