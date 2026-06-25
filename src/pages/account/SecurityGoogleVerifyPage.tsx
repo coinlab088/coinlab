@@ -1,4 +1,3 @@
-import { X } from 'lucide-react'
 import { useState } from 'react'
 import { AuthButton } from '../../components/auth/AuthButton'
 import { TextField } from '../../components/auth/TextField'
@@ -8,7 +7,7 @@ import { isValidOtp } from '../../data/auth'
 import { SubPageLayout } from '../../components/account/SubPageLayout'
 
 export function SecurityGoogleVerifyPage() {
-  const { navigateAccount, updateProfile, previewPlatform } = usePrototype()
+  const { navigateAccount, updateProfile } = usePrototype()
   const [phoneCode, setPhoneCode] = useState('')
   const [googleCode, setGoogleCode] = useState('')
   const [loading, setLoading] = useState(false)
@@ -58,30 +57,6 @@ export function SecurityGoogleVerifyPage() {
       </AuthButton>
     </form>
   )
-
-  if (previewPlatform === 'pc') {
-    return (
-      <SubPageLayout
-        title={accountCopy.googleVerifyTitle}
-        onBack={() => navigateAccount({ screen: 'security-google-setup' })}
-      >
-        <div className="mx-auto max-w-[480px] rounded-[28px] border border-border-subtle bg-elevated p-6 shadow-[0_24px_80px_rgba(0,0,0,0.32)]">
-          <div className="mb-6 flex items-start justify-between gap-4">
-            <h2 className="text-h2 font-semibold text-primary">{accountCopy.googleVerifyTitle}</h2>
-            <button
-              type="button"
-              onClick={() => navigateAccount({ screen: 'security-google-setup' })}
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-sunken text-secondary"
-              aria-label="关闭"
-            >
-              <X className="h-4 w-4" strokeWidth={1.75} />
-            </button>
-          </div>
-          {content}
-        </div>
-      </SubPageLayout>
-    )
-  }
 
   return (
     <SubPageLayout

@@ -763,7 +763,7 @@ const pcScreens: FigmaScreenEntry[] = [
   },
   {
     path: 'pc/account/security-google-unbound',
-    label: 'PC · Google 验证器 · 未绑定',
+    label: 'PC · Google 验证器 · 未绑定弹窗',
     group: 'pc',
     preset: pc({
       isLoggedIn: true,
@@ -775,7 +775,7 @@ const pcScreens: FigmaScreenEntry[] = [
   },
   {
     path: 'pc/account/security-google-setup',
-    label: 'PC · Google 验证器 · 绑定步骤',
+    label: 'PC · Google 验证器 · 绑定步骤弹窗',
     group: 'pc',
     preset: pc({
       isLoggedIn: true,
@@ -787,7 +787,7 @@ const pcScreens: FigmaScreenEntry[] = [
   },
   {
     path: 'pc/account/security-google-verify',
-    label: 'PC · Google 验证器 · 安全验证',
+    label: 'PC · Google 验证器 · 安全验证弹窗',
     group: 'pc',
     preset: pc({
       isLoggedIn: true,

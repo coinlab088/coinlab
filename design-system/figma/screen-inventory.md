@@ -18,9 +18,9 @@
 | pc/assets | https://coinlab088.github.io/coinlab/figma/pc/assets | 个人中心与资产合并 |
 | pc/account/invite | https://coinlab088.github.io/coinlab/figma/pc/account/invite | 邀请好友 |
 | pc/assets/security | https://coinlab088.github.io/coinlab/figma/pc/assets/security | 安全设置弹窗 |
-| pc/account/security-google-unbound | https://coinlab088.github.io/coinlab/figma/pc/account/security-google-unbound | Google 未绑定 |
-| pc/account/security-google-setup | https://coinlab088.github.io/coinlab/figma/pc/account/security-google-setup | Google 绑定步骤 |
-| pc/account/security-google-verify | https://coinlab088.github.io/coinlab/figma/pc/account/security-google-verify | Google 安全验证 |
+| pc/account/security-google-unbound | https://coinlab088.github.io/coinlab/figma/pc/account/security-google-unbound | Google 未绑定弹窗 |
+| pc/account/security-google-setup | https://coinlab088.github.io/coinlab/figma/pc/account/security-google-setup | Google 绑定步骤弹窗 |
+| pc/account/security-google-verify | https://coinlab088.github.io/coinlab/figma/pc/account/security-google-verify | Google 安全验证弹窗 |
 | pc/assets/logout | https://coinlab088.github.io/coinlab/figma/pc/assets/logout | 退出登录弹窗 |
 | pc/assets/delete | https://coinlab088.github.io/coinlab/figma/pc/assets/delete | 注销账户弹窗 |
 | pc/auth/login | https://coinlab088.github.io/coinlab/figma/pc/auth/login | 左右分栏登录 |
