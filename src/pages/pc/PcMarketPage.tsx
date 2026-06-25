@@ -19,7 +19,7 @@ import { MarketListHeader } from '../../components/market/MarketListHeader'
 import { MarketSearchBar } from '../../components/market/MarketSearchBar'
 
 export function PcMarketPage() {
-  const { user, openAuth, favoritePairIds, openTradeSheet } = usePrototype()
+  const { user, openAuth, favoritePairIds, quickAddFavorite } = usePrototype()
   const { isLoggedIn } = user
   const [marketTab, setMarketTab] = useState<MarketTab>('market')
   const [query, setQuery] = useState('')
@@ -75,7 +75,7 @@ export function PcMarketPage() {
               <div className="p-4">
                 <button
                   type="button"
-                  onClick={() => openTradeSheet('add-favorite')}
+                  onClick={quickAddFavorite}
                   className="mb-4 h-10 rounded-md bg-brand px-4 text-body-sm font-semibold text-brand-dark hover:bg-brand-hover"
                 >
                   添加自选

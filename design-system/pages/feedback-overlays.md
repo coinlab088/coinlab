@@ -235,7 +235,6 @@
 | `overlay/sheet-fiat` | 法币 Bottom Sheet |
 | `overlay/sheet-pair-picker` | 交易对选择 |
 | `overlay/sheet-order-confirm` | 下单确认 |
-| `overlay/sheet-add-favorite` | 添加自选 |
 | `overlay/alert-compliance` | 地区限制 Alert |
 | `overlay/toast-success` | Toast 成功 |
 | `overlay/toast-error` | Toast 错误 |

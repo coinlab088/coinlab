@@ -650,17 +650,6 @@ const overlayScreens: MobileScreenDef[] = [
     }),
   },
   {
-    path: 'overlay/sheet-add-favorite',
-    label: 'Bottom Sheet · 添加自选',
-    description: '列表选择',
-    group: 'overlay',
-    preset: app({
-      isLoggedIn: true,
-      activeTab: 'market',
-      tradeSheet: 'add-favorite',
-    }),
-  },
-  {
     path: 'overlay/alert-compliance',
     label: 'Alert Dialog · 地区限制',
     description: '合规阻断，不可点遮罩关闭',

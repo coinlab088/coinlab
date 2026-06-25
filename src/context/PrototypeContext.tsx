@@ -86,6 +86,7 @@ interface PrototypeContextValue {
   toggleFavorite: (pairId: string) => void
   isFavorite: (pairId: string) => boolean
   addFavorite: (pairId: string) => void
+  quickAddFavorite: () => void
   showComplianceRestriction: boolean
   complianceModule: string | null
   openComplianceRestriction: (options?: ComplianceRestrictionOptions) => void
@@ -439,6 +440,16 @@ export function PrototypeProvider({
     )
   }, [])
 
+  const quickAddFavorite = useCallback(() => {
+    const next = marketPairs.find((p) => !favoritePairIds.includes(p.id))
+    if (!next) {
+      showToast('已全部加入自选', 'info')
+      return
+    }
+    addFavorite(next.id)
+    showToast('添加成功')
+  }, [addFavorite, favoritePairIds, showToast])
+
   const openComplianceRestriction = useCallback(
     (options?: ComplianceRestrictionOptions) => {
       setComplianceModule(options?.module ?? null)
@@ -613,6 +624,7 @@ export function PrototypeProvider({
       toggleFavorite,
       isFavorite,
       addFavorite,
+      quickAddFavorite,
       showComplianceRestriction,
       complianceModule,
       openComplianceRestriction,
@@ -695,6 +707,7 @@ export function PrototypeProvider({
       toggleFavorite,
       isFavorite,
       addFavorite,
+      quickAddFavorite,
       showComplianceRestriction,
       complianceModule,
       openComplianceRestriction,

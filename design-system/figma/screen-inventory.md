@@ -144,7 +144,6 @@
 | app/overlay/sheet-pair-picker | https://coinlab088.github.io/coinlab/figma/app/overlay/sheet-pair-picker | Bottom Sheet · 含搜索 |
 | app/overlay/sheet-order-book-depth | https://coinlab088.github.io/coinlab/figma/app/overlay/sheet-order-book-depth | Bottom Sheet |
 | app/overlay/sheet-order-confirm | https://coinlab088.github.io/coinlab/figma/app/overlay/sheet-order-confirm | Bottom Sheet |
-| app/overlay/sheet-add-favorite | https://coinlab088.github.io/coinlab/figma/app/overlay/sheet-add-favorite | Bottom Sheet |
 | app/overlay/alert-compliance | https://coinlab088.github.io/coinlab/figma/app/overlay/alert-compliance | Alert Dialog |
 | app/overlay/toast-success | https://coinlab088.github.io/coinlab/figma/app/overlay/toast-success | Toast |
 | app/overlay/toast-error | https://coinlab088.github.io/coinlab/figma/app/overlay/toast-error | Toast |
@@ -261,7 +260,6 @@
 | h5/overlay/sheet-pair-picker | https://coinlab088.github.io/coinlab/figma/h5/overlay/sheet-pair-picker | Bottom Sheet · 含搜索 |
 | h5/overlay/sheet-order-book-depth | https://coinlab088.github.io/coinlab/figma/h5/overlay/sheet-order-book-depth | Bottom Sheet |
 | h5/overlay/sheet-order-confirm | https://coinlab088.github.io/coinlab/figma/h5/overlay/sheet-order-confirm | Bottom Sheet |
-| h5/overlay/sheet-add-favorite | https://coinlab088.github.io/coinlab/figma/h5/overlay/sheet-add-favorite | Bottom Sheet |
 | h5/overlay/alert-compliance | https://coinlab088.github.io/coinlab/figma/h5/overlay/alert-compliance | Alert Dialog |
 | h5/overlay/toast-success | https://coinlab088.github.io/coinlab/figma/h5/overlay/toast-success | Toast |
 | h5/overlay/toast-error | https://coinlab088.github.io/coinlab/figma/h5/overlay/toast-error | Toast |

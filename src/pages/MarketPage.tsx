@@ -20,7 +20,7 @@ import { MarketListHeader } from '../components/market/MarketListHeader'
 import { MarketSearchBar } from '../components/market/MarketSearchBar'
 
 export function MarketPage() {
-  const { user, openAuth, favoritePairIds, openTradeSheet } = usePrototype()
+  const { user, openAuth, favoritePairIds, quickAddFavorite } = usePrototype()
   const { isLoggedIn } = user
   const [marketTab, setMarketTab] = useState<MarketTab>('market')
   const [query, setQuery] = useState('')
@@ -80,7 +80,7 @@ export function MarketPage() {
           <div className="px-3 pb-3">
             <button
               type="button"
-              onClick={() => openTradeSheet('add-favorite')}
+              onClick={quickAddFavorite}
               className="h-10 w-full rounded-md bg-brand text-body-sm font-semibold text-brand-dark active:bg-brand-hover"
             >
               添加自选

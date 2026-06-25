@@ -44,7 +44,7 @@ export interface PendingOrder {
   fee: number
 }
 
-export type TradeSheet = 'confirm' | 'pair-picker' | 'add-favorite' | null
+export type TradeSheet = 'confirm' | 'pair-picker' | null
 export type TradePanelTab = 'orders' | 'assets'
 
 export const TRADE_FEE_RATE = 0.001
