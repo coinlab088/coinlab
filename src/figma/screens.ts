@@ -889,22 +889,12 @@ const pcScreens: FigmaScreenEntry[] = [
   {
     path: 'pc/wallet/deposit',
     label: 'PC · 充币',
+    description: '三步流程 · 选资产 / 网络 / 地址',
     group: 'pc',
     preset: pc({
       isLoggedIn: true,
       activeTab: 'assets',
-      walletScreen: { screen: 'deposit' },
-    }),
-  },
-  {
-    path: 'pc/wallet/deposit-address-share',
-    label: 'PC · 充币地址分享',
-    group: 'pc',
-    preset: pc({
-      isLoggedIn: true,
-      activeTab: 'assets',
-      walletScreen: { screen: 'deposit-address', coin: 'USDT', chain: 'TRC20' },
-      walletOverlay: 'deposit-share',
+      walletScreen: { screen: 'deposit-address', coin: 'USDT', chain: 'BEP20' },
     }),
   },
   {

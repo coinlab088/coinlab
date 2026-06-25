@@ -29,8 +29,7 @@
 | pc/auth/login | https://coinlab088.github.io/coinlab/figma/pc/auth/login | 左右分栏登录 |
 | pc/auth/register | https://coinlab088.github.io/coinlab/figma/pc/auth/register | 左右分栏注册 |
 | pc/auth/register-invite | https://coinlab088.github.io/coinlab/figma/pc/auth/register-invite | 注册页含邀请码 |
-| pc/wallet/deposit | https://coinlab088.github.io/coinlab/figma/pc/wallet/deposit | 充币 |
-| pc/wallet/deposit-address-share | https://coinlab088.github.io/coinlab/figma/pc/wallet/deposit-address-share | 充币地址分享 |
+| pc/wallet/deposit | https://coinlab088.github.io/coinlab/figma/pc/wallet/deposit | 充币三步流程 |
 | pc/wallet/withdraw | https://coinlab088.github.io/coinlab/figma/pc/wallet/withdraw | 未设支付密码时引导设置 |
 | pc/wallet/withdraw-verify | https://coinlab088.github.io/coinlab/figma/pc/wallet/withdraw-verify | 支付密码验证 |
 | pc/overlay/sheet-fiat | https://coinlab088.github.io/coinlab/figma/pc/overlay/sheet-fiat | 顶栏法币设置 |

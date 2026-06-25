@@ -37,6 +37,8 @@ export interface DepositNetworkMeta {
   minDeposit: string
   arrivalMinutes: number
   contractAddress?: string
+  /** PC 充币页展示：合约地址结尾 */
+  contractAddressSuffix?: string
 }
 
 export const walletAssets: WalletAsset[] = [
@@ -47,7 +49,7 @@ export const walletAssets: WalletAsset[] = [
 
 const depositAddresses: Record<string, string> = {
   'USDT-TRC20': 'TWkiCUbq191nxF5aRbVN9EqvDVPJLdPpZS',
-  'USDT-BEP20': '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb1',
+  'USDT-BEP20': '0x669d037abfd9cda5ce98ebfc67e2a0f1ed31ffeb',
   'USDT-ERC20': '0x8f3A2b1c9d4e5f6789012345678901234567890ab',
   'USDT-SOL': '7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU',
   'USDT-TON': 'EQD0vdSA_NedR9uvbgN9EikRX-suesDxGeFg69XQMavfLqIw',
@@ -71,7 +73,8 @@ const depositNetworkMeta: Record<WalletCoin, DepositNetworkMeta[]> = {
       blockConfirmations: 15,
       minDeposit: '0.01 USDT',
       arrivalMinutes: 1,
-      contractAddress: '****9aE2',
+      contractAddress: '0x55d398326f99059fF775485246999027B3197955',
+      contractAddressSuffix: '97955',
     },
     {
       id: 'ERC20',
@@ -157,6 +160,20 @@ export function getDepositNetworkMeta(
   chain: WalletNetwork,
 ): DepositNetworkMeta | undefined {
   return getDepositNetworksForCoin(coin).find((item) => item.id === chain)
+}
+
+/** PC 充币页网络展示名 */
+export function getPcDepositNetworkLabel(meta: DepositNetworkMeta): string {
+  if (meta.id === 'BEP20') return 'BSC BNB Smart Chain (BEP20)'
+  if (meta.id === 'TRC20') return 'TRC20 Tron (TRC20)'
+  return meta.label
+}
+
+export function formatMinDepositValue(minDeposit: string): string {
+  const match = minDeposit.match(/^([\d.]+)\s*(\w+)?$/)
+  if (!match) return minDeposit
+  const [, amount, symbol] = match
+  return symbol ? `大于 ${amount}${symbol}` : `大于 ${amount}`
 }
 
 export function formatNetworkLabel(chain: WalletNetwork): string {
